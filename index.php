@@ -24,6 +24,14 @@ if(isset($_GET['action'])){
             $controllerFrontend->displayBlog($_GET['id']);
         }
     }
+    elseif($_GET['action'] = 'sentMessage'){
+        if(!empty($_POST['first-name']) && !empty($_POST['last-name']) && !empty($_POST['email']) && !empty($_POST['message'])){
+            //appeler le controlleur pour qu'il gère le message reçu
+            $controllerFrontend->sentMessage($_POST['first-name'], $_POST['last-name'], $_POST['email'], $_POST['message']);
+
+        } 
+
+    }
 }
 else{
     $controllerFrontend->HomePage();

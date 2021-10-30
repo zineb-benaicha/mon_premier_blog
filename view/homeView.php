@@ -179,36 +179,29 @@
                 </div>
                 <div class="row gx-4 gx-lg-5 justify-content-center mb-5">
                     <div class="col-lg-6">
-                        <!-- * * * * * * * * * * * * * * *-->
-                        <!-- * * SB Forms Contact Form * *-->
-                        <!-- * * * * * * * * * * * * * * *-->
-                        <!-- This form is pre-integrated with SB Forms.-->
-                        <!-- To make this form functional, sign up at-->
-                        <!-- https://startbootstrap.com/solution/contact-forms-->
-                        <!-- to get an API token!-->
-                        <form id="contactForm" >
+                        <form id="contactForm" action="index.php?action=sentMessage" method="post">
                             <!-- first-Name input-->
                             <div class="form-floating mb-3">
-                                <input class="form-control" id="first-name" type="text" placeholder="Entrer votre prénom..." data-sb-validations="required" />
+                                <input class="form-control" id="first-name" name="first-name" type="text" placeholder="Entrer votre prénom..." data-sb-validations="required" />
                                 <label for="first-name">Prénom</label>
                                 <div class="invalid-feedback" data-sb-feedback="first-name:required">Vous devez saisir votre Prénom!</div>
                             </div>
                             <!-- last-Name input-->
                             <div class="form-floating mb-3">
-                                <input class="form-control" id="last-name" type="text" placeholder="Entrer votre nom..." data-sb-validations="required" />
+                                <input class="form-control" id="last-name" name="last-name" type="text" placeholder="Entrer votre nom..." data-sb-validations="required" />
                                 <label for="last-name">Nom</label>
                                 <div class="invalid-feedback" data-sb-feedback="last-name:required">Vous devez saisir votre nom!</div>
                             </div>
                             <!-- Email address input-->
                             <div class="form-floating mb-3">
-                                <input class="form-control" id="email" type="email" placeholder="name@example.com" data-sb-validations="required,email" />
+                                <input class="form-control" id="email" name="email" type="email" placeholder="name@example.com" data-sb-validations="required,email" />
                                 <label for="email">Addresse email</label>
                                 <div class="invalid-feedback" data-sb-feedback="email:required">Vou devez saisir une adresse email.</div>
                                
                             </div>
                             <!-- Message input-->
                             <div class="form-floating mb-3">
-                                <textarea class="form-control" id="message" type="text" placeholder="Enter votre message ici..." style="height: 10rem" data-sb-validations="required"></textarea>
+                                <textarea class="form-control" id="message" name="message" type="text" placeholder="Enter votre message ici..." style="height: 10rem" data-sb-validations="required"></textarea>
                                 <label for="message">Message</label>
                                 <div class="invalid-feedback" data-sb-feedback="message:required">Vou devez saisir un message.</div>
                             </div>

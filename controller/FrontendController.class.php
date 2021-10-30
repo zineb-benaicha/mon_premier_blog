@@ -7,7 +7,7 @@ class FrontendController
 
     public static function HomePage()
     {
-        require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'view' . DIRECTORY_SEPARATOR . 'homeView.html';
+        require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'view' . DIRECTORY_SEPARATOR . 'homeView.php';
 
     }
 
@@ -36,6 +36,32 @@ class FrontendController
 
         //afficher la vue qui va exploiter les données $blogToDispaly et $blogComments pour les afficher
         require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'view' . DIRECTORY_SEPARATOR . 'blogView.php';
+
+    }
+
+    public function sentMessage($firstName, $lastName, $email, $message)
+    {
+        //enregistrer le message au niveau de la BDD
+        $messageManager = new MessageManager();
+
+        //si le message a bien été enregistré dans la BDD
+        if($messageManager->setMessage($firstName, $lastName, $email, $message)){
+            //envoyer des emails aux admins
+            //1- chercher la liste des emails de tous les admins
+            
+            //2- envoie du message vers tous les admins
+
+            //se rediriger vers la page d'accueil
+            header('Location: index.php?action=succesRecordingMessage');
+            exit();
+        }
+        else{
+            header('Location: index.php?action=errorRecordingMessage');
+            exit();
+
+        }
+
+
 
     }
 
