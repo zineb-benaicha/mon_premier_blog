@@ -1,6 +1,9 @@
 <?php
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'BlogManager.class.php';
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'CommentManager.class.php';
+require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'MessageManager.class.php';
+
+
 
 class FrontendController
 {
@@ -46,14 +49,14 @@ class FrontendController
 
         //si le message a bien été enregistré dans la BDD
         if($messageManager->setMessage($firstName, $lastName, $email, $message)){
-            //envoyer des emails aux admins
-            //1- chercher la liste des emails de tous les admins
-            
-            //2- envoie du message vers tous les admins
+            //envoyer un email à moi
+            $messageMail = "$firstName $lastName a laissé un message, pour le consulter aller sur le site"; 
+            $resultatmail = mail('zineb.mezlef@gmail.com', 'Message reçu', $messageMail);
+            var_dump($resultatmail);
 
             //se rediriger vers la page d'accueil
-            header('Location: index.php?action=succesRecordingMessage');
-            exit();
+            //header('Location: index.php?action=succesRecordingMessage');
+            //exit();
         }
         else{
             header('Location: index.php?action=errorRecordingMessage');

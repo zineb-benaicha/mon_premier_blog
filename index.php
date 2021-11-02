@@ -30,10 +30,15 @@ if(isset($_GET['action'])){
             $controllerFrontend->sentMessage($_POST['first-name'], $_POST['last-name'], $_POST['email'], $_POST['message']);
 
         } 
+        else
+        {
+
+        }
 
     }
 }
 else{
     $controllerFrontend->HomePage();
+   
 }
 
