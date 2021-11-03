@@ -29,7 +29,7 @@
                         <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
                         <li class="nav-item"><a class="nav-link" href="index.php?action=listBlogs">Blogs</a></li>
                         <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                        <li class="nav-item"><a class="nav-link" href="view/contactView.php">Contact</a></li>
                     </ul>
                 </div>
             </div>
@@ -165,84 +165,6 @@
             <div class="container px-4 px-lg-5 text-center">
                 <!--<h2 class="mb-4">Télécharger mon cv ici</h2>-->
                 <a class="btn btn-light btn-xl" href="../public/cv.pdf">Télécharger cv</a>
-            </div>
-        </section>
-        <!-- Contact-->
-        <section class="page-section" id="contact">
-            <div class="container px-4 px-lg-5">
-                <div class="row gx-4 gx-lg-5 justify-content-center">
-                    <div class="col-lg-8 col-xl-6 text-center">
-                        <h2 class="mt-0">Laisser un message</h2>
-                        <hr class="divider" />
-                        <p class="text-muted mb-5">Pour laisser un message remplissez le formulaire ci-dessous</p>
-                    </div>
-                </div>
-                <div class="row gx-4 gx-lg-5 justify-content-center mb-5">
-                    <div class="col-lg-6">
-                        <form id="contactForm" action="index.php?action=sentMessage" method="post">
-                        
-                            
-                            <!-- first-Name input-->
-                            <?php if(isset($emptyFields['first-name']) && $emptyFields['first-name']):?>
-                            <div class="alert alert-danger" role="alert">
-                                Vous devez saisir un prénom!
-                            </div>
-                            <?php endif ?>
-                            <div class="form-floating mb-3">
-                                <input class="form-control" id="first-name" name="first-name" type="text"  value="<?= !empty($_POST['first-name']) ? $_POST['first-name'] : '' ?>"/>
-                                <label for="first-name">Prénom</label>
-                            </div>
-                            <!-- last-Name input-->
-                            <?php if(isset($emptyFields['last-name']) && $emptyFields['last-name']):?>
-                            <div class="alert alert-danger" role="alert">
-                                Vous devez saisir un nom!
-                            </div>
-                            <?php endif ?>
-                            <div class="form-floating mb-3">
-                                <input class="form-control" id="last-name" name="last-name" type="text"  value="<?= !empty($_POST['last-name']) ? $_POST['last-name'] : '' ?>" />
-                                <label for="last-name">Nom</label>
-                            </div>
-                            <!-- Email address input-->
-                            <?php if(isset($emptyFields['email']) && $emptyFields['email']):?>
-                            <div class="alert alert-danger" role="alert">
-                                Vous devez saisir une adresse mail!
-                            </div>
-                            <?php endif ?>
-                            <div class="form-floating mb-3">
-                                <input class="form-control" id="email" name="email" type="email" value="<?= !empty($_POST['email']) ? $_POST['email'] : '' ?>" />
-                                <label for="email">Addresse email</label>                              
-                            </div>
-                            <!-- Message input-->
-                            <?php if(isset($emptyFields['message']) && $emptyFields['message']):?>
-                            <div class="alert alert-danger" role="alert">
-                                Vous devez saisir un message!
-                            </div>
-                            <?php endif ?>
-                            <div class="form-floating mb-3">
-                                <textarea class="form-control" id="message" name="message" type="text"  style="height: 10rem" ><?= !empty($_POST['message']) ? $_POST['message'] : '' ?></textarea>
-                                <label for="message">Message</label>
-                                
-                            </div>
-                            <!-- Submit success message-->
-                            <!---->
-                            <!-- This is what your users will see when the form-->
-                            <!-- has successfully submitted-->
-                            <div  id="submitSuccessMessage">
-                                <div class="text-center mb-3">
-                                    <div class="fw-bolder">Form submission successful!</div>
-                                </div>
-                            </div>
-                            
-                            <div class="d-grid"><button class="btn btn-primary btn-xl" id="submitButton" type="submit">Envoyer</button></div>
-                        </form>
-                    </div>
-                </div>
-                <div class="row gx-4 gx-lg-5 justify-content-center">
-                    <div class="col-lg-4 text-center mb-5 mb-lg-0">
-                        <i class="bi-phone fs-2 mb-3 text-muted"></i>
-                        <div>+1 (555) 123-4567</div>
-                    </div>
-                </div>
             </div>
         </section>
         <!-- Footer-->

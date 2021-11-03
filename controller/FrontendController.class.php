@@ -47,9 +47,10 @@ class FrontendController
         //enregistrer le message au niveau de la BDD
         $messageManager = new MessageManager();
 
-        //si le message a bien été enregistré dans la BDD envoyer un email à moi
+        //si le message a bien été enregistré dans la BDD 
         if($messageManager->setMessage($firstName, $lastName, $email, $message)){
 
+            //1-envoyer un email à moi
             $destinataire = 'zineb.mezlef@gmail.com';
             $expediteur = $email;
             $objet = "Message reçu de $firstName $lastName";
@@ -59,20 +60,20 @@ class FrontendController
             $headers .= 'Delivered-to: '.$destinataire."\n"; // Destinataire    
             $messageMail = "$firstName $lastName a laissé un message, pour le consulter aller sur le site";
 
-            if (mail($destinataire, $objet, $messageMail, $headers)) // Envoi du message
-            {
-                header('Location: index.php?action=succesRecordingMessage');
-                exit();
-            }
-            else // Non envoyé
-            {
-                header('Location: index.php?action=errorRecordingMessage');
-                exit();
-            }
+            //2-afficher message de succes au niveau du formulaire
+            header('Location: view/contactView.php?recordMessage=succes');
+            exit();
+        }
+            
+        else //Message non enregistré dans la BDD
+        {
+            //afficher message d'erreur au niveau de la vue
+            header('Location: view/contactView.php?recordMessage=error');
+            exit();
+        }
 
             
-        }
-        
+              
 
 
 

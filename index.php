@@ -25,8 +25,6 @@ if(isset($_GET['action'])){
         }
     }
     elseif($_GET['action'] = 'sentMessage'){
-
-        
         
         if(!empty($_POST['first-name']) && !empty($_POST['last-name']) && !empty($_POST['email']) && !empty($_POST['message'])){
             //appeler le controlleur pour qu'il gère le message reçu
@@ -44,7 +42,7 @@ if(isset($_GET['action'])){
             if(empty($_POST['last-name'])){ $emptyFields['last-name'] = true; }
             if(empty($_POST['email'])){ $emptyFields['email'] = true; }
             if(empty($_POST['message'])){ $emptyFields['message'] = true; }
-            require_once('view/homeView.php');
+            require_once('view/contactView.php');
             
         }
         
