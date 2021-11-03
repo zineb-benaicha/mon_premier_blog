@@ -10,7 +10,7 @@ require_once 'oneBlog.php';
         <meta name="author" content="" />
         <title>Liste de tous les blogs</title>
         <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="../public/assets/favicon.ico" />
+        <link rel="icon" type="image/x-icon" href="../public/favicon/favicon.ico" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="../public/css/styles.css" rel="stylesheet" />
     </head>

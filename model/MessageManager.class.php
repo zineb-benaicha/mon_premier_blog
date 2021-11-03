@@ -1,6 +1,7 @@
 <?php
 require_once 'Manager.class.php';
-class MessageManager extends Manager{
+class MessageManager extends Manager
+{
 
     public function setMessage($firstName, $lastName, $email, $message)
     {

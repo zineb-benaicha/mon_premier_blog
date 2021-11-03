@@ -7,7 +7,7 @@
         <meta name="author" content="" />
         <title>Creative - Start Bootstrap Theme</title>
         <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="../public/assets/favicon.ico" />
+        <link rel="icon" type="image/x-icon" href="../public/favicon/favicon.ico" />
         <!-- Bootstrap Icons-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
         <!-- Google fonts-->
@@ -33,7 +33,7 @@
                     </ul>
                 </div>
             </div>
-        </nav>     
+        </nav>
         <!-- Contact-->
         <section class="page-section" id="contact">
             <div class="container px-4 px-lg-5">
@@ -47,63 +47,63 @@
                 <div class="row gx-4 gx-lg-5 justify-content-center mb-5">
                     <div class="col-lg-6">
                         <form id="contactForm" action="../index.php?action=sentMessage" method="post">
-                        
-                            
+
+
                             <!-- first-Name input-->
-                            <?php if(isset($emptyFields['first-name']) && $emptyFields['first-name']):?>
+                            <?php if (isset($emptyFields['first-name']) && $emptyFields['first-name']): ?>
                                 <div class="alert alert-danger" role="alert">
                                     Vous devez saisir un prénom!
                                 </div>
-                            <?php endif ?>
+                            <?php endif?>
                             <div class="form-floating mb-3">
-                                <input class="form-control" id="first-name" name="first-name" type="text"  value="<?= !empty($_POST['first-name']) ? $_POST['first-name'] : '' ?>"/>
+                                <input class="form-control" id="first-name" name="first-name" type="text"  value="<?=!empty($_POST['first-name']) ? $_POST['first-name'] : ''?>"/>
                                 <label for="first-name">Prénom</label>
                             </div>
                             <!-- last-Name input-->
-                            <?php if(isset($emptyFields['last-name']) && $emptyFields['last-name']):?>
+                            <?php if (isset($emptyFields['last-name']) && $emptyFields['last-name']): ?>
                                 <div class="alert alert-danger" role="alert">
                                     Vous devez saisir un nom!
                                 </div>
-                            <?php endif ?>
+                            <?php endif?>
                             <div class="form-floating mb-3">
-                                <input class="form-control" id="last-name" name="last-name" type="text"  value="<?= !empty($_POST['last-name']) ? $_POST['last-name'] : '' ?>" />
+                                <input class="form-control" id="last-name" name="last-name" type="text"  value="<?=!empty($_POST['last-name']) ? $_POST['last-name'] : ''?>" />
                                 <label for="last-name">Nom</label>
                             </div>
                             <!-- Email address input-->
-                            <?php if(isset($emptyFields['email']) && $emptyFields['email']):?>
+                            <?php if (isset($emptyFields['email']) && $emptyFields['email']): ?>
                                 <div class="alert alert-danger" role="alert">
                                     Vous devez saisir une adresse mail!
                                 </div>
-                            <?php endif ?>
+                            <?php endif?>
                             <div class="form-floating mb-3">
-                                <input class="form-control" id="email" name="email" type="email" value="<?= !empty($_POST['email']) ? $_POST['email'] : '' ?>" />
-                                <label for="email">Addresse email</label>                              
+                                <input class="form-control" id="email" name="email" type="email" value="<?=!empty($_POST['email']) ? $_POST['email'] : ''?>" />
+                                <label for="email">Addresse email</label>
                             </div>
                             <!-- Message input-->
-                            <?php if(isset($emptyFields['message']) && $emptyFields['message']):?>
+                            <?php if (isset($emptyFields['message']) && $emptyFields['message']): ?>
                                 <div class="alert alert-danger" role="alert">
                                     Vous devez saisir un message!
                                 </div>
-                            <?php endif ?>
+                            <?php endif?>
                             <div class="form-floating mb-3">
-                                <textarea class="form-control" id="message" name="message" type="text"  style="height: 10rem" ><?= !empty($_POST['message']) ? $_POST['message'] : '' ?></textarea>
+                                <textarea class="form-control" id="message" name="message" type="text"  style="height: 10rem" ><?=!empty($_POST['message']) ? $_POST['message'] : ''?></textarea>
                                 <label for="message">Message</label>
-                                
+
                             </div>
-                        
-                            <?php if(isset($_GET['recordMessage'])): ?>
-                                <?php if($_GET['recordMessage'] == 'succes'): ?>
+
+                            <?php if (isset($_GET['recordMessage'])): ?>
+                                <?php if ($_GET['recordMessage'] == 'succes'): ?>
                                     <div class="alert alert-success" role="alert">
                                         Votre message a bien été envoyé!
                                     </div>
-                                <?php endif ?>
-                                <?php if($_GET['recordMessage'] == 'error'): ?>
+                                <?php endif?>
+                                <?php if ($_GET['recordMessage'] == 'error'): ?>
                                     <div class="alert alert-danger" role="alert">
                                         Une erreur est survenue veuillez réessayer plus tard!
                                     </div>
-                                <?php endif ?>
-                            <?php endif ?>
-                            
+                                <?php endif?>
+                            <?php endif?>
+
                             <div class="d-grid"><button class="btn btn-primary btn-xl" id="submitButton" type="submit">Envoyer</button></div>
                         </form>
                     </div>

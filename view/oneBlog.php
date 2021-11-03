@@ -14,9 +14,9 @@ function displayBlog($data){
             </div>';
 
 }
-function displayBlog2($listBlogs){
+function displayBlog2(PDOStatement $listBlogs){
     $data = $listBlogs->fetch();
-    if($data != false){
+    if($data !== false){
         displayBlog($data);
     }
 }

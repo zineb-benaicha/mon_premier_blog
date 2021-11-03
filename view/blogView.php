@@ -7,7 +7,7 @@
         <meta name="author" content="" />
         <title>Blog Post - Start Bootstrap Template</title>
         <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="../public/assets/favicon.ico" />
+        <link rel="icon" type="image/x-icon" href="../public/favicon/favicon.ico" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="../public/css/styles.css" rel="stylesheet" />
     </head>
