@@ -60,12 +60,10 @@ class FrontendController
 
             //2-afficher message de succes au niveau du formulaire
             header('Location: view/contactView.php?recordMessage=succes');
-            //exit();
         } else //Message non enregistré dans la BDD
         {
             //afficher message d'erreur au niveau de la vue
             header('Location: view/contactView.php?recordMessage=error');
-            //exit();
         }
 
     }
