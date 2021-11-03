@@ -180,41 +180,56 @@
                 <div class="row gx-4 gx-lg-5 justify-content-center mb-5">
                     <div class="col-lg-6">
                         <form id="contactForm" action="index.php?action=sentMessage" method="post">
+                        
+                            
                             <!-- first-Name input-->
+                            <?php if(isset($emptyFields['first-name']) && $emptyFields['first-name']):?>
+                            <div class="alert alert-danger" role="alert">
+                                Vous devez saisir un prénom!
+                            </div>
+                            <?php endif ?>
                             <div class="form-floating mb-3">
-                                <input class="form-control" id="first-name" name="first-name" type="text" placeholder="Entrer votre prénom..." data-sb-validations="required" />
+                                <input class="form-control" id="first-name" name="first-name" type="text"  value="<?= !empty($_POST['first-name']) ? $_POST['first-name'] : '' ?>"/>
                                 <label for="first-name">Prénom</label>
-                                <div class="invalid-feedback" data-sb-feedback="first-name:required">Vous devez saisir votre Prénom!</div>
                             </div>
                             <!-- last-Name input-->
+                            <?php if(isset($emptyFields['last-name']) && $emptyFields['last-name']):?>
+                            <div class="alert alert-danger" role="alert">
+                                Vous devez saisir un nom!
+                            </div>
+                            <?php endif ?>
                             <div class="form-floating mb-3">
-                                <input class="form-control" id="last-name" name="last-name" type="text" placeholder="Entrer votre nom..." data-sb-validations="required" />
+                                <input class="form-control" id="last-name" name="last-name" type="text"  value="<?= !empty($_POST['last-name']) ? $_POST['last-name'] : '' ?>" />
                                 <label for="last-name">Nom</label>
-                                <div class="invalid-feedback" data-sb-feedback="last-name:required">Vous devez saisir votre nom!</div>
                             </div>
                             <!-- Email address input-->
+                            <?php if(isset($emptyFields['email']) && $emptyFields['email']):?>
+                            <div class="alert alert-danger" role="alert">
+                                Vous devez saisir une adresse mail!
+                            </div>
+                            <?php endif ?>
                             <div class="form-floating mb-3">
-                                <input class="form-control" id="email" name="email" type="email" placeholder="name@example.com" data-sb-validations="required,email" />
-                                <label for="email">Addresse email</label>
-                                <div class="invalid-feedback" data-sb-feedback="email:required">Vou devez saisir une adresse email.</div>
-                               
+                                <input class="form-control" id="email" name="email" type="email" value="<?= !empty($_POST['email']) ? $_POST['email'] : '' ?>" />
+                                <label for="email">Addresse email</label>                              
                             </div>
                             <!-- Message input-->
+                            <?php if(isset($emptyFields['message']) && $emptyFields['message']):?>
+                            <div class="alert alert-danger" role="alert">
+                                Vous devez saisir un message!
+                            </div>
+                            <?php endif ?>
                             <div class="form-floating mb-3">
-                                <textarea class="form-control" id="message" name="message" type="text" placeholder="Enter votre message ici..." style="height: 10rem" data-sb-validations="required"></textarea>
+                                <textarea class="form-control" id="message" name="message" type="text"  style="height: 10rem" ><?= !empty($_POST['message']) ? $_POST['message'] : '' ?></textarea>
                                 <label for="message">Message</label>
-                                <div class="invalid-feedback" data-sb-feedback="message:required">Vou devez saisir un message.</div>
+                                
                             </div>
                             <!-- Submit success message-->
                             <!---->
                             <!-- This is what your users will see when the form-->
                             <!-- has successfully submitted-->
-                            <div class="d-none" id="submitSuccessMessage">
+                            <div  id="submitSuccessMessage">
                                 <div class="text-center mb-3">
                                     <div class="fw-bolder">Form submission successful!</div>
-                                    To activate this form, sign up at
-                                    <br />
-                                    <a href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
                                 </div>
                             </div>
                             

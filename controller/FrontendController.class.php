@@ -47,22 +47,32 @@ class FrontendController
         //enregistrer le message au niveau de la BDD
         $messageManager = new MessageManager();
 
-        //si le message a bien été enregistré dans la BDD
+        //si le message a bien été enregistré dans la BDD envoyer un email à moi
         if($messageManager->setMessage($firstName, $lastName, $email, $message)){
-            //envoyer un email à moi
-            $messageMail = "$firstName $lastName a laissé un message, pour le consulter aller sur le site"; 
-            $resultatmail = mail('zineb.mezlef@gmail.com', 'Message reçu', $messageMail);
-            var_dump($resultatmail);
 
-            //se rediriger vers la page d'accueil
-            //header('Location: index.php?action=succesRecordingMessage');
-            //exit();
-        }
-        else{
-            header('Location: index.php?action=errorRecordingMessage');
-            exit();
+            $destinataire = 'zineb.mezlef@gmail.com';
+            $expediteur = $email;
+            $objet = "Message reçu de $firstName $lastName";
+            $headers  = 'MIME-Version: 1.0' . "\n"; // Version MIME
+            $headers .= 'Reply-To: '.$email."\n"; // Mail de reponse
+            $headers .= 'From: "Nom_de_expediteur"<'.$expediteur.'>'."\n"; // Expediteur
+            $headers .= 'Delivered-to: '.$destinataire."\n"; // Destinataire    
+            $messageMail = "$firstName $lastName a laissé un message, pour le consulter aller sur le site";
 
+            if (mail($destinataire, $objet, $messageMail, $headers)) // Envoi du message
+            {
+                header('Location: index.php?action=succesRecordingMessage');
+                exit();
+            }
+            else // Non envoyé
+            {
+                header('Location: index.php?action=errorRecordingMessage');
+                exit();
+            }
+
+            
         }
+        
 
 
 
