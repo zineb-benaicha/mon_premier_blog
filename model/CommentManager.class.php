@@ -3,7 +3,7 @@ require_once 'Manager.class.php';
 
 class CommentManager extends Manager{
     
-    public function CommentsCounter(int $idBlog)
+    public function commentsCounter(int $idBlog)
     {
         $db = $this->dbConnect();
         $req = $db->prepare('SELECT count(*) FROM comment WHERE id_blog = :id');

@@ -7,7 +7,7 @@
         <meta name="author" content="" />
         <title>Creative - Start Bootstrap Theme</title>
         <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="../public/assets/favicon.ico" />
+        <link rel="icon" type="image/x-icon" href="../public/favicon/favicon.ico" />
         <!-- Bootstrap Icons-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
         <!-- Google fonts-->
@@ -29,7 +29,7 @@
                         <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
                         <li class="nav-item"><a class="nav-link" href="index.php?action=listBlogs">Blogs</a></li>
                         <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                        <li class="nav-item"><a class="nav-link" href="view/contactView.php">Contact</a></li>
                     </ul>
                 </div>
             </div>
@@ -104,8 +104,8 @@
             <div class="container-fluid p-0">
                 <div class="row g-0">
                     <div class="col-lg-4 col-sm-6">
-                        <a class="portfolio-box" href="../public/assets/img/portfolio/fullsize/1.jpg" title="Project Name">
-                            <img class="img-fluid" src="../public/assets/img/portfolio/thumbnails/1.jpg" alt="..." />
+                        <a class="portfolio-box" href="../public/favicon/img/portfolio/fullsize/1.jpg" title="Project Name">
+                            <img class="img-fluid" src="../public/favicon/img/portfolio/thumbnails/1.jpg" alt="..." />
                             <div class="portfolio-box-caption">
                                 <div class="project-category text-white-50">Category</div>
                                 <div class="project-name">Project Name</div>
@@ -113,8 +113,8 @@
                         </a>
                     </div>
                     <div class="col-lg-4 col-sm-6">
-                        <a class="portfolio-box" href="../public/assets/img/portfolio/fullsize/2.jpg" title="Project Name">
-                            <img class="img-fluid" src="../public/assets/img/portfolio/thumbnails/2.jpg" alt="..." />
+                        <a class="portfolio-box" href="../public/favicon/img/portfolio/fullsize/2.jpg" title="Project Name">
+                            <img class="img-fluid" src="../public/favicon/img/portfolio/thumbnails/2.jpg" alt="..." />
                             <div class="portfolio-box-caption">
                                 <div class="project-category text-white-50">Category</div>
                                 <div class="project-name">Project Name</div>
@@ -122,8 +122,8 @@
                         </a>
                     </div>
                     <div class="col-lg-4 col-sm-6">
-                        <a class="portfolio-box" href="../public/assets/img/portfolio/fullsize/3.jpg" title="Project Name">
-                            <img class="img-fluid" src="../public/assets/img/portfolio/thumbnails/3.jpg" alt="..." />
+                        <a class="portfolio-box" href="../public/favicon/img/portfolio/fullsize/3.jpg" title="Project Name">
+                            <img class="img-fluid" src="../public/favicon/img/portfolio/thumbnails/3.jpg" alt="..." />
                             <div class="portfolio-box-caption">
                                 <div class="project-category text-white-50">Category</div>
                                 <div class="project-name">Project Name</div>
@@ -131,8 +131,8 @@
                         </a>
                     </div>
                     <div class="col-lg-4 col-sm-6">
-                        <a class="portfolio-box" href="../public/assets/img/portfolio/fullsize/4.jpg" title="Project Name">
-                            <img class="img-fluid" src="../public/assets/img/portfolio/thumbnails/4.jpg" alt="..." />
+                        <a class="portfolio-box" href="../public/favicon/img/portfolio/fullsize/4.jpg" title="Project Name">
+                            <img class="img-fluid" src="../public/favicon/img/portfolio/thumbnails/4.jpg" alt="..." />
                             <div class="portfolio-box-caption">
                                 <div class="project-category text-white-50">Category</div>
                                 <div class="project-name">Project Name</div>
@@ -140,8 +140,8 @@
                         </a>
                     </div>
                     <div class="col-lg-4 col-sm-6">
-                        <a class="portfolio-box" href="../public/assets/img/portfolio/fullsize/5.jpg" title="Project Name">
-                            <img class="img-fluid" src="../public/assets/img/portfolio/thumbnails/5.jpg" alt="..." />
+                        <a class="portfolio-box" href="../public/favicon/img/portfolio/fullsize/5.jpg" title="Project Name">
+                            <img class="img-fluid" src="../public/favicon/img/portfolio/thumbnails/5.jpg" alt="..." />
                             <div class="portfolio-box-caption">
                                 <div class="project-category text-white-50">Category</div>
                                 <div class="project-name">Project Name</div>
@@ -149,8 +149,8 @@
                         </a>
                     </div>
                     <div class="col-lg-4 col-sm-6">
-                        <a class="portfolio-box" href="../public/assets/img/portfolio/fullsize/6.jpg" title="Project Name">
-                            <img class="img-fluid" src="../public/assets/img/portfolio/thumbnails/6.jpg" alt="..." />
+                        <a class="portfolio-box" href="../public/favicon/img/portfolio/fullsize/6.jpg" title="Project Name">
+                            <img class="img-fluid" src="../public/favicon/img/portfolio/thumbnails/6.jpg" alt="..." />
                             <div class="portfolio-box-caption p-3">
                                 <div class="project-category text-white-50">Category</div>
                                 <div class="project-name">Project Name</div>
@@ -165,76 +165,6 @@
             <div class="container px-4 px-lg-5 text-center">
                 <!--<h2 class="mb-4">Télécharger mon cv ici</h2>-->
                 <a class="btn btn-light btn-xl" href="../public/cv.pdf">Télécharger cv</a>
-            </div>
-        </section>
-        <!-- Contact-->
-        <section class="page-section" id="contact">
-            <div class="container px-4 px-lg-5">
-                <div class="row gx-4 gx-lg-5 justify-content-center">
-                    <div class="col-lg-8 col-xl-6 text-center">
-                        <h2 class="mt-0">Laisser un message</h2>
-                        <hr class="divider" />
-                        <p class="text-muted mb-5">Pour laisser un message remplissez le formulaire ci-dessous</p>
-                    </div>
-                </div>
-                <div class="row gx-4 gx-lg-5 justify-content-center mb-5">
-                    <div class="col-lg-6">
-                        <!-- * * * * * * * * * * * * * * *-->
-                        <!-- * * SB Forms Contact Form * *-->
-                        <!-- * * * * * * * * * * * * * * *-->
-                        <!-- This form is pre-integrated with SB Forms.-->
-                        <!-- To make this form functional, sign up at-->
-                        <!-- https://startbootstrap.com/solution/contact-forms-->
-                        <!-- to get an API token!-->
-                        <form id="contactForm" >
-                            <!-- first-Name input-->
-                            <div class="form-floating mb-3">
-                                <input class="form-control" id="first-name" type="text" placeholder="Entrer votre prénom..." data-sb-validations="required" />
-                                <label for="first-name">Prénom</label>
-                                <div class="invalid-feedback" data-sb-feedback="first-name:required">Vous devez saisir votre Prénom!</div>
-                            </div>
-                            <!-- last-Name input-->
-                            <div class="form-floating mb-3">
-                                <input class="form-control" id="last-name" type="text" placeholder="Entrer votre nom..." data-sb-validations="required" />
-                                <label for="last-name">Nom</label>
-                                <div class="invalid-feedback" data-sb-feedback="last-name:required">Vous devez saisir votre nom!</div>
-                            </div>
-                            <!-- Email address input-->
-                            <div class="form-floating mb-3">
-                                <input class="form-control" id="email" type="email" placeholder="name@example.com" data-sb-validations="required,email" />
-                                <label for="email">Addresse email</label>
-                                <div class="invalid-feedback" data-sb-feedback="email:required">Vou devez saisir une adresse email.</div>
-                               
-                            </div>
-                            <!-- Message input-->
-                            <div class="form-floating mb-3">
-                                <textarea class="form-control" id="message" type="text" placeholder="Enter votre message ici..." style="height: 10rem" data-sb-validations="required"></textarea>
-                                <label for="message">Message</label>
-                                <div class="invalid-feedback" data-sb-feedback="message:required">Vou devez saisir un message.</div>
-                            </div>
-                            <!-- Submit success message-->
-                            <!---->
-                            <!-- This is what your users will see when the form-->
-                            <!-- has successfully submitted-->
-                            <div class="d-none" id="submitSuccessMessage">
-                                <div class="text-center mb-3">
-                                    <div class="fw-bolder">Form submission successful!</div>
-                                    To activate this form, sign up at
-                                    <br />
-                                    <a href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
-                                </div>
-                            </div>
-                            
-                            <div class="d-grid"><button class="btn btn-primary btn-xl" id="submitButton" type="submit">Envoyer</button></div>
-                        </form>
-                    </div>
-                </div>
-                <div class="row gx-4 gx-lg-5 justify-content-center">
-                    <div class="col-lg-4 text-center mb-5 mb-lg-0">
-                        <i class="bi-phone fs-2 mb-3 text-muted"></i>
-                        <div>+1 (555) 123-4567</div>
-                    </div>
-                </div>
             </div>
         </section>
         <!-- Footer-->
