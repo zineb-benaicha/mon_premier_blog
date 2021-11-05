@@ -20,36 +20,72 @@
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
                                     <div class="card-header"><h3 class="text-center font-weight-light my-4">Créer un compte</h3></div>
                                     <div class="card-body">
-                                        <form>
+                                        <form action="../index.php?action=registerRequest" method="post" >
                                             
-                                                
+                                            <!-- Name input-->
+                                            <?php if (isset($emptyFields['name']) && $emptyFields['name']): ?>
+                                                <div class="alert alert-danger" role="alert">
+                                                    Vous devez saisir un nom!
+                                                </div>
+                                            <?php endif?>
                                             <div class="form-floating mb-3 ">
-                                                <input class="form-control" id="inputFirstName" type="text" />
-                                                <label for="inputFirstName">Nom</label>
+                                                <input class="form-control" id="name" type="text" name="name"/>
+                                                <label for="name">Nom</label>
                                             </div>                                              
                                             
+                                            <!-- email input-->
+                                            <?php if (isset($emptyFields['email']) && $emptyFields['email']): ?>
+                                                <div class="alert alert-danger" role="alert">
+                                                    Vous devez saisir un e-mail!
+                                                </div>
+                                            <?php endif?>
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" id="inputEmail" type="email" />
-                                                <label for="inputEmail">Adresse e-mail</label>
+                                                <input class="form-control" id="email" type="email" name="email"/>
+                                                <label for="email">Adresse e-mail</label>
                                             </div>
 
+                                            
+                                            <?php if(isset($passwordMatch) && $passwordMatch === false): ?>
+                                                <div class="alert alert-danger" role="alert">
+                                                        Les deux mots de passe doivent se correspondre!
+                                                    </div>
+                                            <?php endif ?>
                                             <div class="row mb-3">
+                                                <!-- Password input-->
+                                                <?php if (isset($emptyFields['password']) && $emptyFields['password']): ?>
+                                                    <div class="alert alert-danger" role="alert">
+                                                        Vous devez saisir un mot de passe!
+                                                    </div>
+                                                <?php endif?>
                                                 <div class="col-md-6">
                                                     <div class="form-floating mb-3 mb-md-0">
-                                                        <input class="form-control" id="inputPassword" type="password" />
-                                                        <label for="inputPassword">Mot de passe</label>
+                                                        <input class="form-control" id="password" type="password" name="password" />
+                                                        <label for="password">Mot de passe</label>
                                                     </div>
                                                 </div>
+                                                
+                                                <!-- PasswordConfirm input-->
+                                                <?php if (isset($emptyFields['passwordConfirm']) && $emptyFields['passwordConfirm']): ?>
+                                                    <div class="alert alert-danger" role="alert">
+                                                        Vous devez confirmer le mot de passe!
+                                                    </div>
+                                                <?php endif?>
                                                 <div class="col-md-6">
                                                     <div class="form-floating mb-3 mb-md-0">
-                                                        <input class="form-control" id="inputPasswordConfirm" type="password" />
-                                                        <label for="inputPasswordConfirm">Confirmer le mot de passe</label>
+                                                        <input class="form-control" id="passwordConfirm" type="password" name="passwordConfirm" />
+                                                        <label for="passwordConfirm">Confirmer le mot de passe</label>
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <div class="form-floating mb-3 ">
-                                                
+                                            <!-- Password input-->
+                                            <?php if (isset($emptyFields['accountType']) && $emptyFields['accountType']): ?>
+                                                    <div class="alert alert-danger" role="alert">
+                                                        Vous devez choisir un type de compte!
+                                                    </div>
+                                            <?php endif?>
+                                            
+                                            <div class="form-floating mb-3 "> 
                                                 <select class="form-select" aria-label="Default select example" id="accountType" name="accountType">
                                                     <option selected>Choisir un type de compte</option>
                                                     <option value="utilisateur">Utilisateur</option>
@@ -58,7 +94,8 @@
                                                 
                                             </div> 
                                             <div class="mt-4 mb-0">
-                                                <div class="d-grid"><a class="btn btn-primary btn-block" href="loginView.php">Créer un compte</a></div>
+                                                <!--<div class="d-grid"><a class="btn btn-primary btn-block" >Créer un compte</a></div>-->
+                                                <div class="d-grid"><button class="btn btn-primary btn-block" id="submitButton" type="submit">Créer un compte</button></div>
                                             </div>
                                         </form>
                                     </div>

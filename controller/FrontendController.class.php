@@ -2,6 +2,7 @@
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'BlogManager.class.php';
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'CommentManager.class.php';
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'MessageManager.class.php';
+require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'UserManager.class.php';
 
 class FrontendController
 {
@@ -67,6 +68,11 @@ class FrontendController
             //afficher message d'erreur au niveau de la vue
             header('Location: view/contactView.php?recordMessage=error');
         }
+
+    }
+
+    public function registerUser($name, $email, $password, $isAdmin){
+        
 
     }
 

@@ -21,7 +21,8 @@ if (isset($_GET['action'])) {
             //appeler le controlleur pour qu'il affiche le blog: id
             $controllerFrontend->displayBlog($_GET['id']);
         }
-    } elseif ($_GET['action'] = 'sentMessage') {
+    } elseif ($_GET['action'] == 'sentMessage') {
+       
 
         if (!empty($_POST['first-name']) && !empty($_POST['last-name']) && !empty($_POST['email']) && !empty($_POST['message'])) {
             //appeler le controlleur pour qu'il gère le message reçu
@@ -43,7 +44,56 @@ if (isset($_GET['action'])) {
         }
 
     }
+    elseif($_GET['action'] == 'registerRequest'){
+        var_dump($_POST);
+       
+        if (!empty($_POST['name']) && !empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['passwordConfirm'])){
+
+            $emptyFields['accountType'] = false;
+            $passwordMatch = true;
+
+            if($_POST['password'] !== $_POST['passwordConfirm']){
+                $passwordMatch = false;
+            }
+
+            if ($_POST['accountType'] == 'Choisir un type de compte'){
+                $emptyFields['accountType'] = true;
+            }
+            
+            require_once 'view/registerView.php';
+
+            //appel au frontEndcontrolleur pour qu'il insère le nouvel utilisateur
+            $controllerFrontend->registerUser($name, $email, $password, $accountType);
+            
+
+        }
+        else{
+
+            $emptyFields['name'] = false;
+            $emptyFields['email'] = false;
+            $emptyFields['password'] = false;
+            $emptyFields['passwordConfirm'] = false;
+            
+
+            if (empty($_POST['name'])) {
+                $emptyFields['name'] = true;
+            }
+            if (empty($_POST['email'])) {
+                $emptyFields['email'] = true;
+            }
+            if (empty($_POST['password'])) {
+                $emptyFields['password'] = true;
+            }
+            if (empty($_POST['passwordConfirm'])) {
+                $emptyFields['passwordConfirm'] = true;
+            }
+
+            require_once 'view/registerView.php';
+            
+        }
+
+    }
 } else {
-    $controllerFrontend->HomePage();
+    $controllerFrontend->homePage();
 
 }
