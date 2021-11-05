@@ -58,6 +58,8 @@ class FrontendController
             $headers .= 'Delivered-to: ' . $destinataire . "\n"; // Destinataire
             $messageMail = "$firstName $lastName a laissé un message, pour le consulter aller sur le site";
 
+            mail($destinataire, $objet, $messageMail, $headers);
+
             //2-afficher message de succes au niveau du formulaire
             header('Location: view/contactView.php?recordMessage=succes');
         } else //Message non enregistré dans la BDD
