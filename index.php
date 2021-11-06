@@ -63,6 +63,10 @@ if (isset($_GET['action'])) {
             require_once 'view/registerView.php';
 
             //appel au frontEndcontrolleur pour qu'il insère le nouvel utilisateur
+            $name = htmlspecialchars($_POST['name']);
+            $email = htmlspecialchars($_POST['email']);
+            $password = htmlspecialchars($_POST['password']);
+            $accountType = $_POST['accountType'];
             $controllerFrontend->registerUser($name, $email, $password, $accountType);
             
 

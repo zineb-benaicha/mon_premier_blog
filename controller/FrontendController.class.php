@@ -71,7 +71,26 @@ class FrontendController
 
     }
 
-    public function registerUser($name, $email, $password, $isAdmin){
+    public function registerUser($name, $email, $password, $accountType){
+
+        if($accountType == 'utilisateur'){
+            $isAdmin = 0;
+        }
+        else{
+            $isAdmin = 1;
+        }
+
+        $userManager = new UserManager();
+        $userRigistred = false;
+
+        if($userManager->setUser($name, $email, $password, $isAdmin)){
+            $userRigistred = true;
+        }
+        else{
+            $userRigistred = false;
+        }
+        var_dump($userRigistred);
+        //require_once 'view/registerView.php';
         
 
     }

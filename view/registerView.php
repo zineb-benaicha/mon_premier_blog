@@ -47,7 +47,7 @@
                                             
                                             <?php if(isset($passwordMatch) && $passwordMatch === false): ?>
                                                 <div class="alert alert-danger" role="alert">
-                                                        Les deux mots de passe doivent se correspondre!
+                                                        Les deux mots de passe sont différents!
                                                     </div>
                                             <?php endif ?>
                                             <div class="row mb-3">
@@ -57,6 +57,12 @@
                                                         Vous devez saisir un mot de passe!
                                                     </div>
                                                 <?php endif?>
+                                                <!-- PasswordConfirm input-->
+                                                <?php if (isset($emptyFields['passwordConfirm']) && $emptyFields['passwordConfirm']): ?>
+                                                    <div class="alert alert-danger" role="alert">
+                                                        Vous devez confirmer le mot de passe!
+                                                    </div>
+                                                <?php endif?>
                                                 <div class="col-md-6">
                                                     <div class="form-floating mb-3 mb-md-0">
                                                         <input class="form-control" id="password" type="password" name="password" />
@@ -64,12 +70,7 @@
                                                     </div>
                                                 </div>
                                                 
-                                                <!-- PasswordConfirm input-->
-                                                <?php if (isset($emptyFields['passwordConfirm']) && $emptyFields['passwordConfirm']): ?>
-                                                    <div class="alert alert-danger" role="alert">
-                                                        Vous devez confirmer le mot de passe!
-                                                    </div>
-                                                <?php endif?>
+                                                
                                                 <div class="col-md-6">
                                                     <div class="form-floating mb-3 mb-md-0">
                                                         <input class="form-control" id="passwordConfirm" type="password" name="passwordConfirm" />
@@ -91,13 +92,32 @@
                                                     <option value="utilisateur">Utilisateur</option>
                                                     <option value="administrateur">Administrateur</option>
                                                 </select>
-                                                
                                             </div> 
                                             <div class="mt-4 mb-0">
                                                 <!--<div class="d-grid"><a class="btn btn-primary btn-block" >Créer un compte</a></div>-->
                                                 <div class="d-grid"><button class="btn btn-primary btn-block" id="submitButton" type="submit">Créer un compte</button></div>
                                             </div>
                                         </form>
+                                        <?= var_dump($userRigistred) ?>
+                                        <?php if(isset($userRigistred) && $userRigistred): ?>
+                                            <?php if($_POST['accountType'] == 'utilisateur'): ?>
+                                                <div class="alert alert-succes" role="alert">
+                                                        Votre compte est créé vous pouvez vous connecter!
+                                                </div>
+                                                <?php else: ?>
+                                                    <div class="alert alert-succes" role="alert">
+                                                        Votre demande de création de compte administrateur a bien été enregistrée, veuillez attendre qu'un administrateur du site vous le confirme!
+                                                </div>
+
+
+                                            <?php endif ?>
+                                            
+                                        <?php endif ?>
+                                        <?php if(isset($userRigistred) && !$userRigistred):?>
+                                            <div class="alert alert-danger" role="alert">
+                                                Une erreur est survenue, veuillez réessayer plus tard!
+                                            </div>
+                                        <?php endif ?>
                                     </div>
                                     <div class="card-footer text-center py-3">
                                         <div class="small"><a href="loginView.php">Si vous possédez déjà un compte connectez vous</a></div>
