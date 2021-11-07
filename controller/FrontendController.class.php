@@ -102,4 +102,17 @@ class FrontendController
 
     }
 
+    public function connexionUser($email, $password)
+    {
+        $userAccountExists = true;
+        $userManager = new UserManager();
+        if(!$userManager->checkAccount($email, $password)){
+            $userAccountExists = false;
+        }
+
+        require_once 'view/loginView.php';
+        
+        
+    }
+
 }

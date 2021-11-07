@@ -9,6 +9,7 @@ spl_autoload_register('loadClass');
 $controllerFrontend = new FrontendController();
 
 if (isset($_GET['action'])) {
+
     if ($_GET['action'] == 'home') {
         $controllerFrontend->homePage();
     } elseif ($_GET['action'] == 'listBlogs') {
@@ -21,12 +22,12 @@ if (isset($_GET['action'])) {
             //appeler le controlleur pour qu'il affiche le blog: id
             $controllerFrontend->displayBlog($_GET['id']);
         }
-    } elseif ($_GET['action'] == 'sentMessage') {
-       
+    } 
 
+    elseif ($_GET['action'] == 'sentMessage') {
         if (!empty($_POST['first-name']) && !empty($_POST['last-name']) && !empty($_POST['email']) && !empty($_POST['message'])) {
             //appeler le controlleur pour qu'il gère le message reçu
-            $controllerFrontend->sentMessage($_POST['first-name'], $_POST['last-name'], $_POST['email'], $_POST['message']);
+            $controllerFrontend->sentMessage(htmlspecialchars($_POST['first-name']), htmlspecialchars($_POST['last-name']), htmlspecialchars($_POST['email']), htmlspecialchars($_POST['message']));
 
         } else {
 
@@ -44,7 +45,7 @@ if (isset($_GET['action'])) {
         }
 
     }
-    elseif($_GET['action'] == 'registerRequest'){
+    elseif($_GET['action'] == 'registerAccountRequest'){
         
        
         if(!empty($_POST['name']) && !empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['passwordConfirm'])){
@@ -60,7 +61,6 @@ if (isset($_GET['action'])) {
                 $emptyFields['accountType'] = true;
             }
             
-
             //appel au frontEndcontrolleur pour qu'il insère le nouvel utilisateur
             if($passwordMatch && !$emptyFields['accountType'])
             {
@@ -72,10 +72,8 @@ if (isset($_GET['action'])) {
             }
             else{
                 require_once 'view/registerView.php';
-
             }
                 
-
         }
         else{
 
@@ -102,6 +100,26 @@ if (isset($_GET['action'])) {
             
         }
 
+    }
+    elseif($_GET['action'] == 'accountConnexionRequest'){
+        
+        if (!empty($_POST['email']) && !empty($_POST['password'])) {
+            $controllerFrontend->connexionUser(htmlspecialchars($_POST['email']), htmlspecialchars($_POST['password']));
+        }
+        else{
+            
+            $emptyFields['email'] = false;
+            $emptyFields['password'] = false;
+
+            if (empty($_POST['email'])) {
+                $emptyFields['email'] = true;
+            }
+            if (empty($_POST['password'])) {
+                $emptyFields['password'] = true;
+            }
+            require_once 'view/loginView.php';
+
+        }
     }
 } else {
     $controllerFrontend->homePage();

@@ -20,7 +20,7 @@
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
                                     <div class="card-header"><h3 class="text-center font-weight-light my-4">Créer un compte</h3></div>
                                     <div class="card-body">
-                                        <form action="../index.php?action=registerRequest" method="post" >
+                                        <form action="../index.php?action=registerAccountRequest" method="post" >
                                             
                                             <!-- Name input-->
                                             <?php if (isset($emptyFields['name']) && $emptyFields['name']): ?>
@@ -94,7 +94,6 @@
                                                 </select>
                                             </div> 
                                             <div class="mt-4 mb-0">
-                                                <!--<div class="d-grid"><a class="btn btn-primary btn-block" >Créer un compte</a></div>-->
                                                 <div class="d-grid"><button class="btn btn-primary btn-block" id="submitButton" type="submit">Créer un compte</button></div>
                                             </div>
                                         </form>

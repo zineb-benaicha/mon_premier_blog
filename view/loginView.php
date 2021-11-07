@@ -20,27 +20,42 @@
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
                                     <div class="card-header"><h3 class="text-center font-weight-light my-4">Login</h3></div>
                                     <div class="card-body">
-                                        <form>
+                                        <form action="../index.php?action=accountConnexionRequest" method="post" >
+
+                                            <!-- email input-->
+                                            <?php if (isset($emptyFields['email']) && $emptyFields['email']): ?>
+                                                <div class="alert alert-danger" role="alert">
+                                                    Vous devez saisir un e-mail!
+                                                </div>
+                                            <?php endif?>
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" id="inputEmail" type="email" placeholder="name@example.com" />
-                                                <label for="inputEmail">Email address</label>
+                                                <input class="form-control" id="inputEmail" type="email" name="email" value="<?=!empty($_POST['email']) ? $_POST['email'] : ''?>"/>
+                                                <label for="inputEmail">Adresse e-mail</label>
                                             </div>
+
+                                            <!-- Password input-->
+                                            <?php if (isset($emptyFields['password']) && $emptyFields['password']): ?>
+                                                    <div class="alert alert-danger" role="alert">
+                                                        Vous devez saisir un mot de passe!
+                                                    </div>
+                                                <?php endif?>
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" id="inputPassword" type="password" placeholder="Password" />
-                                                <label for="inputPassword">Password</label>
+                                                <input class="form-control" id="inputPassword" type="password" name="password" value="<?=!empty($_POST['password']) ? $_POST['password'] : ''?>" />
+                                                <label for="inputPassword">Mot de passe</label>
                                             </div>
                                             <div class="form-check mb-3">
                                                 <input class="form-check-input" id="inputRememberPassword" type="checkbox" value="" />
                                                 <label class="form-check-label" for="inputRememberPassword">Remember Password</label>
                                             </div>
                                             <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                                <a class="small" href="password.html">Forgot Password?</a>
-                                                <a class="btn btn-primary" href="index.html">Login</a>
+                                            
+                                                <a class="small" href="password.html">Mot de passe oublié?</a>
+                                                <button class="btn btn-primary" id="submitButton" type="submit">Se connecter</button>
                                             </div>
                                         </form>
                                     </div>
                                     <div class="card-footer text-center py-3">
-                                        <div class="small"><a href="register.html">Need an account? Sign up!</a></div>
+                                        <div class="small"><a href="registerView.php">Si vous n'avez pas encore créé votre compte faites le ici</a></div>
                                     </div>
                                 </div>
                             </div>
