@@ -73,25 +73,32 @@ class FrontendController
 
     public function registerUser($name, $email, $password, $accountType){
 
-        if($accountType == 'utilisateur'){
-            $isAdmin = 0;
-        }
-        else{
-            $isAdmin = 1;
-        }
-
-        $userManager = new UserManager();
+        $emailExists = false;
         $userRigistred = false;
 
-        if($userManager->setUser($name, $email, $password, $isAdmin)){
-            $userRigistred = true;
+        $userManager = new UserManager();
+
+        //vérifier si un compte existe déjà avec cet email
+        if($userManager->userEmailsNumber($email) == 0){
+            
+            if($accountType == 'administrateur'){
+                $isAdmin = 1;
+                $isValidated = 0;
+            }
+            else{
+                $isAdmin = 0;
+                $isValidated = 1;
+            }           
+
+            if($userManager->setUser($name, $email, $password, $isAdmin, $isValidated)){
+                $userRigistred = true;
+            }
+            
         }
-        else{
-            $userRigistred = false;
+        elseif($userManager->userEmailsNumber($email) > 0){
+            $emailExists = true;
         }
-        var_dump($userRigistred);
-        //require_once 'view/registerView.php';
-        
+            require_once 'view/registerView.php';
 
     }
 

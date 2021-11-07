@@ -45,9 +45,9 @@ if (isset($_GET['action'])) {
 
     }
     elseif($_GET['action'] == 'registerRequest'){
-        var_dump($_POST);
+        
        
-        if (!empty($_POST['name']) && !empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['passwordConfirm'])){
+        if(!empty($_POST['name']) && !empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['passwordConfirm'])){
 
             $emptyFields['accountType'] = false;
             $passwordMatch = true;
@@ -60,15 +60,21 @@ if (isset($_GET['action'])) {
                 $emptyFields['accountType'] = true;
             }
             
-            require_once 'view/registerView.php';
 
             //appel au frontEndcontrolleur pour qu'il insère le nouvel utilisateur
-            $name = htmlspecialchars($_POST['name']);
-            $email = htmlspecialchars($_POST['email']);
-            $password = htmlspecialchars($_POST['password']);
-            $accountType = $_POST['accountType'];
-            $controllerFrontend->registerUser($name, $email, $password, $accountType);
-            
+            if($passwordMatch && !$emptyFields['accountType'])
+            {
+                $name = htmlspecialchars($_POST['name']);
+                $email = htmlspecialchars($_POST['email']);
+                $password = htmlspecialchars($_POST['password']);
+                $accountType = $_POST['accountType'];
+                $controllerFrontend->registerUser($name, $email, $password, $accountType);
+            }
+            else{
+                require_once 'view/registerView.php';
+
+            }
+                
 
         }
         else{

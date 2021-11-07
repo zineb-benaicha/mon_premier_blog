@@ -29,7 +29,7 @@
                                                 </div>
                                             <?php endif?>
                                             <div class="form-floating mb-3 ">
-                                                <input class="form-control" id="name" type="text" name="name"/>
+                                                <input class="form-control" id="name" type="text" name="name" value="<?=!empty($_POST['name']) ? $_POST['name'] : ''?>" />
                                                 <label for="name">Nom</label>
                                             </div>                                              
                                             
@@ -40,7 +40,7 @@
                                                 </div>
                                             <?php endif?>
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" id="email" type="email" name="email"/>
+                                                <input class="form-control" id="email" type="email" name="email" value="<?=!empty($_POST['email']) ? $_POST['email'] : ''?>" />
                                                 <label for="email">Adresse e-mail</label>
                                             </div>
 
@@ -65,7 +65,7 @@
                                                 <?php endif?>
                                                 <div class="col-md-6">
                                                     <div class="form-floating mb-3 mb-md-0">
-                                                        <input class="form-control" id="password" type="password" name="password" />
+                                                        <input class="form-control" id="password" type="password" name="password" value="<?=!empty($_POST['password']) ? $_POST['password'] : ''?>" />
                                                         <label for="password">Mot de passe</label>
                                                     </div>
                                                 </div>
@@ -73,7 +73,7 @@
                                                 
                                                 <div class="col-md-6">
                                                     <div class="form-floating mb-3 mb-md-0">
-                                                        <input class="form-control" id="passwordConfirm" type="password" name="passwordConfirm" />
+                                                        <input class="form-control" id="passwordConfirm" type="password" name="passwordConfirm" value="<?=!empty($_POST['passwordConfirm']) ? $_POST['passwordConfirm'] : ''?>" />
                                                         <label for="passwordConfirm">Confirmer le mot de passe</label>
                                                     </div>
                                                 </div>
@@ -98,22 +98,29 @@
                                                 <div class="d-grid"><button class="btn btn-primary btn-block" id="submitButton" type="submit">Créer un compte</button></div>
                                             </div>
                                         </form>
-                                        <?= var_dump($userRigistred) ?>
+                                        <br>
+                                       <!-- Création de compte utilisateur réussie-->
                                         <?php if(isset($userRigistred) && $userRigistred): ?>
                                             <?php if($_POST['accountType'] == 'utilisateur'): ?>
-                                                <div class="alert alert-succes" role="alert">
+                                                <div class="alert alert-success" role="alert">
                                                         Votre compte est créé vous pouvez vous connecter!
                                                 </div>
                                                 <?php else: ?>
-                                                    <div class="alert alert-succes" role="alert">
-                                                        Votre demande de création de compte administrateur a bien été enregistrée, veuillez attendre qu'un administrateur du site vous le confirme!
+                                                    <div class="alert alert-success" role="alert">
+                                                        Votre demande de création d'un compte administrateur a bien été enregistrée, veuillez attendre qu'un administrateur du site vous la valide!
                                                 </div>
-
-
-                                            <?php endif ?>
-                                            
+                                            <?php endif ?>  
                                         <?php endif ?>
-                                        <?php if(isset($userRigistred) && !$userRigistred):?>
+                                        
+                                        <!-- L'e-mail inséré existe déjà avec un autre compte! création de compte impossible -->
+                                        <?php if(isset($emailExists) && $emailExists ):?>
+                                            <div class="alert alert-danger" role="alert">
+                                                Cette adresse e-amil est déjà liée à un autre compte! veuillez vous connectez avec ou en saisir une autre.
+                                            </div>
+                                        <?php endif ?>
+
+                                        <!-- l'email n'existe pas mais une erreure empêche la création de compte -->
+                                        <?php if(isset($emailExists) && !$emailExists && isset($userRigistred) && !$userRigistred):?>
                                             <div class="alert alert-danger" role="alert">
                                                 Une erreur est survenue, veuillez réessayer plus tard!
                                             </div>
