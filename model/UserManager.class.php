@@ -11,7 +11,7 @@ class UserManager extends Manager {
     
     public function userEmailsNumber($email){
         $db = $this->dbConnect();
-        $result = $db->prepare('SELECT count(*) FROM user WHERE email= :email');
+        $result = $db->prepare('SELECT COUNT(*) FROM user WHERE email= :email');
         $result->execute(array('email'=> $email));
         $numberEmails = $result->fetch();
         return (int) $numberEmails[0];
@@ -23,5 +23,13 @@ class UserManager extends Manager {
         $result->execute(array($email, $password));
         $numberLinesFounded = (int) $result->fetch()[0];
         return $numberLinesFounded;
+    }
+
+    public function getPassword($email){
+        $db = $this->dbConnect();
+        $result = $db->prepare('SELECT password FROM user WHERE email=?');
+        $result->execute(array($email));
+        return $password = $result->fetch();
+        
     }
 }

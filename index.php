@@ -121,6 +121,20 @@ if (isset($_GET['action'])) {
 
         }
     }
+    elseif($_GET['action'] == 'passwordRecoveryRequest'){
+
+        $emptyFields['email'] = false;
+
+        if(!empty($_POST['email'])){
+            $controllerFrontend->passwordRecovery(htmlspecialchars($_POST['email']));
+
+        }
+        else{
+            $emptyFields['email'] = true;
+            require_once 'view/forgottenPasswordView.php';
+        }
+
+    }
 } else {
     $controllerFrontend->homePage();
 

@@ -120,4 +120,49 @@ class FrontendController
         
     }
 
+    public function passwordRecovery($email)
+    {
+        //1-vérifier si l'email existe en BDD
+        $userManager = new UserManager();
+        $recoveryEmailNotFound = false;
+        $recorevyError = false;
+
+        $numberEmailFounded = $userManager->userEmailsNumber($email);
+
+        if($numberEmailFounded == 0){
+            $recoveryEmailNotFound = true;
+        }
+        //2-s'il existe, récupérer le mot de passe
+        elseif($numberEmailFounded == 1){
+
+            if(!$userManager->getPassword($email)){
+                $recorevyError = true;
+            }
+            else{
+
+                //3-envoyer un mail contenant le mot de passe associé
+                $password = $userManager->getPassword($email);
+                $destinataire = $email;
+                $expediteur = 'zineb.mezlef@gmail.com';
+                $objet = "Récupération de mot de passe";
+                $headers = 'MIME-Version: 1.0' . "\n"; 
+                $headers .= 'Reply-To: ' . $email . "\n"; // Mail de reponse
+                $headers .= 'From: "Nom_de_expediteur"<' . $expediteur . '>' . "\n"; // Expediteur
+                $headers .= 'Delivered-to: ' . $destinataire . "\n"; // Destinataire
+                $messageMail = "Vous avez demandé la récupération de votre mot de passe, le voici:\r\n $password[0] \r\n Cordialement";
+
+                if(mail($destinataire, $objet, $messageMail, $headers)){
+                    $recoverySuccess = true;
+                }
+                else{
+                    $recorevyError = true;
+                }
+            }
+
+        }
+
+        require_once 'view/forgottenPasswordView.php';
+       
+
+    }
 }

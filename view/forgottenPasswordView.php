@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Connexion</title>
+        <title>Récupération de mot de passe</title>
         <link href="../public/css/stylesAdmin.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
     </head>
@@ -16,11 +16,11 @@
                 <main>
                     <div class="container">
                         <div class="row justify-content-center">
-                            <div class="col-lg-5">
+                            <div class="col-lg-8">
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Login</h3></div>
+                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Récupération du mot de passe oublié</h3></div>
                                     <div class="card-body">
-                                        <form action="../index.php?action=accountConnexionRequest" method="post" >
+                                        <form action="../index.php?action=passwordRecoveryRequest" method="post" >
 
                                             <!-- email input-->
                                             <?php if (isset($emptyFields['email']) && $emptyFields['email']): ?>
@@ -30,51 +30,38 @@
                                             <?php endif?>
                                             <div class="form-floating mb-3">
                                                 <input class="form-control" id="inputEmail" type="email" name="email" value="<?=!empty($_POST['email']) ? $_POST['email'] : ''?>"/>
-                                                <label for="inputEmail">Adresse e-mail</label>
+                                                <label for="inputEmail">Veuillez insérer l'adresse e-mail avec laquelle vous avez créé votre compte</label>
                                             </div>
 
-                                            <!-- Password input-->
-                                            <?php if (isset($emptyFields['password']) && $emptyFields['password']): ?>
-                                                    <div class="alert alert-danger" role="alert">
-                                                        Vous devez saisir un mot de passe!
-                                                    </div>
-                                                <?php endif?>
-                                            <div class="form-floating mb-3">
-                                                <input class="form-control" id="inputPassword" type="password" name="password" value="<?=!empty($_POST['password']) ? $_POST['password'] : ''?>" />
-                                                <label for="inputPassword">Mot de passe</label>
-                                            </div>
-                                            <div class="form-check mb-3">
-                                                <input class="form-check-input" id="inputRememberPassword" type="checkbox" value="" />
-                                                <label class="form-check-label" for="inputRememberPassword">Remember Password</label>
-                                            </div>
-                                            <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                            
-                                                <a class="small" href="forgottenPasswordView.php">Mot de passe oublié?</a>
-                                                <button class="btn btn-primary" id="submitButton" type="submit">Se connecter</button>
+                                            <div class="mt-4 mb-0">
+                                                <div class="d-grid"><button class="btn btn-primary btn-block" id="submitButton" type="submit">Récupérer le mot de passe</button></div>
                                             </div>
                                         </form>
                                         <br>
-                                        <?php if(isset($userAccountExists) && $userAccountExists == false): ?>
-                                            <div class="alert alert-danger" role="alert">
-                                                L'e-mail ou le mot de passe est incorrect!
-                                            </div>
-                                        <?php endif ?>
-
-                                        <?php if(isset($userAccountExists) && $userAccountExists == true): ?>
+                                        <!-- Le mot de passe a bien été récupéré -->
+                                        <?php if(isset($recoverySuccess) && $recoverySuccess == true): ?>
                                             <div class="alert alert-success" role="alert">
-                                                Vous êtes connectés!
+                                                Un email contenant votre mot de passe vous a été envoyé vers cette adresse.
                                             </div>
                                         <?php endif ?>
 
-                                        <?php if(isset($userConexionError ) && $userConexionError == true): ?>
+                                        <!-- L'email inséré n'a pas été trouvé -->
+                                        <?php if(isset($recoveryEmailNotFound) && $recoveryEmailNotFound == true): ?>
                                             <div class="alert alert-danger" role="alert">
-                                                Une erreur est survenue veuillez réessayer plus tard!
+                                                Aucun compte lié à cette adresse n'a été trouvé, veuillez vérifier votre saisie.
                                             </div>
                                         <?php endif ?>
+
+                                        <!-- Une erreur est survenue l'a récupération a échoué -->
+                                        <?php if(isset($recorevyError) && $recorevyError == true): ?>
+                                            <div class="alert alert-danger" role="alert">
+                                                Nous sommes désolés, une erreur est survenue, veuillez réessayer plus tard.
+                                            </div>
+                                        <?php endif ?>
+
+                                        
                                     </div>
-                                    <div class="card-footer text-center py-3">
-                                        <div class="small"><a href="registerView.php">Si vous n'avez pas encore créé votre compte faites le ici</a></div>
-                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
