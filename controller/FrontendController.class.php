@@ -104,10 +104,15 @@ class FrontendController
 
     public function connexionUser($email, $password)
     {
-        $userAccountExists = true;
+        $userAccountExists = false;
+        $userConexionError = false;
         $userManager = new UserManager();
-        if(!$userManager->checkAccount($email, $password)){
-            $userAccountExists = false;
+        
+        if($userManager->checkAccount($email, $password) == 1 ){
+            $userAccountExists = true;
+        }
+        elseif($userManager->checkAccount($email, $password) === false){
+            $userConexionError = true;
         }
 
         require_once 'view/loginView.php';

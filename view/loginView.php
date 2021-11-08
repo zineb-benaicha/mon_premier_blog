@@ -53,6 +53,24 @@
                                                 <button class="btn btn-primary" id="submitButton" type="submit">Se connecter</button>
                                             </div>
                                         </form>
+                                        <br>
+                                        <?php if(isset($userAccountExists) && $userAccountExists == false): ?>
+                                            <div class="alert alert-danger" role="alert">
+                                                L'e-mail ou le mot de passe est incorrect!
+                                            </div>
+                                        <?php endif ?>
+
+                                        <?php if(isset($userAccountExists) && $userAccountExists == true): ?>
+                                            <div class="alert alert-success" role="alert">
+                                                Vous êtes connectés!
+                                            </div>
+                                        <?php endif ?>
+
+                                        <?php if(isset($userConexionError ) && $userConexionError == true): ?>
+                                            <div class="alert alert-danger" role="alert">
+                                                Une erreur est survenue veuillez réessayer plus tard!
+                                            </div>
+                                        <?php endif ?>
                                     </div>
                                     <div class="card-footer text-center py-3">
                                         <div class="small"><a href="registerView.php">Si vous n'avez pas encore créé votre compte faites le ici</a></div>

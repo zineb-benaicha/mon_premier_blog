@@ -19,8 +19,9 @@ class UserManager extends Manager {
 
     public function checkAccount($email, $password){
         $db = $this->dbConnect();
-        $result = $db->prepare('SELECT email, password FROM user WHERE email=? AND password=?');
+        $result = $db->prepare('SELECT COUNT(*) FROM user WHERE email=? AND password=?');
         $result->execute(array($email, $password));
-        return  $result->fetch();
+        $numberLinesFounded = (int) $result->fetch()[0];
+        return $numberLinesFounded;
     }
 }
