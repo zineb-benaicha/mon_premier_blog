@@ -25,7 +25,7 @@ class UserManager extends Manager {
         return $numberLinesFounded;
     }
 
-    public function getPassword($email){
+    public function getHashedPassword($email){
         $db = $this->dbConnect();
         $result = $db->prepare('SELECT password FROM user WHERE email=?');
         $result->execute(array($email));

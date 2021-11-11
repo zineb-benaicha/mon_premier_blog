@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Récupération de mot de passe</title>
+        <title>initialiser le mot de passe</title>
         <link href="../public/css/stylesAdmin.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
     </head>
@@ -16,44 +16,54 @@
                 <main>
                     <div class="container">
                         <div class="row justify-content-center">
-                            <div class="col-lg-8">
+                            <div class="col-lg-5">
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Récupération du mot de passe oublié</h3></div>
+                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Réinitialisation du mot de passe</h3></div>
                                     <div class="card-body">
-                                        <form action="../index.php?action=passwordRecoveryRequest" method="post" >
 
-                                            <!-- email input-->
-                                            <?php if (isset($emptyFields['email']) && $emptyFields['email']): ?>
+                                        <?php if(isset($_GET['emailRecovery']) && !empty($_GET['emailRecovery'])){
+                                            $emailRecovery = htmlspecialchars($_GET['emailRecovery']);
+                                        }
+                                        ?>
+
+                                        <form action="../index.php?action=passwordInitialisationRequest&amp;emailRecovery=<?=$email?>" method="post" >
+                                            <!-- Mots de passes non identiques -->
+                                            <?php if(isset($passwordMatch) && !$passwordMatch): ?>
                                                 <div class="alert alert-danger" role="alert">
-                                                    Vous devez saisir un e-mail!
+                                                    Les deux mots de passes ne sont pas identiques, veuillez les vérifier.
+                                                </div>
+                                            <?php endif ?>
+
+                                            <!-- password input-->
+                                            <?php if (isset($emptyFields['password']) && $emptyFields['password']): ?>
+                                                <div class="alert alert-danger" role="alert">
+                                                    Vous devez saisir un mot de passe!
                                                 </div>
                                             <?php endif?>
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" id="inputEmail" type="email" name="email" value="<?=!empty($_POST['email']) ? $_POST['email'] : ''?>"/>
-                                                <label for="inputEmail">Veuillez insérer l'adresse e-mail avec laquelle vous avez créé votre compte</label>
+                                                <input class="form-control" id="password" type="password" name="password" value="<?=!empty($_POST['password']) ? $_POST['password'] : ''?>"/>
+                                                <label for="password">Veuillez insérer le nouveau mot de passe</label>
+                                            </div>
+
+                                             <!-- passwordConfirm input-->
+                                            <?php if (isset($emptyFields['passwordConfirm']) && $emptyFields['passwordConfirm']): ?>
+                                                <div class="alert alert-danger" role="alert">
+                                                    Vous devez confirmer le mot de passe!
+                                                </div>
+                                            <?php endif?>
+                                            <div class="form-floating mb-3">
+                                                <input class="form-control" id="passwordConfirm" type="password" name="passwordConfirm" value="<?=!empty($_POST['passwordConfirm']) ? $_POST['passwordConfirm'] : ''?>"/>
+                                                <label for="password">Veuillez confirmer le nouveau mot de passe</label>
                                             </div>
 
                                             <div class="mt-4 mb-0">
-                                                <div class="d-grid"><button class="btn btn-primary btn-block" id="submitButton" type="submit">Vérifier l'adresse e-mail</button></div>
+                                                <div class="d-grid"><button class="btn btn-primary btn-block" id="submitButton" type="submit">Changer le mot de passe</button></div>
                                             </div>
                                         </form>
                                         <br>
-                                        <!-- Le mot de passe a bien été récupéré -->
-                                        <?php if(isset($recoverySuccess) && $recoverySuccess == true): ?>
-                                            <div class="alert alert-success" role="alert">
-                                                Un email contenant votre mot de passe vous a été envoyé vers cette adresse.
-                                            </div>
-                                        <?php endif ?>
-
-                                        <!-- L'email inséré n'a pas été trouvé -->
-                                        <?php if(isset($recoveryEmailNotFound) && $recoveryEmailNotFound == true): ?>
-                                            <div class="alert alert-danger" role="alert">
-                                                Aucun compte lié à cette adresse n'a été trouvé, veuillez vérifier votre saisie.
-                                            </div>
-                                        <?php endif ?>
-
+                                        
                                         <!-- Une erreur est survenue l'a récupération a échoué -->
-                                        <?php if(isset($recorevyError) && $recorevyError == true): ?>
+                                        <?php if(isset($recoveryEmailError) && $recoveryEmailError): ?>
                                             <div class="alert alert-danger" role="alert">
                                                 Nous sommes désolés, une erreur est survenue, veuillez réessayer plus tard.
                                             </div>
