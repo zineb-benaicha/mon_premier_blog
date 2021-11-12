@@ -120,6 +120,10 @@ class FrontendController
         
     }
 
+    public function verifyingExitanceEmailRecovery($email){
+
+    }
+
     public function passwordRecovery($email)
     {
         //1-vérifier si l'email existe en BDD
@@ -131,18 +135,28 @@ class FrontendController
 
         if($numberEmailFounded == 0){
             $recoveryEmailNotFound = true;
+            require_once 'view/forgottenPasswordView.php';
         }
         
         elseif($numberEmailFounded == 1){//l'email existe bien dans la BDD
             //2-appeler la vue qui permet d'initialiser le mot de passe
-            require_once "view/initializePasswordView.php";
+            $emailRecovery = $email;
+            require_once "view/resetPasswordView.php";
+        }
+    }
 
-           
+    public function passwordReset($password, $email){
+        
+        $userManager = new UserManager();
+        if($userManager->passwordUpdate($password, $email)){
+            //mise à jour du mot de passe réussie
+
 
         }
+        else{
+            //mise à jour du mot de passe a échoué
 
-        require_once 'view/forgottenPasswordView.php';
-       
+        }
 
     }
 }

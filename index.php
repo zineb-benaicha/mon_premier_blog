@@ -126,6 +126,7 @@ if (isset($_GET['action'])) {
         $emptyFields['email'] = false;
 
         if(!empty($_POST['email'])){
+           
             $controllerFrontend->passwordRecovery(htmlspecialchars($_POST['email']));
         }
         else{
@@ -135,29 +136,34 @@ if (isset($_GET['action'])) {
 
     }
     elseif($_GET['action'] == 'passwordInitialisationRequest'){
-
+        
         if(isset($_GET['emailRecovery']) && !empty($_GET['emailRecovery'])){
+            
 
-            if(!empty($_POST['password']) && !empty($_GET['passwordConfirm'])){
+            if(!empty($_POST['password']) && !empty($_POST['passwordConfirm'])){
+                
 
                 if($_POST['password'] === $_POST['passwordConfirm']){
                     //appeler le controleur pour qu'il mette à jour le mot de passe
+                   
                 }
                 else{
                     $passwordMatch = false;
                 }
             }
             elseif(empty($_POST['password'])){
+                echo 'mot de passe manquant';
                 $emptyFields['password'] = true;
             }
             elseif(empty($_POST['passwordConfirm'])){
+                echo 'confirmation mot de passe manquante';
                 $emptyFields['passwordConfirm'] = true;
             }
         }
         else{
             $recoveryEmailError = true;
         }
-        require_once 'view/initializePasswordView.php';
+        require_once 'view/resetPasswordView.php';
     }
 } else {
     $controllerFrontend->homePage();

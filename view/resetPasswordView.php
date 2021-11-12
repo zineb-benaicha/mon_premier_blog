@@ -1,3 +1,8 @@
+<?php
+if(session_id() == ''){
+    session_start();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -21,12 +26,12 @@
                                     <div class="card-header"><h3 class="text-center font-weight-light my-4">Réinitialisation du mot de passe</h3></div>
                                     <div class="card-body">
 
-                                        <?php if(isset($_GET['emailRecovery']) && !empty($_GET['emailRecovery'])){
-                                            $emailRecovery = htmlspecialchars($_GET['emailRecovery']);
+                                        <?php if(isset($emailRecovery) && !empty($emailRecovery)){
+                                            $_SESSION['recoveryEmail'] = $emailRecovery;
                                         }
                                         ?>
 
-                                        <form action="../index.php?action=passwordInitialisationRequest&amp;emailRecovery=<?=$email?>" method="post" >
+                                        <form action="../index.php?action=passwordInitialisationRequest&amp;emailRecovery=<?=$_SESSION['recoveryEmail']?>" method="post" >
                                             <!-- Mots de passes non identiques -->
                                             <?php if(isset($passwordMatch) && !$passwordMatch): ?>
                                                 <div class="alert alert-danger" role="alert">

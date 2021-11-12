@@ -32,4 +32,11 @@ class UserManager extends Manager {
         return $password = $result->fetch();
         
     }
+
+    public function passwordUpdate($password, $email){
+        $db = $this->dbConnect();
+        $result = $db->prepare('UPDATE user SET password=? WHERE email=?');
+        return $result->execute(array($password, $email));
+
+    }
 }
