@@ -115,6 +115,7 @@ class FrontendController
             
             if(password_verify($password, $hashedPassword)){
                 $userAccountExists = true;
+                
             }
         }
         elseif(!$userEmailNumber){
