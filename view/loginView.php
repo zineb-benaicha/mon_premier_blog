@@ -54,19 +54,19 @@
                                             </div>
                                         </form>
                                         <br>
-                                        <?php if(isset($userAccountExists) && $userAccountExists == false): ?>
+                                        <?php if(isset($userAccountExists) && !$userAccountExists): ?>
                                             <div class="alert alert-danger" role="alert">
                                                 L'e-mail ou le mot de passe est incorrect!
                                             </div>
                                         <?php endif ?>
 
-                                        <?php if(isset($userAccountExists) && $userAccountExists == true): ?>
+                                        <?php if(isset($userAccountExists) && $userAccountExists): ?>
                                             <div class="alert alert-success" role="alert">
                                                 Vous êtes connectés!
                                             </div>
                                         <?php endif ?>
 
-                                        <?php if(isset($userConexionError ) && $userConexionError == true): ?>
+                                        <?php if(isset($userConexionError ) && $userConexionError): ?>
                                             <div class="alert alert-danger" role="alert">
                                                 Une erreur est survenue veuillez réessayer plus tard!
                                             </div>
@@ -81,6 +81,7 @@
                     </div>
                 </main>
             </div>
+            <br>
             <div id="layoutAuthentication_footer">
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">

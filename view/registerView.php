@@ -102,11 +102,13 @@
                                         <?php if(isset($userRigistred) && $userRigistred): ?>
                                             <?php if($_POST['accountType'] == 'utilisateur'): ?>
                                                 <div class="alert alert-success" role="alert">
-                                                        Votre compte est créé vous pouvez vous connecter!
+                                                        Votre compte est créé vous pouvez vous connecter avec!
+                                                        <?php header( "refresh:3;url=view/loginView.php" ); ?>
                                                 </div>
                                                 <?php else: ?>
                                                     <div class="alert alert-success" role="alert">
                                                         Votre demande de création d'un compte administrateur a bien été enregistrée, veuillez attendre qu'un administrateur du site vous la valide!
+                                                        <?php header( "refresh:5;url=view/homeView.php" ); ?>
                                                 </div>
                                             <?php endif ?>  
                                         <?php endif ?>
@@ -118,7 +120,7 @@
                                             </div>
                                         <?php endif ?>
 
-                                        <!-- l'email n'existe pas mais une erreure empêche la création de compte -->
+                                        <!-- l'email n'existe pas mais une erreur empêche la création de compte -->
                                         <?php if(isset($emailExists) && !$emailExists && isset($userRigistred) && !$userRigistred):?>
                                             <div class="alert alert-danger" role="alert">
                                                 Une erreur est survenue, veuillez réessayer plus tard!

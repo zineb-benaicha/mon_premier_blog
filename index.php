@@ -145,6 +145,7 @@ if (isset($_GET['action'])) {
 
                 if($_POST['password'] === $_POST['passwordConfirm']){
                     //appeler le controleur pour qu'il mette à jour le mot de passe
+                    $controllerFrontend->passwordReset(htmlspecialchars($_POST['password']), htmlspecialchars($_GET['emailRecovery']));
                    
                 }
                 else{
@@ -152,11 +153,11 @@ if (isset($_GET['action'])) {
                 }
             }
             elseif(empty($_POST['password'])){
-                echo 'mot de passe manquant';
+                
                 $emptyFields['password'] = true;
             }
             elseif(empty($_POST['passwordConfirm'])){
-                echo 'confirmation mot de passe manquante';
+                
                 $emptyFields['passwordConfirm'] = true;
             }
         }

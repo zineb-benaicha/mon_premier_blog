@@ -67,10 +67,26 @@ if(session_id() == ''){
                                         </form>
                                         <br>
                                         
-                                        <!-- Une erreur est survenue l'a récupération a échoué -->
+                                        <!-- URL a été altérée, et l'email de recuperation est perdu -->
                                         <?php if(isset($recoveryEmailError) && $recoveryEmailError): ?>
                                             <div class="alert alert-danger" role="alert">
                                                 Nous sommes désolés, une erreur est survenue, veuillez réessayer plus tard.
+                                            </div>
+                                        <?php endif ?>
+
+                                        <!-- URL a été altérée, et l'email de recuperation est perdu -->
+                                        <?php if(isset($passwordUpdateSuccess) && $passwordUpdateSuccess): ?>
+                                            <div class="alert alert-success" role="alert">
+                                                Le nouveau mot de passe a bien été enregistré, vous pouvez vous connecter avec.
+                                                <?php header( "refresh:5;url=view/loginView.php" ); ?>
+                                            </div>
+                                        <?php endif ?>
+
+                                         <!-- URL a été altérée, et l'email de recuperation est perdu -->
+                                         <?php if(isset($passwordUpdateError) && $passwordUpdateError): ?>
+                                            <div class="alert alert-danger" role="alert">
+                                                Le nouveau mot de passe n'a pas pu être enregistré veuillez réessayer plus tard.
+                                                <?php header( "refresh:5;url=view/loginView.php" ); ?>
                                             </div>
                                         <?php endif ?>
 

@@ -90,7 +90,7 @@ class FrontendController
                 $isValidated = 1;
             }           
 
-            if($userManager->setUser($name, $email, $password, $isAdmin, $isValidated)){
+            if($userManager->setUser($name, $email, password_hash($password, PASSWORD_DEFAULT), $isAdmin, $isValidated)){
                 $userRigistred = true;
             }
             
@@ -107,21 +107,20 @@ class FrontendController
         $userAccountExists = false;
         $userConexionError = false;
         $userManager = new UserManager();
-        
-        if($userManager->checkAccount($email, $password) == 1 ){
-            $userAccountExists = true;
+
+        $userEmailNumber = $userManager->userEmailsNumber($email);
+        $hashedPassword = $userManager->getHashedPassword($email)[0];
+
+        if($userEmailNumber == 1){
+            
+            if(password_verify($password, $hashedPassword)){
+                $userAccountExists = true;
+            }
         }
-        elseif($userManager->checkAccount($email, $password) === false){
+        elseif(!$userEmailNumber){
             $userConexionError = true;
-        }
-
+        }        
         require_once 'view/loginView.php';
-        
-        
-    }
-
-    public function verifyingExitanceEmailRecovery($email){
-
     }
 
     public function passwordRecovery($email)
@@ -148,15 +147,19 @@ class FrontendController
     public function passwordReset($password, $email){
         
         $userManager = new UserManager();
-        if($userManager->passwordUpdate($password, $email)){
+        if($userManager->passwordUpdate(password_hash($password, PASSWORD_DEFAULT), $email)){
             //mise à jour du mot de passe réussie
-
+            $passwordUpdateSuccess = true;
+            
 
         }
         else{
             //mise à jour du mot de passe a échoué
+            $passwordUpdateError = true;
+            
 
         }
+        require_once 'view/resetPasswordView.php';
 
     }
 }

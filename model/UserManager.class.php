@@ -17,19 +17,11 @@ class UserManager extends Manager {
         return (int) $numberEmails[0];
     }
 
-    public function checkAccount($email, $password){
-        $db = $this->dbConnect();
-        $result = $db->prepare('SELECT COUNT(*) FROM user WHERE email=? AND password=?');
-        $result->execute(array($email, $password));
-        $numberLinesFounded = (int) $result->fetch()[0];
-        return $numberLinesFounded;
-    }
-
     public function getHashedPassword($email){
         $db = $this->dbConnect();
         $result = $db->prepare('SELECT password FROM user WHERE email=?');
         $result->execute(array($email));
-        return $password = $result->fetch();
+        return $hashedPassword = $result->fetch();
         
     }
 
