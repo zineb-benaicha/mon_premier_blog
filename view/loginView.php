@@ -1,3 +1,8 @@
+<?php
+if(session_id() == '') {
+    session_start();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -54,24 +59,56 @@
                                             </div>
                                         </form>
                                         <br>
+                                        <?= var_dump($_SESSION) ?>
+                                        <!-- Email non existant-->
                                         <?php if(isset($userAccountExists) && !$userAccountExists): ?>
                                             <div class="alert alert-danger" role="alert">
-                                                L'e-mail ou le mot de passe est incorrect!
+                                                Aucun compte utilisateur lié à cette adresse n'a été trouvé, veuillez vérifier votre saisie.
                                             </div>
                                         <?php endif ?>
 
-                                        <?php if(isset($userAccountExists) && $userAccountExists): ?>
-                                            <div class="alert alert-success" role="alert">
-                                                Vous êtes connectés!
+                                        <!-- Compte admin non validé -->
+                                        <?php if(isset($userAccountAdminNotValidated) && $userAccountAdminNotValidated): ?>
+                                            <div class="alert alert-danger" role="alert">
+                                                Votre compte administrateur n'a pas été encore validé, veuillez attendre sa validation pour se connecter.
                                             </div>
                                         <?php endif ?>
 
+                                        <!-- Mot de passe incorrect -->
+                                        <?php if(isset($userPasswordError ) && $userPasswordError): ?>
+                                            <div class="alert alert-danger" role="alert">
+                                               Le mot de passe que vous avez saisi est incorrect!
+                                            </div>
+                                        <?php endif ?>
+
+                                        <!-- Erreur de connexion -->
                                         <?php if(isset($userConexionError ) && $userConexionError): ?>
                                             <div class="alert alert-danger" role="alert">
                                                 Une erreur est survenue veuillez réessayer plus tard!
                                             </div>
                                         <?php endif ?>
+
+                                        <!-- Connexion réussie -->
+                                        <?php if(isset($_SESSION['user-connected']) && $_SESSION['user-connected']): ?>
+                                            
+                                            <div class="alert alert-success" role="alert">
+                                                Bienvenu!
+                                            </div>
+                                            
+                                            <?php 
+                                            if($_SESSION['user-type-account'] == 'admin'){
+                                                header("refresh:3;url=adminDashboardView.php");
+                                            }
+                                            elseif($_SESSION['user-type-account'] == 'visitor'){
+                                                header("refresh:3;url=homeView.php");
+
+                                            }
+
+                                            ?>
+                                        <?php endif ?>
                                     </div>
+
+
                                     <div class="card-footer text-center py-3">
                                         <div class="small"><a href="registerView.php">Si vous n'avez pas encore créé votre compte faites le ici</a></div>
                                     </div>

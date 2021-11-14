@@ -1,4 +1,7 @@
 <?php
+if(session_id() == '') {
+    session_start();
+}
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'BlogManager.class.php';
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'CommentManager.class.php';
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'MessageManager.class.php';
@@ -103,22 +106,58 @@ class FrontendController
     }
 
     public function connexionUser($email, $password)
-    {
-        $userAccountExists = false;
-        $userConexionError = false;
+    { 
         $userManager = new UserManager();
 
         $userEmailNumber = $userManager->userEmailsNumber($email);
-        $hashedPassword = $userManager->getHashedPassword($email)[0];
 
         if($userEmailNumber == 1){
-            
+
+            $hashedPassword = $userManager->getHashedPassword($email)[0];
+
             if(password_verify($password, $hashedPassword)){
-                $userAccountExists = true;
+
+                if($userManager->isAdmin($email)[0] == 1 && $userManager->isValidated($email)[0] == 0){
+                    $userAccountAdminNotValidated = true;
+                    if(isset($_SESSION)){
+                        unset($_SESSION);
+                    }
+                    $_SESSION['user-connected'] = false;
+                    
+                }
+                elseif($userManager->isAdmin($email)[0] == 1 && $userManager->isValidated($email)[0] == 1){
+                    $_SESSION['user-connected'] = true;
+                    $_SESSION['user-type-account'] = 'admin';
+                    $_SESSION['user-email'] = $email;    
+                }
+                elseif($userManager->isAdmin($email)[0] == 0){
+                    $_SESSION['user-connected'] = true;
+                    $_SESSION['user-type-account'] = 'visitor';
+                    $_SESSION['user-email'] = $email;
+                }                
                 
             }
+            else{
+                if(isset($_SESSION)){
+                    unset($_SESSION);
+                }
+                $_SESSION['user-connected'] = false;
+                $userPasswordError = true;
+
+            }
+        }
+        elseif($userEmailNumber == 0){
+            if(isset($_SESSION)){
+                unset($_SESSION);
+            }
+            $_SESSION['user-connected'] = false;
+            $userAccountExists = false;
         }
         elseif(!$userEmailNumber){
+            if(isset($_SESSION)){
+                unset($_SESSION);
+            }
+            $_SESSION['user-connected'] = false;
             $userConexionError = true;
         }        
         require_once 'view/loginView.php';

@@ -31,4 +31,22 @@ class UserManager extends Manager {
         return $result->execute(array($password, $email));
 
     }
+
+    public function isAdmin($email)
+    {
+        $db = $this->dbConnect();
+        $result = $db->prepare('SELECT is_admin FROM user WHERE email=?');
+        $result->execute(array($email));
+        $isAdmin = $result->fetch();
+        return $isAdmin;
+    }
+
+    public function isValidated($email)
+    {
+        $db = $this->dbConnect();
+        $result = $db->prepare('SELECT is_validated FROM user WHERE email=?');
+        $result->execute(array($email));
+        $isValidated = $result->fetch();
+        return $isValidated;
+    }
 }

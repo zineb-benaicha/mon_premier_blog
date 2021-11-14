@@ -1,4 +1,7 @@
 <?php
+if(session_id() == '') {
+    session_start();
+}
 function loadClass($class)
 {
     require 'controller' . DIRECTORY_SEPARATOR . $class . '.class.php';

@@ -108,7 +108,7 @@
                                                 <?php else: ?>
                                                     <div class="alert alert-success" role="alert">
                                                         Votre demande de création d'un compte administrateur a bien été enregistrée, veuillez attendre qu'un administrateur du site vous la valide!
-                                                        <?php header( "refresh:3;url=view/homeView.php" ); ?>
+                                                        <?php header("refresh:3;url=view/homeView.php"); ?>
                                                 </div>
                                             <?php endif ?>  
                                         <?php endif ?>
