@@ -55,11 +55,12 @@ if(session_id() == '') {
                                             <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
                                             
                                                 <a class="small" href="forgottenPasswordView.php">Mot de passe oublié?</a>
-                                                <button class="btn btn-primary" id="submitButton" type="submit">Se connecter</button>
+                                                <button class="btn btn-primary" id="submitButton" type="submit" name="connect">Se connecter</button>
                                             </div>
                                         </form>
                                         <br>
-                                        <?= var_dump($_SESSION) ?>
+                                        
+                                        
                                         <!-- Email non existant-->
                                         <?php if(isset($userAccountExists) && !$userAccountExists): ?>
                                             <div class="alert alert-danger" role="alert">
@@ -87,9 +88,9 @@ if(session_id() == '') {
                                                 Une erreur est survenue veuillez réessayer plus tard!
                                             </div>
                                         <?php endif ?>
-
+                                            
                                         <!-- Connexion réussie -->
-                                        <?php if(isset($_SESSION['user-connected']) && $_SESSION['user-connected']): ?>
+                                        <?php if(isset($_SESSION['user-connected']) && $_SESSION['user-connected'] && isset($_POST['connect'])): ?>
                                             
                                             <div class="alert alert-success" role="alert">
                                                 Bienvenu!
@@ -121,6 +122,7 @@ if(session_id() == '') {
                 </main>
             </div>
             <br>
+            
             <div id="layoutAuthentication_footer">
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">

@@ -14,7 +14,7 @@ $controllerFrontend = new FrontendController();
 if (isset($_GET['action'])) {
 
     if ($_GET['action'] == 'home') {
-        $controllerFrontend->homePage();
+        //$controllerFrontend->homePage();
     } elseif ($_GET['action'] == 'listBlogs') {
         //appeler le contolleur pour qu'il affiche la liste de tous les blogs
 
@@ -175,6 +175,13 @@ if (isset($_GET['action'])) {
             header('Location: view/' . $_GET['viewName'] . 'View.php');
         }
 
+    }
+    elseif($_GET['action'] == 'logout'){
+        /*$_SESSION['user-connected'] = false;
+        unset($_SESSION['user-type-account']);
+        unset($_SESSION['user-email']);    
+        require_once 'view/homeView.php';*/
+        $controllerFrontend->initializeSession();
     }
 } else {
     $controllerFrontend->homePage();

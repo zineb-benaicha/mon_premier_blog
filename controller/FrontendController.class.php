@@ -10,9 +10,29 @@ require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARA
 class FrontendController
 {
 
-    public static function homePage()
+    public static function initializeSession()
     {
+        /*if(!isset($_SESSION['user-connected'])){
+            $_SESSION['user-connected'] = false;
+        }*/
+        $_SESSION['user-connected'] = false;
+
+        if(isset($_SESSION['user-type-account'])){
+            unset($_SESSION['user-type-account']);
+        }
+        if(isset($_SESSION['user-email'])){
+            unset($_SESSION['user-email']);
+        }
         require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'view' . DIRECTORY_SEPARATOR . 'homeView.php';
+
+    }
+
+    public function homePage(){
+        if(!isset($_SESSION['user-connected'])){
+            $_SESSION['user-connected'] = false;
+        }
+        require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'view' . DIRECTORY_SEPARATOR . 'homeView.php';
+
 
     }
 
