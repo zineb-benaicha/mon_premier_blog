@@ -97,10 +97,12 @@ if(session_id() == '') {
                                             
                                             <?php 
                                             if($_SESSION['user-type-account'] == 'admin'){
-                                                header("refresh:3;url=adminDashboardView.php");
+
+                                                header("refresh:3;url=../index.php?action=displayView&viewName=adminDashboard");
                                             }
                                             elseif($_SESSION['user-type-account'] == 'visitor'){
-                                                header("refresh:3;url=homeView.php");
+                                               
+                                               header("refresh:3;url=../index.php?action=displayView&viewName=home");
 
                                             }
 
@@ -110,7 +112,7 @@ if(session_id() == '') {
 
 
                                     <div class="card-footer text-center py-3">
-                                        <div class="small"><a href="registerView.php">Si vous n'avez pas encore créé votre compte faites le ici</a></div>
+                                        <div class="small"><a href="../index.php?action=displayView&viewName=register">Si vous n'avez pas encore créé votre compte faites le ici</a></div>
                                     </div>
                                 </div>
                             </div>

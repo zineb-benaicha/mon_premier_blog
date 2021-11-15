@@ -128,7 +128,7 @@
                                         <?php endif ?>
                                     </div>
                                     <div class="card-footer text-center py-3">
-                                        <div class="small"><a href="loginView.php">Si vous possédez déjà un compte connectez vous</a></div>
+                                        <div class="small"><a href="../index.php?action=displayView&viewName=login">Si vous possédez déjà un compte connectez vous</a></div>
                                     </div>
                                 </div>
                             </div>

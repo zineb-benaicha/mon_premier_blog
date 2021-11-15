@@ -169,6 +169,13 @@ if (isset($_GET['action'])) {
         }
         require_once 'view/resetPasswordView.php';
     }
+    elseif($_GET['action'] == 'displayView'){
+        
+        if(isset($_GET['viewName']) && !empty($_GET['viewName'])){
+            header('Location: view/' . $_GET['viewName'] . 'View.php');
+        }
+
+    }
 } else {
     $controllerFrontend->homePage();
 

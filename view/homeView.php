@@ -57,8 +57,8 @@
                         <h2 class="text-white mt-0">Devenez membre</h2>
                         <hr class="divider divider-light" />
                         <p class="text-white-75 mb-4">Rejoignez notre communauté et devenez membre en s'enregistrant, vous pourriez commenter les blogs et peut-être même les gérer!</p>
-                        <a class="btn btn-light btn-xl" href="view/registerView.php">S'enregistrer</a>
-                        <a class="btn btn-light btn-xl" href="view/loginView.php">Se connecter</a>
+                        <a class="btn btn-light btn-xl" href="../index.php?action=displayView&viewName=register">S'enregistrer</a>
+                        <a class="btn btn-light btn-xl" href="../index.php?action=displayView&viewName=login">Se connecter</a>
                     </div>
                 </div>
             </div>
