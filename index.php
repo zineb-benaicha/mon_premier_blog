@@ -181,7 +181,7 @@ if (isset($_GET['action'])) {
         unset($_SESSION['user-type-account']);
         unset($_SESSION['user-email']);    
         require_once 'view/homeView.php';*/
-        $controllerFrontend->initializeSession();
+        $controllerFrontend->destroySession();
     }
 } else {
     $controllerFrontend->homePage();

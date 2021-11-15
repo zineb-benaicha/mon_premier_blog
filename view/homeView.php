@@ -32,17 +32,26 @@ if(session_id() == '') {
                 if(isset($_SESSION['user-connected']) && $_SESSION['user-connected']){
                     //partie connexion navbar
                     $navbarConnexionClass = '';
+                    $classLogoutItem = '';
+                    $classLoginItem = 'd-none';
+                    if($_SESSION['user-type-account'] == 'admin'){
+                        $dashboardClassItem = '';
+                    }
+                    else{
+                        $dashboardClassItem = 'd-none';
+                    }
                     //partie Longin/register
                     $buttonPathRigister = "../index.php?action=logout";
                     $buttonNameRigister = 'Se deconnecter';
                     $connexionSectionClass = 'd-none';
                     $invitationButtonName = 'Deconnectez vous';
-
-                    
                 }
                 elseif(isset($_SESSION['user-connected']) && !$_SESSION['user-connected']){
                     //partie connexion navbar
+                    $dashboardClassItem = 'd-none';
                     $navbarConnexionClass = 'd-none';
+                    $classLogoutItem = 'd-none';
+                    $classLoginItem = '';
                     //partie Longin/register
                     $buttonPathRigister = "../index.php?action=displayView&viewName=register";
                     $buttonNameRigister = "S'enregistrer";
@@ -69,9 +78,10 @@ if(session_id() == '') {
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-lg"></i></a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                 <li><a class="<?=$navbarConnexionClass?> . dropdown-item" href="#!">Parametres</a></li>
-                                <li><a class="<?=$navbarConnexionClass?> . dropdown-item" href="#!">Tableau de bord</a></li>
+                                <li><a class="<?=$dashboardClassItem?> . dropdown-item" href="../index.php?action=displayView&viewName=adminDashboard">Tableau de bord</a></li>
                                 <li><hr class="<?=$navbarConnexionClass?> . dropdown-divider" /></li>
-                                <li><a class="dropdown-item" href="#!">Se deconnecter</a></li>
+                                <li><a class="<?=$classLogoutItem?> . dropdown-item" href="../index.php?action=logout">Se deconnecter</a></li>
+                                <li><a class="<?=$classLoginItem?> . dropdown-item" href="../index.php?action=displayView&viewName=login">Se connecter</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -95,7 +105,7 @@ if(session_id() == '') {
         </header>
         
         <!-- Longin/register-->
-        <section class="page-section bg-primary" id="about">
+        <section class="<?= $connexionSectionClass ?> . page-section bg-primary" id="about">
             <div class="container px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-lg-8 text-center">

@@ -10,7 +10,7 @@ require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARA
 class FrontendController
 {
 
-    public static function initializeSession()
+    public static function destroySession()
     {
         /*if(!isset($_SESSION['user-connected'])){
             $_SESSION['user-connected'] = false;
