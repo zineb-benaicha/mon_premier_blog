@@ -172,7 +172,8 @@ if (isset($_GET['action'])) {
     elseif($_GET['action'] == 'displayView'){
         
         if(isset($_GET['viewName']) && !empty($_GET['viewName'])){
-            header('Location: view/' . $_GET['viewName'] . 'View.php');
+            //header('Location: view/' . $_GET['viewName'] . 'View.php');
+            require_once 'view/' . $_GET['viewName'] . 'View.php';
         }
 
     }
@@ -182,6 +183,32 @@ if (isset($_GET['action'])) {
         unset($_SESSION['user-email']);    
         require_once 'view/homeView.php';*/
         $controllerFrontend->destroySession();
+    }
+    elseif($_GET['action'] == 'sentComment'){
+        if(isset($_GET['id_blog']) && $_GET['id_blog'] > 0){
+
+            if(isset($_POST['content']) && !empty($_POST['content'])){
+
+                if(isset($_SESSION['user-connected']) && $_SESSION['user-connected']){
+                    //appeler le controleur pour qu'il insère le commentaire en BDD
+                    $controllerFrontend->addComment(htmlspecialchars($_GET['id_blog']), $_POST['content']);
+    
+                }
+                else{
+    
+                    $controllerFrontend->displayBlog($_GET['id_blog']);
+                }
+
+            }
+            else{
+                
+                //$emptyFields['content'] = true;
+                $controllerFrontend->displayBlog($_GET['id_blog'], true);
+
+            }
+            
+
+        }
     }
 } else {
     $controllerFrontend->homePage();

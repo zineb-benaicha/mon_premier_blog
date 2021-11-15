@@ -47,7 +47,7 @@ class FrontendController
         require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'view' . DIRECTORY_SEPARATOR . 'listBlogsView.php';
     }
 
-    public function displayBlog($id)
+    public function displayBlog($id, $commentEmpty=null)
     {
         //chercher le blog
         $blogManager = new BlogManager();
@@ -58,6 +58,9 @@ class FrontendController
         $commentsNumber = $commentManager->commentsCounter($id);
         //chercher tous les commentaires du blog
         $blogComments = $commentManager->getComments($id);
+        if(isset($commentEmpty)){
+            $emptyFields['content'] = true;
+        }
 
         //afficher la vue qui va exploiter les données $blogToDispaly et $blogComments pour les afficher
         require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'view' . DIRECTORY_SEPARATOR . 'blogView.php';
@@ -220,6 +223,11 @@ class FrontendController
 
         }
         require_once 'view/resetPasswordView.php';
+
+    }
+
+    public function addComment($id_blog, $comment_content){
+
 
     }
 }
