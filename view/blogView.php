@@ -61,13 +61,14 @@ if(session_id() == '') {
                     <section class="mb-5" id="form_comment">
                         <div class="card bg-light">
                             <div class="card-body">
+
                                 <!-- Comment form-->
-                                
                                 <?php if (isset($emptyFields['content']) && $emptyFields['content']): ?>
                                     <div class="alert alert-danger" role="alert">
-                                        Vous devez saisir un comentaire!
+                                        Vous devez saisir un comentaire.
                                      </div>
                                 <?php endif?>
+                                
                                 <form class="mb-4" action="../index.php?action=sentComment&amp;id_blog=<?= $blogToDisplay['id']?>#form_comment" method="post">
                                     <textarea class="form-control" rows="3" placeholder="Laissez votre commentaire" name="content"></textarea>
                                     <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
@@ -75,16 +76,28 @@ if(session_id() == '') {
                                     </div>
                                 </form>
                                 
+                                <!-- résultat insertation commentaire -->
+                                <?php if (isset($commentInsertionError) && $commentInsertionError): ?>
+                                    <div class="alert alert-danger" role="alert">
+                                        Une erreur est survenu veuillez réessayer plus tard.
+                                     </div>
+                                <?php endif?>
+                                <?php if (isset($commentInsertionError) && !$commentInsertionError): ?>
+                                    <div class="alert alert-success" role="alert">
+                                        Votre commentaire a été enregistré, il est en attente de validation.
+                                     </div>
+                                <?php endif?>
+
                                 <?= var_dump($_SESSION) ?>
                                 <?php if( isset($_GET['action']) && $_GET['action'] == 'sentComment'):?>
-                                    <?php if(isset($_SESSION['user-connected']) && !$_SESSION['user-connected'] ): ?>
-                                        <?=  'je suis la'; ?>
+                                    <?php if(isset($_SESSION['user-connected']) && !$_SESSION['user-connected'] ): ?> 
                                         <div class="alert alert-danger" role="alert">
                                             Vous devez être connectés pour ajouter un commentaire.
                                         </div>
                                     <? endif ?>
                                 <? endif ?>
-                                <!-- Comment with nested comments-->
+
+                                <!-- Affichage des commentaires-->
                                 <?php if($commentsNumber == 0): ?>
                                     <p>Aucun Commentaire à afficher.</p>
                                 <?php elseif($commentsNumber > 0): ?>

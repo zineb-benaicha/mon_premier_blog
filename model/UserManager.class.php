@@ -49,4 +49,17 @@ class UserManager extends Manager {
         $isValidated = $result->fetch();
         return $isValidated;
     }
+
+    public function getUser($email){
+        $db = $this->dbConnect();
+        $user = $db->prepare('SELECT * FROM user WHERE email=?');
+        $result = $user->execute(array($email));
+        
+        if($result){
+            return $user->fetch();
+        }
+        else{
+            return false;
+        }
+    }
 }

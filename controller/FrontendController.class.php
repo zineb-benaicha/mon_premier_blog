@@ -23,6 +23,12 @@ class FrontendController
         if(isset($_SESSION['user-email'])){
             unset($_SESSION['user-email']);
         }
+        if(isset($_SESSION['user-name'])){
+            unset($_SESSION['user-name']);
+        }
+        if(isset($_SESSION['user-id'])){
+            unset($_SESSION['user-id']);
+        }
         require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'view' . DIRECTORY_SEPARATOR . 'homeView.php';
 
     }
@@ -47,7 +53,7 @@ class FrontendController
         require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'view' . DIRECTORY_SEPARATOR . 'listBlogsView.php';
     }
 
-    public function displayBlog($id, $commentEmpty=null)
+    public function displayBlog($id, $commentEmpty=null, $commentInsertionSuccess=null)
     {
         //chercher le blog
         $blogManager = new BlogManager();
@@ -56,10 +62,15 @@ class FrontendController
         //chercher le nombre de commentaires du blog
         $commentManager = new CommentManager();
         $commentsNumber = $commentManager->commentsCounter($id);
+
         //chercher tous les commentaires du blog
         $blogComments = $commentManager->getComments($id);
+
         if(isset($commentEmpty)){
             $emptyFields['content'] = true;
+        }
+        if(isset($commentInsertionSuccess)){
+            $commentInsertionError = !$commentInsertionSuccess;
         }
 
         //afficher la vue qui va exploiter les données $blogToDispaly et $blogComments pour les afficher
@@ -149,14 +160,29 @@ class FrontendController
                     
                 }
                 elseif($userManager->isAdmin($email)[0] == 1 && $userManager->isValidated($email)[0] == 1){
+
+                    if($userManager->getUser($email))
+                    {
+                        $userInformations = $userManager->getUser($email);
+                    }
+
                     $_SESSION['user-connected'] = true;
                     $_SESSION['user-type-account'] = 'admin';
                     $_SESSION['user-email'] = $email;    
+                    $_SESSION['user-id'] = $userInformations['id'];
+                    $_SESSION['user-name'] = $userInformations['name'];
                 }
                 elseif($userManager->isAdmin($email)[0] == 0){
+
+                    if($userManager->getUser($email))
+                    {
+                        $userInformations = $userManager->getUser($email);
+                    }
                     $_SESSION['user-connected'] = true;
                     $_SESSION['user-type-account'] = 'visitor';
                     $_SESSION['user-email'] = $email;
+                    $_SESSION['user-id'] = $userInformations['id'];
+                    $_SESSION['user-name'] = $userInformations['name'];
                 }                
                 
             }
@@ -226,8 +252,18 @@ class FrontendController
 
     }
 
-    public function addComment($id_blog, $comment_content){
+    public function addComment($id_blog, $id_user, $comment_content){
+        $commentManager = new CommentManager();
 
+        $queryInsertionCommentResult = $commentManager->setComment($id_blog, $id_user, $comment_content);
+        var_dump($queryInsertionCommentResult);
 
+        /*if($queryInsertionCommentResult){
+            $commentInsertionSuccess = true;
+        }
+        else{
+            $commentInsertionSuccess = false;
+        }*/
+        $this->displayBlog($id_blog);
     }
 }

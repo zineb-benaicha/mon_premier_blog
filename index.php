@@ -178,20 +178,15 @@ if (isset($_GET['action'])) {
 
     }
     elseif($_GET['action'] == 'logout'){
-        /*$_SESSION['user-connected'] = false;
-        unset($_SESSION['user-type-account']);
-        unset($_SESSION['user-email']);    
-        require_once 'view/homeView.php';*/
         $controllerFrontend->destroySession();
     }
     elseif($_GET['action'] == 'sentComment'){
         if(isset($_GET['id_blog']) && $_GET['id_blog'] > 0){
-
             if(isset($_POST['content']) && !empty($_POST['content'])){
-
+                
                 if(isset($_SESSION['user-connected']) && $_SESSION['user-connected']){
                     //appeler le controleur pour qu'il insère le commentaire en BDD
-                    $controllerFrontend->addComment(htmlspecialchars($_GET['id_blog']), $_POST['content']);
+                    $controllerFrontend->addComment(htmlspecialchars($_GET['id_blog']), $_SESSION['user-id'],htmlspecialchars($_POST['content']));
     
                 }
                 else{
