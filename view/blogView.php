@@ -88,7 +88,7 @@ if(session_id() == '') {
                                      </div>
                                 <?php endif?>
 
-                                <?= var_dump($_SESSION) ?>
+                               
                                 <?php if( isset($_GET['action']) && $_GET['action'] == 'sentComment'):?>
                                     <?php if(isset($_SESSION['user-connected']) && !$_SESSION['user-connected'] ): ?> 
                                         <div class="alert alert-danger" role="alert">
@@ -102,14 +102,16 @@ if(session_id() == '') {
                                     <p>Aucun Commentaire à afficher.</p>
                                 <?php elseif($commentsNumber > 0): ?>
                                     <?php while($comment = $blogComments->fetch()): ?>
+                                        
                                         <!-- Single comment-->
                                         <div class="d-flex">
                                             <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
                                             <div class="ms-3">
-                                                <div class="fw-bold"><?= $comment['id_user'] ?></div>
+                                                <div class="fw-bold"><?= $comment['name'] ?></div>
                                                 <?= $comment['content'] ?>
                                             </div>
                                         </div>
+                                        <br>
                                     <?php endwhile ?>
                                 <?php endif ?>
                             </div>

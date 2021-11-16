@@ -12,9 +12,6 @@ class FrontendController
 
     public static function destroySession()
     {
-        /*if(!isset($_SESSION['user-connected'])){
-            $_SESSION['user-connected'] = false;
-        }*/
         $_SESSION['user-connected'] = false;
 
         if(isset($_SESSION['user-type-account'])){
@@ -63,13 +60,14 @@ class FrontendController
         $commentManager = new CommentManager();
         $commentsNumber = $commentManager->commentsCounter($id);
 
-        //chercher tous les commentaires du blog
+        //chercher tous les commentaires validés du blog
         $blogComments = $commentManager->getComments($id);
-
+        
         if(isset($commentEmpty)){
             $emptyFields['content'] = true;
         }
         if(isset($commentInsertionSuccess)){
+            
             $commentInsertionError = !$commentInsertionSuccess;
         }
 
@@ -256,14 +254,14 @@ class FrontendController
         $commentManager = new CommentManager();
 
         $queryInsertionCommentResult = $commentManager->setComment($id_blog, $id_user, $comment_content);
-        var_dump($queryInsertionCommentResult);
+       
 
-        /*if($queryInsertionCommentResult){
+        if($queryInsertionCommentResult){
             $commentInsertionSuccess = true;
         }
         else{
             $commentInsertionSuccess = false;
-        }*/
-        $this->displayBlog($id_blog);
+        }
+        $this->displayBlog($id_blog, null, $queryInsertionCommentResult);
     }
 }
