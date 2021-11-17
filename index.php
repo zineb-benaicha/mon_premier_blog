@@ -39,10 +39,18 @@ if (isset($_GET['action'])) {
             $emptyFields['email'] = false;
             $emptyFields['message'] = false;
 
-            if (empty($_POST['first-name'])) {$emptyFields['first-name'] = true;}
-            if (empty($_POST['last-name'])) {$emptyFields['last-name'] = true;}
-            if (empty($_POST['email'])) {$emptyFields['email'] = true;}
-            if (empty($_POST['message'])) {$emptyFields['message'] = true;}
+            if (empty($_POST['first-name'])) {
+                $emptyFields['first-name'] = true;
+            }
+            if (empty($_POST['last-name'])) {
+                $emptyFields['last-name'] = true;
+            }
+            if (empty($_POST['email'])) {
+                $emptyFields['email'] = true;
+            }
+            if (empty($_POST['message'])) {
+                $emptyFields['message'] = true;
+            }
             require_once 'view/contactView.php';
 
         }
