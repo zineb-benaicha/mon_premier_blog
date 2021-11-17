@@ -1,3 +1,8 @@
+<?php
+if(session_id() == '') {
+    session_start();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -53,70 +58,65 @@
                     </article>
 
                     <!-- Comments section-->
-                    <section class="mb-5">
+                    <section class="mb-5" id="form_comment">
                         <div class="card bg-light">
                             <div class="card-body">
+
                                 <!-- Comment form-->
-                                <form class="mb-4"><textarea class="form-control" rows="3" placeholder="Join the discussion and leave a comment!"></textarea></form>
-                                <!-- Comment with nested comments-->
+                                <?php if (isset($emptyFields['content']) && $emptyFields['content']): ?>
+                                    <div class="alert alert-danger" role="alert">
+                                        Vous devez saisir un comentaire.
+                                     </div>
+                                <?php endif?>
+                                
+                                <form class="mb-4" action="../index.php?action=sentComment&amp;id_blog=<?= $blogToDisplay['id']?>#form_comment" method="post">
+                                    <textarea class="form-control" rows="3" placeholder="Laissez votre commentaire" name="content"></textarea>
+                                    <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+                                        <button class="btn btn-primary" id="submitButton" type="submit">Publier</button>
+                                    </div>
+                                </form>
+                                
+                                <!-- résultat insertation commentaire -->
+                                <?php if (isset($commentInsertionError) && $commentInsertionError): ?>
+                                    <div class="alert alert-danger" role="alert">
+                                        Une erreur est survenu veuillez réessayer plus tard.
+                                     </div>
+                                <?php endif?>
+                                <?php if (isset($commentInsertionError) && !$commentInsertionError): ?>
+                                    <div class="alert alert-success" role="alert">
+                                        Votre commentaire a été enregistré, il est en attente de validation.
+                                     </div>
+                                <?php endif?>
+
+                               
+                                <?php if( isset($_GET['action']) && $_GET['action'] == 'sentComment'):?>
+                                    <?php if(isset($_SESSION['user-connected']) && !$_SESSION['user-connected'] ): ?> 
+                                        <div class="alert alert-danger" role="alert">
+                                            Vous devez être connectés pour ajouter un commentaire.
+                                        </div>
+                                    <? endif ?>
+                                <? endif ?>
+
+                                <!-- Affichage des commentaires-->
                                 <?php if($commentsNumber == 0): ?>
                                     <p>Aucun Commentaire à afficher.</p>
                                 <?php elseif($commentsNumber > 0): ?>
                                     <?php while($comment = $blogComments->fetch()): ?>
+                                        
                                         <!-- Single comment-->
                                         <div class="d-flex">
                                             <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
                                             <div class="ms-3">
-                                                <div class="fw-bold"><?= $comment['id_user'] ?></div>
+                                                <div class="fw-bold"><?= $comment['name'] ?></div>
                                                 <?= $comment['content'] ?>
                                             </div>
                                         </div>
+                                        <br>
                                     <?php endwhile ?>
                                 <?php endif ?>
                             </div>
                         </div>
                     </section>
-
-                </div>
-                <!-- Side widgets-->
-                <div class="col-lg-4">
-                    <!-- Search widget-->
-                    <div class="card mb-4">
-                        <div class="card-header">Search</div>
-                        <div class="card-body">
-                            <div class="input-group">
-                                <input class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
-                                <button class="btn btn-primary" id="button-search" type="button">Go!</button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Categories widget-->
-                    <div class="card mb-4">
-                        <div class="card-header">Categories</div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <ul class="list-unstyled mb-0">
-                                        <li><a href="#!">Web Design</a></li>
-                                        <li><a href="#!">HTML</a></li>
-                                        <li><a href="#!">Freebies</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col-sm-6">
-                                    <ul class="list-unstyled mb-0">
-                                        <li><a href="#!">JavaScript</a></li>
-                                        <li><a href="#!">CSS</a></li>
-                                        <li><a href="#!">Tutorials</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Side widget-->
-                    <div class="card mb-4">
-                        <div class="card-header">Side Widget</div>
-                        <div class="card-body">You can put anything you want inside of these side widgets. They are easy to use, and feature the Bootstrap 5 card component!</div>
-                    </div>
                 </div>
             </div>
         </div>
