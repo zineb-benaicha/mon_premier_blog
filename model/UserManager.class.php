@@ -75,4 +75,18 @@ class UserManager extends Manager
         return $users;
 
     }
+
+    public function deleteUser($id)
+    {
+        $db = $this->dbConnect();
+        $query = $db->prepare('DELETE FROM user WHERE id = :id');
+        return $query->execute(['id' => $id]);
+    }
+
+    public function validateUser($id)
+    {
+        $db = $this->dbConnect();
+        $query = $db->prepare('UPDATE user SET is_validated = ?  WHERE id = ?');
+        return $query->execute(array(1, $id));
+    }
 }

@@ -187,10 +187,10 @@ if (isset($_GET['action'])) {
 
         }
     } elseif ($_GET['action'] == 'manageUsersForAdmin') {
-        $frontendController->displayUsers();
+        $backendController->displayUsers();
     } elseif ($_GET['action'] == 'deleteUserFromAdmin') {
         if (isset($_GET['id_user']) && $_GET['id_user'] > 0) {
-            $backendController->deleteUser(htmlspecialchars($_GET['id_user']));
+            $backendController->removeUser(htmlspecialchars($_GET['id_user']));
         } else {
             require_once 'view/adminDashboardView.php';
         }
@@ -200,7 +200,7 @@ if (isset($_GET['action'])) {
 
             $backendController->validateUser(htmlspecialchars($_GET['id_user']));
         } else {
-            require_once 'adminDashboardView.php';
+            require_once 'view/adminDashboardView.php';
         }
 
     }

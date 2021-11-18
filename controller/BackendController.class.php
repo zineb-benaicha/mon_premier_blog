@@ -9,15 +9,47 @@ require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARA
 
 class BackendController
 {
-
-    public function deleteUser($id_user)
+    public function displayUsers($userDeleteSuccess=null, $userValidateSuccess=null)
     {
+        $userManager = new UserManager();
+        $usersList = $userManager->getUsers();
         
+        if (!$usersList) {
+            $queryError = true;
+        }
+        elseif (get_class($usersList) == 'PDOStatement' && $usersList->fetch() === false) {
+            $usersListEmpty = true;
+        }
+        else {
+            $usersListEmpty = false;
+        }
+        
+        require_once 'view/usersManagementDashboardView.php';
 
+    }
+
+    public function removeUser($id_user)
+    {
+        $userManager = new UserManager();
+        if ($userManager->deleteUser($id_user)) {
+            $userDeleteSuccess = true;
+        }
+        else {
+            $userDeleteSuccess = false;
+        }
+        $this->displayUsers($userDeleteSuccess);
     }
 
     public function validateUser($id_user)
     {
+        $userManager = new UserManager();
+        if ($userManager->validateUser($id_user)) {
+            $userValidateSuccess = true;
+        }
+        else {
+            $userValidateSuccess = false;
+        }
+        $this->displayUsers(null,$userValidateSuccess);
 
     }
 }

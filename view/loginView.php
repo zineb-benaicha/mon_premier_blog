@@ -97,16 +97,16 @@ if (session_id() == '') {
                                             </div>
 
                                             <?php
-if ($_SESSION['user-type-account'] == 'admin') {
+                                                if ($_SESSION['user-type-account'] == 'admin') {
 
-    header("refresh:3;url=../index.php?action=displayView&viewName=adminDashboard");
-} elseif ($_SESSION['user-type-account'] == 'visitor') {
+                                                    header("refresh:3;url=../index.php?action=displayView&viewName=adminDashboard");
+                                                } elseif ($_SESSION['user-type-account'] == 'visitor') {
 
-    header("refresh:3;url=../index.php?action=displayView&viewName=home");
+                                                    header("refresh:3;url=../index.php?action=displayView&viewName=home");
 
-}
+                                                }
 
-?>
+                                            ?>
                                         <?php endif?>
                                     </div>
 

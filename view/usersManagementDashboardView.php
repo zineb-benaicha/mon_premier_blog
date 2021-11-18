@@ -112,8 +112,8 @@
                     <div class="container-fluid px-4">
                         <h1 class="mt-4">Les utilisateurs</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Tables</li>
+                            <li class="breadcrumb-item"><a href="../index.php?action=displayView&viewName=adminDashboard">Dashboard</a></li>
+                            
                         </ol>
                         <div class="card mb-4">
                             <div class="card-body">
@@ -125,6 +125,29 @@
                                 <i class="fas fa-table me-1"></i>
                                 Liste des utilisateurs
                             </div>
+                            <?php if(isset($userDeleteSuccess) && $userDeleteSuccess): ?>
+                                <div class="alert alert-success" role="alert">
+                                    L'utilisateur a bien été supprimé !
+                                </div>
+                            <?php endif ?>
+                            <?php if(isset($userDeleteSuccess) && !$userDeleteSuccess): ?>
+                                <div class="alert alert-danger" role="alert">
+                                    Une erreur est survenue veuillez réessayer plus tard !
+                                </div>
+                            <?php endif ?>
+
+                            <?php if(isset($userValidateSuccess) && $userValidateSuccess): ?>
+                                <div class="alert alert-success" role="alert">
+                                    L'utilisateur a bien été validé !
+                                </div>
+                            <?php endif ?>
+                            <?php if(isset($userValidateSuccess) && !$userValidateSuccess): ?>
+                                <div class="alert alert-danger" role="alert">
+                                    Une erreur est survenue veuillez réessayer plus tard !
+                                </div>
+                            <?php endif ?>
+
+                            
                             <div class="card-body">
                                 <table id="datatablesSimple">
                                     <thead>
