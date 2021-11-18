@@ -66,7 +66,7 @@ if (session_id() == '') {
                                 <?php if (isset($emptyFields['content']) && $emptyFields['content']): ?>
                                     <div class="alert alert-danger" role="alert">
                                         Vous devez saisir un comentaire.
-                                     </div>
+                                    </div>
                                 <?php endif?>
 
                                 <form class="mb-4" action="../index.php?action=sentComment&amp;id_blog=<?=$blogToDisplay['id']?>#form_comment" method="post">
@@ -80,12 +80,12 @@ if (session_id() == '') {
                                 <?php if (isset($commentInsertionError) && $commentInsertionError): ?>
                                     <div class="alert alert-danger" role="alert">
                                         Une erreur est survenu veuillez réessayer plus tard.
-                                     </div>
+                                    </div>
                                 <?php endif?>
                                 <?php if (isset($commentInsertionError) && !$commentInsertionError): ?>
                                     <div class="alert alert-success" role="alert">
                                         Votre commentaire a été enregistré, il est en attente de validation.
-                                     </div>
+                                    </div>
                                 <?php endif?>
 
 
@@ -94,8 +94,8 @@ if (session_id() == '') {
                                         <div class="alert alert-danger" role="alert">
                                             Vous devez être connectés pour ajouter un commentaire.
                                         </div>
-                                    <?endif?>
-                                <?endif?>
+                                    <?php endif?>
+                                <?php endif?>
 
                                 <!-- Affichage des commentaires-->
                                 <?php if ($commentsNumber == 0): ?>
