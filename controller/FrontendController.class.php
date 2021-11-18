@@ -1,5 +1,5 @@
 <?php
-if(session_id() == '') {
+if (session_id() == '') {
     session_start();
 }
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'BlogManager.class.php';
@@ -14,28 +14,28 @@ class FrontendController
     {
         $_SESSION['user-connected'] = false;
 
-        if(isset($_SESSION['user-type-account'])){
+        if (isset($_SESSION['user-type-account'])) {
             unset($_SESSION['user-type-account']);
         }
-        if(isset($_SESSION['user-email'])){
+        if (isset($_SESSION['user-email'])) {
             unset($_SESSION['user-email']);
         }
-        if(isset($_SESSION['user-name'])){
+        if (isset($_SESSION['user-name'])) {
             unset($_SESSION['user-name']);
         }
-        if(isset($_SESSION['user-id'])){
+        if (isset($_SESSION['user-id'])) {
             unset($_SESSION['user-id']);
         }
         require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'view' . DIRECTORY_SEPARATOR . 'homeView.php';
 
     }
 
-    public function homePage(){
-        if(!isset($_SESSION['user-connected'])){
+    public function homePage()
+    {
+        if (!isset($_SESSION['user-connected'])) {
             $_SESSION['user-connected'] = false;
         }
         require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'view' . DIRECTORY_SEPARATOR . 'homeView.php';
-
 
     }
 
@@ -50,7 +50,7 @@ class FrontendController
         require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'view' . DIRECTORY_SEPARATOR . 'listBlogsView.php';
     }
 
-    public function displayBlog($id, $commentEmpty=null, $commentInsertionSuccess=null)
+    public function displayBlog($id, $commentEmpty = null, $commentInsertionSuccess = null)
     {
         //chercher le blog
         $blogManager = new BlogManager();
@@ -62,12 +62,12 @@ class FrontendController
 
         //chercher tous les commentaires validés du blog
         $blogComments = $commentManager->getComments($id);
-        
-        if(isset($commentEmpty)){
+
+        if (isset($commentEmpty)) {
             $emptyFields['content'] = true;
         }
-        if(isset($commentInsertionSuccess)){
-            
+        if (isset($commentInsertionSuccess)) {
+
             $commentInsertionError = !$commentInsertionSuccess;
         }
 
@@ -106,7 +106,8 @@ class FrontendController
 
     }
 
-    public function registerUser($name, $email, $password, $accountType){
+    public function registerUser($name, $email, $password, $accountType)
+    {
 
         $emailExists = false;
         $userRigistred = false;
@@ -114,66 +115,60 @@ class FrontendController
         $userManager = new UserManager();
 
         //vérifier si un compte existe déjà avec cet email
-        if($userManager->userEmailsNumber($email) == 0){
-            
-            if($accountType == 'administrateur'){
+        if ($userManager->userEmailsNumber($email) == 0) {
+
+            if ($accountType == 'administrateur') {
                 $isAdmin = 1;
                 $isValidated = 0;
-            }
-            else{
+            } else {
                 $isAdmin = 0;
                 $isValidated = 1;
-            }           
+            }
 
-            if($userManager->setUser($name, $email, password_hash($password, PASSWORD_DEFAULT), $isAdmin, $isValidated)){
+            if ($userManager->setUser($name, $email, password_hash($password, PASSWORD_DEFAULT), $isAdmin, $isValidated)) {
                 $userRigistred = true;
             }
-            
-        }
-        elseif($userManager->userEmailsNumber($email) > 0){
+
+        } elseif ($userManager->userEmailsNumber($email) > 0) {
             $emailExists = true;
         }
-            require_once 'view/registerView.php';
+        require_once 'view/registerView.php';
 
     }
 
     public function connexionUser($email, $password)
-    { 
+    {
         $userManager = new UserManager();
 
         $userEmailNumber = $userManager->userEmailsNumber($email);
 
-        if($userEmailNumber == 1){
+        if ($userEmailNumber == 1) {
 
             $hashedPassword = $userManager->getHashedPassword($email)[0];
 
-            if(password_verify($password, $hashedPassword)){
+            if (password_verify($password, $hashedPassword)) {
 
-                if($userManager->isAdmin($email)[0] == 1 && $userManager->isValidated($email)[0] == 0){
+                if ($userManager->isAdmin($email)[0] == 1 && $userManager->isValidated($email)[0] == 0) {
                     $userAccountAdminNotValidated = true;
-                    if(isset($_SESSION)){
+                    if (isset($_SESSION)) {
                         unset($_SESSION);
                     }
                     $_SESSION['user-connected'] = false;
-                    
-                }
-                elseif($userManager->isAdmin($email)[0] == 1 && $userManager->isValidated($email)[0] == 1){
 
-                    if($userManager->getUser($email))
-                    {
+                } elseif ($userManager->isAdmin($email)[0] == 1 && $userManager->isValidated($email)[0] == 1) {
+
+                    if ($userManager->getUser($email)) {
                         $userInformations = $userManager->getUser($email);
                     }
 
                     $_SESSION['user-connected'] = true;
                     $_SESSION['user-type-account'] = 'admin';
-                    $_SESSION['user-email'] = $email;    
+                    $_SESSION['user-email'] = $email;
                     $_SESSION['user-id'] = $userInformations['id'];
                     $_SESSION['user-name'] = $userInformations['name'];
-                }
-                elseif($userManager->isAdmin($email)[0] == 0){
+                } elseif ($userManager->isAdmin($email)[0] == 0) {
 
-                    if($userManager->getUser($email))
-                    {
+                    if ($userManager->getUser($email)) {
                         $userInformations = $userManager->getUser($email);
                     }
                     $_SESSION['user-connected'] = true;
@@ -181,32 +176,29 @@ class FrontendController
                     $_SESSION['user-email'] = $email;
                     $_SESSION['user-id'] = $userInformations['id'];
                     $_SESSION['user-name'] = $userInformations['name'];
-                }                
-                
-            }
-            else{
-                if(isset($_SESSION)){
+                }
+
+            } else {
+                if (isset($_SESSION)) {
                     unset($_SESSION);
                 }
                 $_SESSION['user-connected'] = false;
                 $userPasswordError = true;
 
             }
-        }
-        elseif($userEmailNumber == 0){
-            if(isset($_SESSION)){
+        } elseif ($userEmailNumber == 0) {
+            if (isset($_SESSION)) {
                 unset($_SESSION);
             }
             $_SESSION['user-connected'] = false;
             $userAccountExists = false;
-        }
-        elseif(!$userEmailNumber){
-            if(isset($_SESSION)){
+        } elseif (!$userEmailNumber) {
+            if (isset($_SESSION)) {
                 unset($_SESSION);
             }
             $_SESSION['user-connected'] = false;
             $userConexionError = true;
-        }        
+        }
         require_once 'view/loginView.php';
     }
 
@@ -219,47 +211,42 @@ class FrontendController
 
         $numberEmailFounded = $userManager->userEmailsNumber($email);
 
-        if($numberEmailFounded == 0){
+        if ($numberEmailFounded == 0) {
             $recoveryEmailNotFound = true;
             require_once 'view/forgottenPasswordView.php';
-        }
-        
-        elseif($numberEmailFounded == 1){//l'email existe bien dans la BDD
+        } elseif ($numberEmailFounded == 1) { //l'email existe bien dans la BDD
             //2-appeler la vue qui permet d'initialiser le mot de passe
             $emailRecovery = $email;
             require_once "view/resetPasswordView.php";
         }
     }
 
-    public function passwordReset($password, $email){
-        
+    public function passwordReset($password, $email)
+    {
+
         $userManager = new UserManager();
-        if($userManager->passwordUpdate(password_hash($password, PASSWORD_DEFAULT), $email)){
+        if ($userManager->passwordUpdate(password_hash($password, PASSWORD_DEFAULT), $email)) {
             //mise à jour du mot de passe réussie
             $passwordUpdateSuccess = true;
-            
 
-        }
-        else{
+        } else {
             //mise à jour du mot de passe a échoué
             $passwordUpdateError = true;
-            
 
         }
         require_once 'view/resetPasswordView.php';
 
     }
 
-    public function addComment($id_blog, $id_user, $comment_content){
+    public function addComment($id_blog, $id_user, $comment_content)
+    {
         $commentManager = new CommentManager();
 
         $queryInsertionCommentResult = $commentManager->setComment($id_blog, $id_user, $comment_content);
-       
 
-        if($queryInsertionCommentResult){
+        if ($queryInsertionCommentResult) {
             $commentInsertionSuccess = true;
-        }
-        else{
+        } else {
             $commentInsertionSuccess = false;
         }
         $this->displayBlog($id_blog, null, $queryInsertionCommentResult);
