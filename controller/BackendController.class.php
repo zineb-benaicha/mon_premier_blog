@@ -12,6 +12,7 @@ class BackendController
 
     public function deleteUser($id_user)
     {
+        
 
     }
 
