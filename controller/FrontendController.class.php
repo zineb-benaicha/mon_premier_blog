@@ -251,4 +251,23 @@ class FrontendController
         }
         $this->displayBlog($id_blog, null, $queryInsertionCommentResult);
     }
+
+    public function displayUsers()
+    {
+        $userManager = new UserManager();
+        $usersList = $userManager->getUsers();
+        
+        if (!$usersList) {
+            $queryError = true;
+        }
+        elseif (get_class($usersList) == 'PDOStatement' && $usersList->fetch() === false) {
+            $usersListEmpty = true;
+        }
+        else {
+            $usersListEmpty = false;
+        }
+        
+        require_once 'view/usersManagementDashboardView.php';
+
+    }
 }

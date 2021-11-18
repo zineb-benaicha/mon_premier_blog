@@ -9,26 +9,27 @@ function loadClass($class)
 spl_autoload_register('loadClass');
 
 //instacier un contolleur frontend
-$controllerFrontend = new FrontendController();
+$frontendController = new FrontendController();
+$backendController = new BackendController();
 
 if (isset($_GET['action'])) {
 
     if ($_GET['action'] == 'home') {
-        $controllerFrontend->homePage();
+        $frontendController->homePage();
     } elseif ($_GET['action'] == 'listBlogs') {
         //appeler le contolleur pour qu'il affiche la liste de tous les blogs
 
-        $controllerFrontend->listBlogs();
+        $frontendController->listBlogs();
 
     } elseif ($_GET['action'] == 'displayBlog') {
         if (isset($_GET['id']) && $_GET['id'] > 0) {
             //appeler le controlleur pour qu'il affiche le blog: id
-            $controllerFrontend->displayBlog($_GET['id']);
+            $frontendController->displayBlog($_GET['id']);
         }
     } elseif ($_GET['action'] == 'sentMessage') {
         if (!empty($_POST['first-name']) && !empty($_POST['last-name']) && !empty($_POST['email']) && !empty($_POST['message'])) {
             //appeler le controlleur pour qu'il gère le message reçu
-            $controllerFrontend->sentMessage(htmlspecialchars($_POST['first-name']), htmlspecialchars($_POST['last-name']), htmlspecialchars($_POST['email']), htmlspecialchars($_POST['message']));
+            $frontendController->sentMessage(htmlspecialchars($_POST['first-name']), htmlspecialchars($_POST['last-name']), htmlspecialchars($_POST['email']), htmlspecialchars($_POST['message']));
 
         } else {
 
@@ -74,7 +75,7 @@ if (isset($_GET['action'])) {
                 $email = htmlspecialchars($_POST['email']);
                 $password = htmlspecialchars($_POST['password']);
                 $accountType = $_POST['accountType'];
-                $controllerFrontend->registerUser($name, $email, $password, $accountType);
+                $frontendController->registerUser($name, $email, $password, $accountType);
             } else {
                 require_once 'view/registerView.php';
             }
@@ -106,7 +107,7 @@ if (isset($_GET['action'])) {
     } elseif ($_GET['action'] == 'accountConnexionRequest') {
 
         if (!empty($_POST['email']) && !empty($_POST['password'])) {
-            $controllerFrontend->connexionUser(htmlspecialchars($_POST['email']), htmlspecialchars($_POST['password']));
+            $frontendController->connexionUser(htmlspecialchars($_POST['email']), htmlspecialchars($_POST['password']));
         } else {
 
             $emptyFields['email'] = false;
@@ -127,7 +128,7 @@ if (isset($_GET['action'])) {
 
         if (!empty($_POST['email'])) {
 
-            $controllerFrontend->passwordRecovery(htmlspecialchars($_POST['email']));
+            $frontendController->passwordRecovery(htmlspecialchars($_POST['email']));
         } else {
             $emptyFields['email'] = true;
             require_once 'view/forgottenPasswordView.php';
@@ -141,7 +142,7 @@ if (isset($_GET['action'])) {
 
                 if ($_POST['password'] === $_POST['passwordConfirm']) {
                     //appeler le controleur pour qu'il mette à jour le mot de passe
-                    $controllerFrontend->passwordReset(htmlspecialchars($_POST['password']), htmlspecialchars($_GET['emailRecovery']));
+                    $frontendController->passwordReset(htmlspecialchars($_POST['password']), htmlspecialchars($_GET['emailRecovery']));
 
                 } else {
                     $passwordMatch = false;
@@ -164,29 +165,46 @@ if (isset($_GET['action'])) {
         }
 
     } elseif ($_GET['action'] == 'logout') {
-        $controllerFrontend->destroySession();
+        $frontendController->destroySession();
     } elseif ($_GET['action'] == 'sentComment') {
         if (isset($_GET['id_blog']) && $_GET['id_blog'] > 0) {
             if (isset($_POST['content']) && !empty($_POST['content'])) {
 
                 if (isset($_SESSION['user-connected']) && $_SESSION['user-connected']) {
                     //appeler le controleur pour qu'il insère le commentaire en BDD
-                    $controllerFrontend->addComment(htmlspecialchars($_GET['id_blog']), $_SESSION['user-id'], htmlspecialchars($_POST['content']));
+                    $frontendController->addComment(htmlspecialchars($_GET['id_blog']), $_SESSION['user-id'], htmlspecialchars($_POST['content']));
 
                 } else {
 
-                    $controllerFrontend->displayBlog($_GET['id_blog']);
+                    $frontendController->displayBlog($_GET['id_blog']);
                 }
 
             } else {
 
-                $controllerFrontend->displayBlog($_GET['id_blog'], true);
+                $frontendController->displayBlog($_GET['id_blog'], true);
 
             }
 
         }
+    } elseif ($_GET['action'] == 'manageUsersForAdmin') {
+        $frontendController->displayUsers();
+    } elseif ($_GET['action'] == 'deleteUserFromAdmin') {
+        if (isset($_GET['id_user']) && $_GET['id_user'] > 0) {
+            $backendController->deleteUser(htmlspecialchars($_GET['id_user']));
+        } else {
+            require_once 'view/adminDashboardView.php';
+        }
+
+    } elseif ($_GET['action'] == 'validateUserFromAdmin') {
+        if (isset($_GET['id_user']) && $_GET['id_user'] > 0) {
+
+            $backendController->validateUser(htmlspecialchars($_GET['id_user']));
+        } else {
+            require_once 'adminDashboardView.php';
+        }
+
     }
 } else {
-    $controllerFrontend->homePage();
+    $frontendController->homePage();
 
 }

@@ -67,4 +67,12 @@ class UserManager extends Manager
             return false;
         }
     }
+
+    public function getUsers()
+    {
+        $db = $this->dbConnect();
+        $users = $db->query('SELECT * FROM user');
+        return $users;
+
+    }
 }
