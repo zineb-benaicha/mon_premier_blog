@@ -1,5 +1,5 @@
 <?php
-if(session_id() == '') {
+if (session_id() == '') {
     session_start();
 }
 ?>
@@ -24,41 +24,39 @@ if(session_id() == '') {
         <link href="../public/css/styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
 
-        
+
     </head>
     <body id="page-top">
-    <?= var_dump($_SESSION) ?>
-                <?php 
-                if(isset($_SESSION['user-connected']) && $_SESSION['user-connected']){
-                    //partie connexion navbar
-                    $navbarConnexionClass = '';
-                    $classLogoutItem = '';
-                    $classLoginItem = 'd-none';
-                    if($_SESSION['user-type-account'] == 'admin'){
-                        $dashboardClassItem = '';
-                    }
-                    else{
-                        $dashboardClassItem = 'd-none';
-                    }
-                    //partie Longin/register
-                    $buttonPathRigister = "../index.php?action=logout";
-                    $buttonNameRigister = 'Se deconnecter';
-                    $connexionSectionClass = 'd-none';
-                    $invitationButtonName = 'Deconnectez vous';
-                }
-                elseif(isset($_SESSION['user-connected']) && !$_SESSION['user-connected']){
-                    //partie connexion navbar
-                    $dashboardClassItem = 'd-none';
-                    $navbarConnexionClass = 'd-none';
-                    $classLogoutItem = 'd-none';
-                    $classLoginItem = '';
-                    //partie Longin/register
-                    $buttonPathRigister = "../index.php?action=displayView&viewName=register";
-                    $buttonNameRigister = "S'enregistrer";
-                    $connexionSectionClass = '';
-                    $invitationButtonName = 'Devenez membre';
-                }
-                ?>
+
+                <?php
+if (isset($_SESSION['user-connected']) && $_SESSION['user-connected']) {
+    //partie connexion navbar
+    $navbarConnexionClass = '';
+    $classLogoutItem = '';
+    $classLoginItem = 'd-none';
+    if ($_SESSION['user-type-account'] == 'admin') {
+        $dashboardClassItem = '';
+    } else {
+        $dashboardClassItem = 'd-none';
+    }
+    //partie Longin/register
+    $buttonPathRigister = "../index.php?action=logout";
+    $buttonNameRigister = 'Se deconnecter';
+    $connexionSectionClass = 'd-none';
+    $invitationButtonName = 'Deconnectez vous';
+} elseif (isset($_SESSION['user-connected']) && !$_SESSION['user-connected']) {
+    //partie connexion navbar
+    $dashboardClassItem = 'd-none';
+    $navbarConnexionClass = 'd-none';
+    $classLogoutItem = 'd-none';
+    $classLoginItem = '';
+    //partie Longin/register
+    $buttonPathRigister = "../index.php?action=displayView&viewName=register";
+    $buttonNameRigister = "S'enregistrer";
+    $connexionSectionClass = '';
+    $invitationButtonName = 'Devenez membre';
+}
+?>
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
             <div class="container px-4 px-lg-5">
@@ -71,7 +69,7 @@ if(session_id() == '') {
                         <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
                         <li class="nav-item"><a class="nav-link" href="view/contactView.php">Contact</a></li>
                     </ul>
-                    
+
                     <!-- Connexion Navbar-->
                     <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
                         <li class="nav-item dropdown">
@@ -103,17 +101,17 @@ if(session_id() == '') {
                 </div>
             </div>
         </header>
-        
+
         <!-- Longin/register-->
-        <section class="<?= $connexionSectionClass ?> . page-section bg-primary" id="about">
+        <section class="<?=$connexionSectionClass?> . page-section bg-primary" id="about">
             <div class="container px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-lg-8 text-center">
-                        <h2 class="text-white mt-0"><?= $invitationButtonName ?></h2>
+                        <h2 class="text-white mt-0"><?=$invitationButtonName?></h2>
                         <hr class="divider divider-light" />
                         <p class="text-white-75 mb-4">Rejoignez notre communauté et devenez membre en s'enregistrant, vous pourriez commenter les blogs et peut-être même les gérer!</p>
-                        <a class="btn btn-light btn-xl" href=<?= $buttonPathRigister?>><?= $buttonNameRigister ?></a>
-                        <a class= "<?= $loginButtonClass ?> . btn btn-light btn-xl" href="../index.php?action=displayView&viewName=login">Se connecter</a>
+                        <a class="btn btn-light btn-xl" href=<?=$buttonPathRigister?>><?=$buttonNameRigister?></a>
+                        <a class= "<?=$loginButtonClass?> . btn btn-light btn-xl" href="../index.php?action=displayView&viewName=login">Se connecter</a>
                     </div>
                 </div>
             </div>

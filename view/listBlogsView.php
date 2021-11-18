@@ -48,28 +48,27 @@ require_once 'oneBlog.php';
 
                     <!-- Featured blog post-->
                     <?php
-                        if($blogsNumber > 0){ displayBlog2($listBlogs); $blogsNumber--;}
-                    ?>
-                        
+if ($blogsNumber > 0) {displayBlog2($listBlogs);
+    $blogsNumber--;}
+?>
+
                     <!-- Nested row for non-featured blog posts-->
                     <div class="row">
-                        <?php while($blogsNumber > 0) 
-                        {
-                            for($i=1; $i<3; $i++ ) 
-                            {?>
+                        <?php while ($blogsNumber > 0) {
+    for ($i = 1; $i < 3; $i++) {?>
                                 <div class="col-lg-6">
                                     <!-- Blog post-->
                                     <?php
-                                        displayBlog2($listBlogs); 
-                                        $blogsNumber--;
-                                        displayBlog2($listBlogs); 
-                                        $blogsNumber--;
-                                    ?>
+displayBlog2($listBlogs);
+        $blogsNumber--;
+        displayBlog2($listBlogs);
+        $blogsNumber--;
+        ?>
                                 </div>
-                            <?php 
-                            }
-                        } ?>
-                    </div>                   
+                            <?php
+}
+}?>
+                    </div>
                 </div>
 
         <!-- Footer-->

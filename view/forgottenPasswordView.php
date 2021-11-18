@@ -39,29 +39,29 @@
                                         </form>
                                         <br>
                                         <!-- Le mot de passe a bien été récupéré -->
-                                        <?php if(isset($recoverySuccess) && $recoverySuccess == true): ?>
+                                        <?php if (isset($recoverySuccess) && $recoverySuccess == true): ?>
                                             <div class="alert alert-success" role="alert">
                                                 Un email contenant votre mot de passe vous a été envoyé vers cette adresse.
                                             </div>
-                                        <?php endif ?>
+                                        <?php endif?>
 
                                         <!-- L'email inséré n'a pas été trouvé -->
-                                        <?php if(isset($recoveryEmailNotFound) && $recoveryEmailNotFound == true): ?>
+                                        <?php if (isset($recoveryEmailNotFound) && $recoveryEmailNotFound == true): ?>
                                             <div class="alert alert-danger" role="alert">
                                                 Aucun compte lié à cette adresse n'a été trouvé, veuillez vérifier votre saisie.
                                             </div>
-                                        <?php endif ?>
+                                        <?php endif?>
 
                                         <!-- Une erreur est survenue l'a récupération a échoué -->
-                                        <?php if(isset($recorevyError) && $recorevyError == true): ?>
+                                        <?php if (isset($recorevyError) && $recorevyError == true): ?>
                                             <div class="alert alert-danger" role="alert">
                                                 Nous sommes désolés, une erreur est survenue, veuillez réessayer plus tard.
                                             </div>
-                                        <?php endif ?>
+                                        <?php endif?>
 
-                                        
+
                                     </div>
-                                    
+
                                 </div>
                             </div>
                         </div>

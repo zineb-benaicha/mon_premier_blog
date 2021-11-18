@@ -1,5 +1,5 @@
 <?php
-if(session_id() == '') {
+if (session_id() == '') {
     session_start();
 }
 ?>
@@ -53,62 +53,61 @@ if(session_id() == '') {
                                                 <label class="form-check-label" for="inputRememberPassword">Remember Password</label>
                                             </div>
                                             <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                            
+
                                                 <a class="small" href="../index.php?action=displayView&viewName=forgottenPassword">Mot de passe oublié?</a>
                                                 <button class="btn btn-primary" id="submitButton" type="submit" name="connect">Se connecter</button>
                                             </div>
                                         </form>
                                         <br>
-                                        
-                                        
+
+
                                         <!-- Email non existant-->
-                                        <?php if(isset($userAccountExists) && !$userAccountExists): ?>
+                                        <?php if (isset($userAccountExists) && !$userAccountExists): ?>
                                             <div class="alert alert-danger" role="alert">
                                                 Aucun compte utilisateur lié à cette adresse n'a été trouvé, veuillez vérifier votre saisie.
                                             </div>
-                                        <?php endif ?>
+                                        <?php endif?>
 
                                         <!-- Compte admin non validé -->
-                                        <?php if(isset($userAccountAdminNotValidated) && $userAccountAdminNotValidated): ?>
+                                        <?php if (isset($userAccountAdminNotValidated) && $userAccountAdminNotValidated): ?>
                                             <div class="alert alert-danger" role="alert">
                                                 Votre compte administrateur n'a pas été encore validé, veuillez attendre sa validation pour se connecter.
                                             </div>
-                                        <?php endif ?>
+                                        <?php endif?>
 
                                         <!-- Mot de passe incorrect -->
-                                        <?php if(isset($userPasswordError ) && $userPasswordError): ?>
+                                        <?php if (isset($userPasswordError) && $userPasswordError): ?>
                                             <div class="alert alert-danger" role="alert">
                                                Le mot de passe que vous avez saisi est incorrect!
                                             </div>
-                                        <?php endif ?>
+                                        <?php endif?>
 
                                         <!-- Erreur de connexion -->
-                                        <?php if(isset($userConexionError ) && $userConexionError): ?>
+                                        <?php if (isset($userConexionError) && $userConexionError): ?>
                                             <div class="alert alert-danger" role="alert">
                                                 Une erreur est survenue veuillez réessayer plus tard!
                                             </div>
-                                        <?php endif ?>
-                                            
+                                        <?php endif?>
+
                                         <!-- Connexion réussie -->
-                                        <?php if(isset($_SESSION['user-connected']) && $_SESSION['user-connected'] && isset($_POST['connect'])): ?>
-                                            
+                                        <?php if (isset($_SESSION['user-connected']) && $_SESSION['user-connected'] && isset($_POST['connect'])): ?>
+
                                             <div class="alert alert-success" role="alert">
                                                 Bienvenue !
                                             </div>
-                                            
-                                            <?php 
-                                            if($_SESSION['user-type-account'] == 'admin'){
 
-                                                header("refresh:3;url=../index.php?action=displayView&viewName=adminDashboard");
-                                            }
-                                            elseif($_SESSION['user-type-account'] == 'visitor'){
-                                               
-                                               header("refresh:3;url=../index.php?action=displayView&viewName=home");
+                                            <?php
+if ($_SESSION['user-type-account'] == 'admin') {
 
-                                            }
+    header("refresh:3;url=../index.php?action=displayView&viewName=adminDashboard");
+} elseif ($_SESSION['user-type-account'] == 'visitor') {
 
-                                            ?>
-                                        <?php endif ?>
+    header("refresh:3;url=../index.php?action=displayView&viewName=home");
+
+}
+
+?>
+                                        <?php endif?>
                                     </div>
 
 
@@ -122,7 +121,7 @@ if(session_id() == '') {
                 </main>
             </div>
             <br>
-            
+
             <div id="layoutAuthentication_footer">
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
