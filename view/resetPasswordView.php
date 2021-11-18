@@ -1,5 +1,5 @@
 <?php
-if(session_id() == ''){
+if (session_id() == '') {
     session_start();
 }
 ?>
@@ -26,18 +26,18 @@ if(session_id() == ''){
                                     <div class="card-header"><h3 class="text-center font-weight-light my-4">Réinitialisation du mot de passe</h3></div>
                                     <div class="card-body">
 
-                                        <?php if(isset($emailRecovery) && !empty($emailRecovery)){
-                                            $_SESSION['recoveryEmail'] = $emailRecovery;
-                                        }
-                                        ?>
+                                        <?php if (isset($emailRecovery) && !empty($emailRecovery)) {
+    $_SESSION['recoveryEmail'] = $emailRecovery;
+}
+?>
 
                                         <form action="../index.php?action=passwordInitialisationRequest&amp;emailRecovery=<?=$_SESSION['recoveryEmail']?>" method="post" >
                                             <!-- Mots de passes non identiques -->
-                                            <?php if(isset($passwordMatch) && !$passwordMatch): ?>
+                                            <?php if (isset($passwordMatch) && !$passwordMatch): ?>
                                                 <div class="alert alert-danger" role="alert">
                                                     Les deux mots de passes ne sont pas identiques, veuillez les vérifier.
                                                 </div>
-                                            <?php endif ?>
+                                            <?php endif?>
 
                                             <!-- password input-->
                                             <?php if (isset($emptyFields['password']) && $emptyFields['password']): ?>
@@ -66,33 +66,33 @@ if(session_id() == ''){
                                             </div>
                                         </form>
                                         <br>
-                                        
+
                                         <!-- URL a été altérée, et l'email de recuperation est perdu -->
-                                        <?php if(isset($recoveryEmailError) && $recoveryEmailError): ?>
+                                        <?php if (isset($recoveryEmailError) && $recoveryEmailError): ?>
                                             <div class="alert alert-danger" role="alert">
                                                 Nous sommes désolés, une erreur est survenue, veuillez réessayer plus tard.
                                             </div>
-                                        <?php endif ?>
+                                        <?php endif?>
 
                                         <!-- URL a été altérée, et l'email de recuperation est perdu -->
-                                        <?php if(isset($passwordUpdateSuccess) && $passwordUpdateSuccess): ?>
+                                        <?php if (isset($passwordUpdateSuccess) && $passwordUpdateSuccess): ?>
                                             <div class="alert alert-success" role="alert">
                                                 Le nouveau mot de passe a bien été enregistré, vous pouvez vous connecter avec.
-                                                <?php header( "refresh:5;url=view/loginView.php" ); ?>
+                                                <?php header("refresh:5;url=view/loginView.php");?>
                                             </div>
-                                        <?php endif ?>
+                                        <?php endif?>
 
                                          <!-- URL a été altérée, et l'email de recuperation est perdu -->
-                                         <?php if(isset($passwordUpdateError) && $passwordUpdateError): ?>
+                                         <?php if (isset($passwordUpdateError) && $passwordUpdateError): ?>
                                             <div class="alert alert-danger" role="alert">
                                                 Le nouveau mot de passe n'a pas pu être enregistré veuillez réessayer plus tard.
-                                                <?php header( "refresh:5;url=view/loginView.php" ); ?>
+                                                <?php header("refresh:5;url=view/loginView.php");?>
                                             </div>
-                                        <?php endif ?>
+                                        <?php endif?>
 
-                                        
+
                                     </div>
-                                    
+
                                 </div>
                             </div>
                         </div>

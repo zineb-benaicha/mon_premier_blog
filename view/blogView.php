@@ -1,5 +1,5 @@
 <?php
-if(session_id() == '') {
+if (session_id() == '') {
     session_start();
 }
 ?>
@@ -41,19 +41,19 @@ if(session_id() == '') {
                         <!-- Post header-->
                         <header class="mb-4">
                             <!-- Post title-->
-                            <h1 class="fw-bolder mb-1"><?= htmlspecialchars($blogToDisplay['title']) ?></h1>
+                            <h1 class="fw-bolder mb-1"><?=htmlspecialchars($blogToDisplay['title'])?></h1>
                              <!-- Post categories-->
                              <a class="badge bg-secondary text-decoration-none link-light" href="index.php?action=listBlogs">Voir les autres posts</a>
                             <!-- Post meta content-->
-                            <div class="text-muted fst-italic mb-2">Posté le <?= $blogToDisplay['last_update'] ?></div>
+                            <div class="text-muted fst-italic mb-2">Posté le <?=$blogToDisplay['last_update']?></div>
                             <!-- Post categories-->
                         </header>
                         <!-- Preview image figure-->
-                        <figure class="mb-4"><img class="img-fluid rounded" src="<?= 'public/img/photos_blogs/blog_' . $blogToDisplay['id'] . '.jpg'?>" alt="image non disponible" /></figure>
+                        <figure class="mb-4"><img class="img-fluid rounded" src="<?='public/img/photos_blogs/blog_' . $blogToDisplay['id'] . '.jpg'?>" alt="image non disponible" /></figure>
                         <!-- Post content-->
-                        <section class="mb-5">                                          
-                            <p class="fs-5 mb-4"><?= nl2br(htmlspecialchars($blogToDisplay['content'])) ?></p>
-                            
+                        <section class="mb-5">
+                            <p class="fs-5 mb-4"><?=nl2br(htmlspecialchars($blogToDisplay['content']))?></p>
+
                         </section>
                     </article>
 
@@ -68,14 +68,14 @@ if(session_id() == '') {
                                         Vous devez saisir un comentaire.
                                      </div>
                                 <?php endif?>
-                                
-                                <form class="mb-4" action="../index.php?action=sentComment&amp;id_blog=<?= $blogToDisplay['id']?>#form_comment" method="post">
+
+                                <form class="mb-4" action="../index.php?action=sentComment&amp;id_blog=<?=$blogToDisplay['id']?>#form_comment" method="post">
                                     <textarea class="form-control" rows="3" placeholder="Laissez votre commentaire" name="content"></textarea>
                                     <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
                                         <button class="btn btn-primary" id="submitButton" type="submit">Publier</button>
                                     </div>
                                 </form>
-                                
+
                                 <!-- résultat insertation commentaire -->
                                 <?php if (isset($commentInsertionError) && $commentInsertionError): ?>
                                     <div class="alert alert-danger" role="alert">
@@ -88,32 +88,32 @@ if(session_id() == '') {
                                      </div>
                                 <?php endif?>
 
-                               
-                                <?php if( isset($_GET['action']) && $_GET['action'] == 'sentComment'):?>
-                                    <?php if(isset($_SESSION['user-connected']) && !$_SESSION['user-connected'] ): ?> 
+
+                                <?php if (isset($_GET['action']) && $_GET['action'] == 'sentComment'): ?>
+                                    <?php if (isset($_SESSION['user-connected']) && !$_SESSION['user-connected']): ?>
                                         <div class="alert alert-danger" role="alert">
                                             Vous devez être connectés pour ajouter un commentaire.
                                         </div>
-                                    <? endif ?>
-                                <? endif ?>
+                                    <?endif?>
+                                <?endif?>
 
                                 <!-- Affichage des commentaires-->
-                                <?php if($commentsNumber == 0): ?>
+                                <?php if ($commentsNumber == 0): ?>
                                     <p>Aucun Commentaire à afficher.</p>
-                                <?php elseif($commentsNumber > 0): ?>
-                                    <?php while($comment = $blogComments->fetch()): ?>
-                                        
+                                <?php elseif ($commentsNumber > 0): ?>
+                                    <?php while ($comment = $blogComments->fetch()): ?>
+
                                         <!-- Single comment-->
                                         <div class="d-flex">
                                             <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
                                             <div class="ms-3">
-                                                <div class="fw-bold"><?= $comment['name'] ?></div>
-                                                <?= $comment['content'] ?>
+                                                <div class="fw-bold"><?=$comment['name']?></div>
+                                                <?=$comment['content']?>
                                             </div>
                                         </div>
                                         <br>
-                                    <?php endwhile ?>
-                                <?php endif ?>
+                                    <?php endwhile?>
+                                <?php endif?>
                             </div>
                         </div>
                     </section>
