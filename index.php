@@ -204,6 +204,9 @@ if (isset($_GET['action'])) {
         }
 
     }
+    elseif ($_GET['action'] == 'manageCommentsForAdmin') {
+        $backendController->displayComments();
+    }
 } else {
     $frontendController->homePage();
 

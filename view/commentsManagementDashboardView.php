@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (session_id() == '') {
+    session_start();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,19 +11,24 @@ session_start();
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Espace d'administration-gestion des commentaires</title>
+        <title>Tables - SB Admin</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="../public/css/stylesAdmin.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
-
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
             <a class="navbar-brand ps-3" href="index.html">Start Bootstrap</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
-
+            <!-- Navbar Search-->
+            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+                <div class="input-group">
+                    <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                    <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+                </div>
+            </form>
             <!-- Navbar-->
             <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
                 <li class="nav-item dropdown">
@@ -108,52 +115,113 @@ session_start();
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Tableau de bord</h1>
+                        <h1 class="mt-4">Les Commentaires</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Dashboard</li>
+                            <li class="breadcrumb-item"><a href="../index.php?action=displayView&viewName=adminDashboard">Dashboard</a></li>
+                            
                         </ol>
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                Ici vous pouvez gérer commentaires émis par les utilisateurs, pour les valider ou les supprimer.
+                            </div>
+                        </div>
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                Liste des Commentaires
+                            </div>
+                            <?php if(isset($userDeleteSuccess) && $userDeleteSuccess): ?>
+                                <div class="alert alert-success" role="alert">
+                                    L'utilisateur a bien été supprimé !
+                                </div>
+                            <?php endif ?>
+                            <?php if(isset($userDeleteSuccess) && !$userDeleteSuccess): ?>
+                                <div class="alert alert-danger" role="alert">
+                                    Cet utilisateur a du contnu sur ce site, veuillez le supprimer d'abord.
+                                </div>
+                            <?php endif ?>
 
-                        <div class="row">
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-primary text-white mb-4">
-                                    <div class="card-body">Gestion de blogs posts</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
+                            <?php if(isset($userValidateSuccess) && $userValidateSuccess): ?>
+                                <div class="alert alert-success" role="alert">
+                                    L'utilisateur a bien été validé !
                                 </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-warning text-white mb-4">
-                                    <div class="card-body">Gestion d'utilisateurs</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="../index.php?action=manageUsersForAdmin">détailler</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
+                            <?php endif ?>
+                            <?php if(isset($userValidateSuccess) && !$userValidateSuccess): ?>
+                                <div class="alert alert-danger" role="alert">
+                                    Une erreur est survenue veuillez réessayer plus tard !
                                 </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-success text-white mb-4">
-                                    <div class="card-body">Gestion de messages</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-danger text-white mb-4">
-                                    <div class="card-body">Gestion de commentaires</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="../index.php?action=manageCommentsForAdmin">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
+                            <?php endif ?>
+
+                            
+                            <div class="card-body">
+                                <table id="datatablesSimple">
+                                    <thead>
+                                        <tr>
+                                            <th>Numéro unique</th>
+                                            <th>Contenu</th>
+                                            <th>Date de création</th>
+                                            <th>Blog associé</th>
+                                            <th>Status</th>
+                                            <th>Editeur</th>
+                                            <th>Action</th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    <?php 
+                                        $name = '';
+                                        $email = '';
+                                        $is_admin = '';
+                                        $status = '';
+                                        $action = '';
+                                        
+
+                                        if(isset($queryError) && $queryError) {
+                                            $name = 'une erreur est survenue veuillez réessayer plus tard.';
+                                        }
+                                        elseif (isset($usersListEmpty) && $usersListEmpty) {
+                                            $name = 'Aucun utilisateur à afficher';
+                                        }         
+                                                              
+                                    ?>
+                                    <tbody>
+                                    <tr>
+                                            <td><?= $name ?></td>
+                                            <td><?= $email ?></td>
+                                            <td><?= $is_admin ?></td>
+                                            <td><?= $status ?></td>
+                                            <td><?= $action ?></td>
+                                            
+                                    </tr>
+                                        <?php
+                                        if (isset($usersListEmpty) && !$usersListEmpty && !isset($queryError)) {
+                                            while ($user = $usersList->fetch()) {
+                                                $name = $user['name'];
+                                                $email = $user['email'];
+                                                $is_admin = $user['is_admin'] == '1' ? 'Oui' : 'Non';
+                                                $status = $user['is_validated'] == '1' ? 'Validé' : 'Non validé';
+                                                $action_delete = '<a href="../index.php?action=deleteUserFromAdmin&id_user='. $user['id'] . '">supprimer</a>';
+                                                $action_validate = '<a href="../index.php?action=validateUserFromAdmin&id_user='. $user['id'] . '">valider</a>';
+
+                                                $action = $user['is_validated'] == '1' ? $action_delete: $action_delete . ' / ' . $action_validate;
+                                                 
+                                        ?>
+                                        <tr>
+                                            <td><?= $name ?></td>
+                                            <td><?= $email ?></td>
+                                            <td><?= $is_admin ?></td>
+                                            <td><?= $status ?></td>
+                                            <td><?= $action?></td>
+                                            
+                                        </tr>
+                                        <?php }
+                                        }   
+                                        ?>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                 </main>
-
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">
@@ -170,9 +238,6 @@ session_start();
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="../public/js/scripts.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-        <script src="../public/assets/demo/chart-area-demo.js"></script>
-        <script src="../public/assets/demo/chart-bar-demo.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
         <script src="../public/js/datatables-simple-demo.js"></script>
     </body>

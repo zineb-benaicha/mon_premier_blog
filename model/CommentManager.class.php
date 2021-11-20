@@ -30,4 +30,11 @@ class CommentManager extends Manager
 
     }
 
+    public function getAllComments()
+    {
+        $db = $this->dbConnect();
+        $commentsList = $db->query('SELECT id, id_blog, id_user, content, is_validated, DATE_FORMAT(creation_date, \'%d/%m/%Y à %Hh%imin%ss\') AS creation_date FROM comment ORDER BY creation_date DESC');
+        return $commentsList;
+    }
+
 }

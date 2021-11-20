@@ -56,4 +56,16 @@ class BackendController
         $this->displayUsers(null,$userValidateSuccess);
 
     }
+
+    public function displayComments()
+    {
+        $commentManager = new CommentManager();
+        //1- ramener touts les commentaires ordonnés par date de création du plus récent au plus ancien
+        $commentsList = $commentManager->getAllComments();
+        var_dump($commentsList->fetchAll());
+        echo '<br>';
+        echo '<br>';
+        echo '<br>';
+        var_dump($commentsList->fetch());
+    }
 }
