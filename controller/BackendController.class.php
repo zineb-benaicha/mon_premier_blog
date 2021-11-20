@@ -12,16 +12,20 @@ class BackendController
     public function displayUsers($userDeleteSuccess=null, $userValidateSuccess=null)
     {
         $userManager = new UserManager();
-        $usersList = $userManager->getUsers();
+        $usersNumber = $userManager->countAdmins()->fetch();
         
-        if (!$usersList) {
+        if (!$usersNumber){
             $queryError = true;
         }
-        elseif (get_class($usersList) == 'PDOStatement' && $usersList->fetch() === false) {
+        elseif ((int)$usersNumber[0] == 1){
             $usersListEmpty = true;
         }
-        else {
+        elseif ((int)$usersNumber[0] > 1){
             $usersListEmpty = false;
+            $usersList = $userManager->getAdmins($_SESSION['user-id']);
+            if(!$usersList){
+                $queryError = true;
+            }
         }
         
         require_once 'view/usersManagementDashboardView.php';

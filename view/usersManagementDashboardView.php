@@ -1,3 +1,8 @@
+<?php
+if (session_id() == '') {
+    session_start();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -132,7 +137,7 @@
                             <?php endif ?>
                             <?php if(isset($userDeleteSuccess) && !$userDeleteSuccess): ?>
                                 <div class="alert alert-danger" role="alert">
-                                    Une erreur est survenue veuillez réessayer plus tard !
+                                    Cet utilisateur a du contnu sur ce site, veuillez le supprimer d'abord.
                                 </div>
                             <?php endif ?>
 
@@ -186,7 +191,7 @@
                                             
                                     </tr>
                                         <?php
-                                        if (isset($usersListEmpty) && !$usersListEmpty) {
+                                        if (isset($usersListEmpty) && !$usersListEmpty && !isset($queryError)) {
                                             while ($user = $usersList->fetch()) {
                                                 $name = $user['name'];
                                                 $email = $user['email'];

@@ -68,14 +68,24 @@ class UserManager extends Manager
         }
     }
 
-    public function getUsers()
+    public function countAdmins()
     {
         $db = $this->dbConnect();
-        $users = $db->query('SELECT * FROM user');
-        return $users;
+        $result = $db->prepare('SELECT COUNT(*) FROM user WHERE is_admin=?');
+        $result->execute(array('1'));
+        return $result;
 
     }
 
+    public function getAdmins($id_admin)
+    {
+        $db = $this->dbConnect();
+        $admins = $db->prepare('SELECT * FROM user WHERE is_admin = ? AND id != ?');
+        $admins->execute(array('1', $id_admin));
+        return $admins;
+
+    }
+    
     public function deleteUser($id)
     {
         $db = $this->dbConnect();
