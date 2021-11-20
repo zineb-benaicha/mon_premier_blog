@@ -61,11 +61,24 @@ class BackendController
     {
         $commentManager = new CommentManager();
         //1- ramener touts les commentaires ordonnés par date de création du plus récent au plus ancien
-        $commentsList = $commentManager->getAllComments();
-        var_dump($commentsList->fetchAll());
-        echo '<br>';
-        echo '<br>';
-        echo '<br>';
-        var_dump($commentsList->fetch());
+        $commentsNumber = $commentManager->getAllCommentsNumber();
+        if (!$commentsNumber) {
+            $queryError = true;
+        }
+        elseif ((int)$commentsNumber->fetch()[0] == 0 ) {
+            $commentsListEmpty = true;
+
+        }
+        elseif((int)$commentsNumber->fetch()[0] > 0) {
+            $commentsListEmpty = false;
+            $commentsList = $commentManager->getAllComments();
+            if (!$commentsList) {
+                $queryError = true;
+            }
+        }
+
+        require_once 'view/commentsManagementDashboardView.php';
+        
+        
     }
 }

@@ -37,4 +37,11 @@ class CommentManager extends Manager
         return $commentsList;
     }
 
+    public function getAllCommentsNumber()
+    {
+        $db = $this->dbConnect();
+        $commentsNumber = $db->query('SELECT COUNT(*) FROM comment');
+        return $commentsNumber;
+    }
+
 }
