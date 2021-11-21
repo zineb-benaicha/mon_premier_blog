@@ -175,21 +175,25 @@ if (session_id() == '') {
 
                                         if(isset($queryError) && $queryError) {
                                             $name = 'une erreur est survenue veuillez réessayer plus tard.';
+                                            $noContent = true;
                                         }
                                         elseif (isset($usersListEmpty) && $usersListEmpty) {
                                             $name = 'Aucun utilisateur à afficher';
+                                            $noContent = true;
                                         }         
                                                               
                                     ?>
                                     <tbody>
-                                    <tr>
-                                            <td><?= $name ?></td>
-                                            <td><?= $email ?></td>
-                                            <td><?= $is_admin ?></td>
-                                            <td><?= $status ?></td>
-                                            <td><?= $action ?></td>
-                                            
-                                    </tr>
+                                    <?php if (isset($noContent) && $noContent): ?>
+                                        <tr>
+                                                <td><?= $name ?></td>
+                                                <td><?= $email ?></td>
+                                                <td><?= $is_admin ?></td>
+                                                <td><?= $status ?></td>
+                                                <td><?= $action ?></td>
+                                                
+                                        </tr>
+                                    <? endif ?>
                                         <?php
                                         if (isset($usersListEmpty) && !$usersListEmpty && !isset($queryError)) {
                                             while ($user = $usersList->fetch()) {
@@ -197,8 +201,8 @@ if (session_id() == '') {
                                                 $email = $user['email'];
                                                 $is_admin = $user['is_admin'] == '1' ? 'Oui' : 'Non';
                                                 $status = $user['is_validated'] == '1' ? 'Validé' : 'Non validé';
-                                                $action_delete = '<a href="../index.php?action=deleteUserFromAdmin&id_user='. $user['id'] . '">supprimer</a>';
-                                                $action_validate = '<a href="../index.php?action=validateUserFromAdmin&id_user='. $user['id'] . '">valider</a>';
+                                                $action_delete = '<a href="../index.php?action=deleteUserByAdmin&id_user='. $user['id'] . '">supprimer</a>';
+                                                $action_validate = '<a href="../index.php?action=validateUserByAdmin&id_user='. $user['id'] . '">valider</a>';
 
                                                 $action = $user['is_validated'] == '1' ? $action_delete: $action_delete . ' / ' . $action_validate;
                                                  

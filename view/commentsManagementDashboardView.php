@@ -115,7 +115,7 @@ if (session_id() == '') {
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Les Commentaires</h1>
+                        <h1 class="mt-4">Les commentaires</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="../index.php?action=displayView&viewName=adminDashboard">Dashboard</a></li>
                             
@@ -168,50 +168,60 @@ if (session_id() == '') {
                                         </tr>
                                     </thead>
                                     <?php 
-                                        $name = '';
-                                        $email = '';
-                                        $is_admin = '';
+                                        $number = '';
+                                        $content = '';
+                                        $creation_date = '';
+                                        $associated_blog = '';
                                         $status = '';
+                                        $editor = '';
                                         $action = '';
                                         
 
                                         if(isset($queryError) && $queryError) {
-                                            $name = 'une erreur est survenue veuillez réessayer plus tard.';
+                                            $number = 'une erreur est survenue veuillez réessayer plus tard.';
+                                            $noContent = true;
                                         }
-                                        elseif (isset($usersListEmpty) && $usersListEmpty) {
-                                            $name = 'Aucun utilisateur à afficher';
+                                        elseif (isset($commentsListEmpty) && $commentsListEmpty) {
+                                            $number = 'Aucun commentaire à afficher';
+                                            $noContent = true;
                                         }         
                                                               
                                     ?>
                                     <tbody>
-                                    <tr>
-                                            <td><?= $name ?></td>
-                                            <td><?= $email ?></td>
-                                            <td><?= $is_admin ?></td>
-                                            <td><?= $status ?></td>
-                                            <td><?= $action ?></td>
-                                            
-                                    </tr>
+                                        <?php if (isset($noContent) && $noContent): ?>
+                                            <tr>
+                                                <td><?= $number ?></td>
+                                                <td><?= $content ?></td>
+                                                <td><?= $creation_date ?></td>
+                                                <td><?= $associated_blog ?></td>
+                                                <td><?= $status ?></td>
+                                                <td><?= $editor ?></td>
+                                                <td><?= $action ?></td>
+                                            </tr>
+                                        <? endif ?>
                                         <?php
-                                        if (isset($usersListEmpty) && !$usersListEmpty && !isset($queryError)) {
-                                            while ($user = $usersList->fetch()) {
-                                                $name = $user['name'];
-                                                $email = $user['email'];
-                                                $is_admin = $user['is_admin'] == '1' ? 'Oui' : 'Non';
-                                                $status = $user['is_validated'] == '1' ? 'Validé' : 'Non validé';
-                                                $action_delete = '<a href="../index.php?action=deleteUserFromAdmin&id_user='. $user['id'] . '">supprimer</a>';
-                                                $action_validate = '<a href="../index.php?action=validateUserFromAdmin&id_user='. $user['id'] . '">valider</a>';
+                                        if (isset($commentsListEmpty) && !$commentsListEmpty && !isset($queryError)) {
+                                            while ($comment = $commentsList->fetch()) {
+                                                $number = $comment['id'];
+                                                $content = $comment['content'];
+                                                $creation_date = $comment['creation_date'];
+                                                $associated_blog = $comment['id_blog'];
+                                                $status = $comment['is_validated'] == '1' ? 'Validé' : 'Non validé';
+                                                $editor = $comment['id_user'];
+                                                $action_delete = '<a href="../index.php?action=deleteCommentByAdmin&id_comment='. $comment['id'] . '">supprimer</a>';
+                                                $action_validate = '<a href="../index.php?action=validateCommentByAdmin&id_comment='. $comment['id'] . '">valider</a>';
 
-                                                $action = $user['is_validated'] == '1' ? $action_delete: $action_delete . ' / ' . $action_validate;
+                                                $action = $comment['is_validated'] == '1' ? $action_delete: $action_delete . ' / ' . $action_validate;
                                                  
                                         ?>
                                         <tr>
-                                            <td><?= $name ?></td>
-                                            <td><?= $email ?></td>
-                                            <td><?= $is_admin ?></td>
+                                            <td><?= $number ?></td>
+                                            <td><?= $content ?></td>
+                                            <td><?= $creation_date ?></td>
+                                            <td><?= $associated_blog ?></td>
                                             <td><?= $status ?></td>
-                                            <td><?= $action?></td>
-                                            
+                                            <td><?= $editor ?></td>
+                                            <td><?= $action ?></td>                                                                                   
                                         </tr>
                                         <?php }
                                         }   
