@@ -188,14 +188,14 @@ if (isset($_GET['action'])) {
         }
     } elseif ($_GET['action'] == 'manageUsersForAdmin') {
         $backendController->displayUsers();
-    } elseif ($_GET['action'] == 'deleteUserFromAdmin') {
+    } elseif ($_GET['action'] == 'deleteUserByAdmin') {
         if (isset($_GET['id_user']) && $_GET['id_user'] > 0) {
             $backendController->removeUser(htmlspecialchars($_GET['id_user']));
         } else {
             require_once 'view/adminDashboardView.php';
         }
 
-    } elseif ($_GET['action'] == 'validateUserFromAdmin') {
+    } elseif ($_GET['action'] == 'validateUserByAdmin') {
         if (isset($_GET['id_user']) && $_GET['id_user'] > 0) {
 
             $backendController->validateUser(htmlspecialchars($_GET['id_user']));
@@ -203,6 +203,23 @@ if (isset($_GET['action'])) {
             require_once 'view/adminDashboardView.php';
         }
 
+    }
+    elseif ($_GET['action'] == 'manageCommentsForAdmin') {
+        $backendController->displayComments();
+    }
+    elseif ($_GET['action'] == 'deleteCommentByAdmin') {
+        if (isset($_GET['id_comment']) && $_GET['id_comment'] > 0) {
+            $backendController->removeComment(htmlspecialchars($_GET['id_comment']));
+        } else {
+            require_once 'view/adminDashboardView.php';
+        }
+    }
+    elseif ($_GET['action'] == 'validateCommentByAdmin') {
+        if (isset($_GET['id_comment']) && $_GET['id_comment'] > 0) {
+            $backendController->validateComment(htmlspecialchars($_GET['id_comment']));
+        } else {
+            require_once 'view/adminDashboardView.php';
+        }
     }
 } else {
     $frontendController->homePage();

@@ -30,4 +30,32 @@ class CommentManager extends Manager
 
     }
 
+    public function getAllComments()
+    {
+        $db = $this->dbConnect();
+        $commentsList = $db->query('SELECT id, id_blog, id_user, content, is_validated, DATE_FORMAT(creation_date, \'%d/%m/%Y à %Hh%imin%ss\') AS creation_date FROM comment ORDER BY creation_date DESC');
+        return $commentsList;
+    }
+
+    public function getAllCommentsNumber()
+    {
+        $db = $this->dbConnect();
+        $commentsNumber = $db->query('SELECT COUNT(*) FROM comment');
+        return $commentsNumber;
+    }
+
+    public function deleteComment($id)
+    {
+        $db = $this->dbConnect();
+        $query = $db->prepare('DELETE FROM comment WHERE id = :id');
+        return $query->execute(['id' => $id]);
+    }
+
+    public function validateComment($id)
+    {
+        $db = $this->dbConnect();
+        $query = $db->prepare('UPDATE comment SET is_validated = ?  WHERE id = ?');
+        return $query->execute(array(1, $id));
+    }
+
 }
