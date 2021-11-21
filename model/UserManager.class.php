@@ -67,4 +67,36 @@ class UserManager extends Manager
             return false;
         }
     }
+
+    public function countAdmins()
+    {
+        $db = $this->dbConnect();
+        $result = $db->prepare('SELECT COUNT(*) FROM user WHERE is_admin=?');
+        $result->execute(array('1'));
+        return $result;
+
+    }
+
+    public function getAdmins($id_admin)
+    {
+        $db = $this->dbConnect();
+        $admins = $db->prepare('SELECT * FROM user WHERE is_admin = ? AND id != ?');
+        $admins->execute(array('1', $id_admin));
+        return $admins;
+
+    }
+    
+    public function deleteUser($id)
+    {
+        $db = $this->dbConnect();
+        $query = $db->prepare('DELETE FROM user WHERE id = :id');
+        return $query->execute(['id' => $id]);
+    }
+
+    public function validateUser($id)
+    {
+        $db = $this->dbConnect();
+        $query = $db->prepare('UPDATE user SET is_validated = ?  WHERE id = ?');
+        return $query->execute(array(1, $id));
+    }
 }

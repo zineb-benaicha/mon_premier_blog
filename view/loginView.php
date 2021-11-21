@@ -97,16 +97,16 @@ if (session_id() == '') {
                                             </div>
 
                                             <?php
-if ($_SESSION['user-type-account'] == 'admin') {
+                                                if ($_SESSION['user-type-account'] == 'admin') {
 
-    header("refresh:3;url=../index.php?action=displayView&viewName=adminDashboard");
-} elseif ($_SESSION['user-type-account'] == 'visitor') {
+                                                    header("refresh:3;url=../index.php?action=displayView&viewName=adminDashboard");
+                                                } elseif ($_SESSION['user-type-account'] == 'visitor') {
 
-    header("refresh:3;url=../index.php?action=displayView&viewName=home");
+                                                    header("refresh:3;url=../index.php?action=displayView&viewName=home");
 
-}
+                                                }
 
-?>
+                                            ?>
                                         <?php endif?>
                                     </div>
 
@@ -138,6 +138,6 @@ if ($_SESSION['user-type-account'] == 'admin') {
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="../public/js/scriptsAdmin.js"></script>
+        <script src="../public/js/scripts.js"></script>
     </body>
 </html>
