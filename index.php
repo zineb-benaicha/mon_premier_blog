@@ -203,24 +203,24 @@ if (isset($_GET['action'])) {
             require_once 'view/adminDashboardView.php';
         }
 
-    }
-    elseif ($_GET['action'] == 'manageCommentsForAdmin') {
+    } elseif ($_GET['action'] == 'manageCommentsForAdmin') {
         $backendController->displayComments();
-    }
-    elseif ($_GET['action'] == 'deleteCommentByAdmin') {
+    } elseif ($_GET['action'] == 'deleteCommentByAdmin') {
         if (isset($_GET['id_comment']) && $_GET['id_comment'] > 0) {
             $backendController->removeComment(htmlspecialchars($_GET['id_comment']));
         } else {
             require_once 'view/adminDashboardView.php';
         }
-    }
-    elseif ($_GET['action'] == 'validateCommentByAdmin') {
+    } elseif ($_GET['action'] == 'validateCommentByAdmin') {
         if (isset($_GET['id_comment']) && $_GET['id_comment'] > 0) {
             $backendController->validateComment(htmlspecialchars($_GET['id_comment']));
         } else {
             require_once 'view/adminDashboardView.php';
         }
+    }elseif ($_GET['action'] == 'manageBlogsForAdmin') {
+        $backendController->displayBlogs();
     }
+
 } else {
     $frontendController->homePage();
 

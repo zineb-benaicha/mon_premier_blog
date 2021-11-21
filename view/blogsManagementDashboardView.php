@@ -115,20 +115,20 @@ if (session_id() == '') {
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Les commentaires</h1>
+                        <h1 class="mt-4">Les posts blogs</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="../index.php?action=displayView&viewName=adminDashboard">Dashboard</a></li>
                             
                         </ol>
                         <div class="card mb-4">
                             <div class="card-body">
-                                Ici vous pouvez gérer commentaires émis par les utilisateurs, pour les valider ou les supprimer.
+                                Ici vous pouvez créer, supprimer et modifier des blogs posts.
                             </div>
                         </div>
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                Liste des Commentaires
+                                Liste des posts blogs existants.
                             </div>
                             <?php if(isset($userDeleteSuccess) && $userDeleteSuccess): ?>
                                 <div class="alert alert-success" role="alert">
@@ -158,30 +158,27 @@ if (session_id() == '') {
                                     <thead>
                                         <tr>
                                             <th>N°</th>
-                                            <th>Contenu</th>
-                                            <th>Date de création</th>
-                                            <th>Blog associé</th>
-                                            <th>Status</th>
-                                            <th>Editeur</th>
+                                            <th>Titre</th>                                            
+                                            <th>Châpo</th>                                   
+                                            <th>Auteur</th>
+                                            <th>Dernière mise à jour</th>                                            
                                             <th>Action</th>
                                             
                                         </tr>
                                     </thead>
                                     <?php 
                                         $number = '';
-                                        $content = '';
-                                        $creation_date = '';
-                                        $associated_blog = '';
-                                        $status = '';
-                                        $editor = '';
+                                        $title = '';
+                                        $chapo = '';                                        
+                                        $author = '';
+                                        $last_update = '';                                
                                         $action = '';
                                         
-
                                         if(isset($queryError) && $queryError) {
                                             $number = 'une erreur est survenue veuillez réessayer plus tard.';
                                             $noContent = true;
                                         }
-                                        elseif (isset($commentsListEmpty) && $commentsListEmpty) {
+                                        elseif (isset($blogsListEmpty) && $blogsListEmpty) {
                                             $number = 'Aucun commentaire à afficher';
                                             $noContent = true;
                                         }         
@@ -191,37 +188,35 @@ if (session_id() == '') {
                                         <?php if (isset($noContent) && $noContent): ?>
                                             <tr>
                                                 <td><?= $number ?></td>
-                                                <td><?= $content ?></td>
-                                                <td><?= $creation_date ?></td>
-                                                <td><?= $associated_blog ?></td>
-                                                <td><?= $status ?></td>
-                                                <td><?= $editor ?></td>
+                                                <td><?= $title ?></td>
+                                                <td><?= $chapo ?></td>                                                
+                                                <td><?= $author ?></td>
+                                                <td><?= $last_update ?></td>
                                                 <td><?= $action ?></td>
                                             </tr>
                                         <? endif ?>
                                         <?php
-                                        if (isset($commentsListEmpty) && !$commentsListEmpty && !isset($queryError)) {
-                                            while ($comment = $commentsList->fetch()) {
-                                                $number = $comment['id'];
-                                                $content = $comment['content'];
-                                                $creation_date = $comment['creation_date'];
-                                                $associated_blog = $comment['id_blog'];
-                                                $status = $comment['is_validated'] == '1' ? 'Validé' : 'Non validé';
-                                                $editor = $comment['id_user'];
-                                                $action_delete = '<a href="../index.php?action=deleteCommentByAdmin&id_comment='. $comment['id'] . '">supprimer</a>';
-                                                $action_validate = '<a href="../index.php?action=validateCommentByAdmin&id_comment='. $comment['id'] . '">valider</a>';
+                                        if (isset($blogsListEmpty) && !$blogsListEmpty && !isset($queryError)) {
+                                            while ($blog = $blogsList->fetch()) {
+                                                $number = $blog['id'];
+                                                $title = $blog['title'];
+                                                $chapo = $blog['chapo'];
+                                                $author = $blog['author'];
+                                                $last_update = $blog['last_update'];
+                                               
+                                                $action_edit = '<a href="../index.php?action=editBlogByAdmin&id_blog='. $blog['id'] . '">modifier</a>';
+                                                $action_delete = '<a href="../index.php?action=deleteBlogByAdmin&id_blog='. $blog['id'] . '">supprimer</a>';
 
-                                                $action = $comment['is_validated'] == '1' ? $action_delete: $action_delete . ' / ' . $action_validate;
+                                                $action =  $action_edit . ' / ' . $action_delete;
                                                  
                                         ?>
                                         <tr>
                                             <td><?= $number ?></td>
-                                            <td><?= $content ?></td>
-                                            <td><?= $creation_date ?></td>
-                                            <td><?= $associated_blog ?></td>
-                                            <td><?= $status ?></td>
-                                            <td><?= $editor ?></td>
-                                            <td><?= $action ?></td>                                                                                   
+                                            <td><?= $title ?></td>
+                                            <td><?= $chapo ?></td>                                                
+                                            <td><?= $author ?></td>
+                                            <td><?= $last_update ?></td>
+                                            <td><?= $action ?></td>
                                         </tr>
                                         <?php }
                                         }   

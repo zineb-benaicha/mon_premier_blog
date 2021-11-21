@@ -77,11 +77,7 @@ class BackendController
             }
 
         }
-        //var_dump($commentsList->fetch());
-        
-
         require_once 'view/commentsManagementDashboardView.php';
-
     }
 
     public function removeComment($id_comment)
@@ -106,4 +102,33 @@ class BackendController
         }
         $this->displayComments(null, $commentValidateSuccess);
     }
+
+    public function displayBlogs($vlogtDeleteSuccess = null, $blogValidateSuccess = null)
+    {
+        $blogManager = new BlogManager();
+        //1- ramener touts les commentaires ordonnés par date de création du plus récent au plus ancien
+        $blogsNumber = $blogManager->getAllBlogsNumber();
+
+        if (!$blogsNumber) {
+            $queryError = true;
+        } else {
+            $blogsNumber = $blogsNumber->fetch();
+
+            if ((int) $blogsNumber[0] == 0) {
+                $blogsListEmpty = true;
+
+            } elseif ((int) $blogsNumber[0] > 0) {
+                $blogsListEmpty = false;
+                $blogsList = $blogManager->getBlogs();
+
+                if (!$blogsList) {
+                    $queryError = true;
+                }
+            }
+
+        }
+
+        require_once 'view/blogsManagementDashboardView.php';
+    }
+
 }
