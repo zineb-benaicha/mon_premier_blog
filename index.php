@@ -217,9 +217,24 @@ if (isset($_GET['action'])) {
         } else {
             require_once 'view/adminDashboardView.php';
         }
-    }elseif ($_GET['action'] == 'manageBlogsForAdmin') {
+    } elseif ($_GET['action'] == 'manageBlogsForAdmin') {
         $backendController->displayBlogs();
+    } elseif ($_GET['action'] == 'editBlogByAdmin') {
+        if (isset($_GET['id_blog']) && $_GET['id_blog'] > 0) {
+            $backendController->editBlog(htmlspecialchars($_GET['id_blog']));
+        } else {
+            require_once 'view/adminDashboardView.php';
+        }
+    } elseif ($_GET['action'] == 'deleteBlogByAdmin') {
+        if (isset($_GET['id_blog']) && $_GET['id_blog'] > 0) {
+            $backendController->removeBlog(htmlspecialchars($_GET['id_blog']));
+        } else {
+            require_once 'view/adminDashboardView.php';
+        }
+
+
     }
+    
 
 } else {
     $frontendController->homePage();

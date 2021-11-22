@@ -223,7 +223,8 @@ if (session_id() == '') {
                                             <td><?= $editor ?></td>
                                             <td><?= $action ?></td>                                                                                   
                                         </tr>
-                                        <?php }
+                                        <?php 
+                                            }
                                         }   
                                         ?>
                                     </tbody>

@@ -130,14 +130,14 @@ if (session_id() == '') {
                                 <i class="fas fa-table me-1"></i>
                                 Liste des posts blogs existants.
                             </div>
-                            <?php if(isset($userDeleteSuccess) && $userDeleteSuccess): ?>
+                            <?php if(isset($blogDeleteSuccess) && $blogDeleteSuccess): ?>
                                 <div class="alert alert-success" role="alert">
-                                    L'utilisateur a bien été supprimé !
+                                    Le blog a bien été supprimé !
                                 </div>
                             <?php endif ?>
-                            <?php if(isset($userDeleteSuccess) && !$userDeleteSuccess): ?>
+                            <?php if(isset($blogDeleteSuccess) && !$blogDeleteSuccess): ?>
                                 <div class="alert alert-danger" role="alert">
-                                    Cet utilisateur a du contnu sur ce site, veuillez le supprimer d'abord.
+                                    Une erreur est survenue veuillez réessayer plus tard !
                                 </div>
                             <?php endif ?>
 

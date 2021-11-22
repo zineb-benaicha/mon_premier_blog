@@ -18,7 +18,7 @@ class BlogManager extends Manager
         $req = $db->query('SELECT id, title, chapo, author, DATE_FORMAT(last_update, \'%d/%m/%Y à %Hh%imin%ss\') AS last_update FROM blog ORDER BY last_update DESC');
         return $req;
     }
-    
+
     public function getBlog($id)
     {
         $db = $this->dbConnect();
@@ -32,6 +32,13 @@ class BlogManager extends Manager
         $db = $this->dbConnect();
         $blogsNumber = $db->query('SELECT COUNT(*) FROM blog');
         return $blogsNumber;
+    }
+
+    public function removeBlog($id_blog)
+    {
+        $db = $this->dbConnect();
+        $query = $db->prepare('DELETE FROM blog WHERE id = :id');
+        return $query->execute(['id' => $id_blog]);
     }
 
 }

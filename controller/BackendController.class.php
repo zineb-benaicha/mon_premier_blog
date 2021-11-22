@@ -53,7 +53,7 @@ class BackendController
 
     }
 
-    public function displayComments($commentDeleteSuccess = null, $commentValidateSuccess = null)
+    public function displayComments($commentDeleteSuccess = null, $blogUpdateSuccess = null)
     {
         $commentManager = new CommentManager();
         //1- ramener touts les commentaires ordonnés par date de création du plus récent au plus ancien
@@ -83,11 +83,13 @@ class BackendController
     public function removeComment($id_comment)
     {
         $commentManager = new CommentManager();
+
         if ($commentManager->deleteComment($id_comment)) {
             $commentDeleteSuccess = true;
         } else {
             $commentDeleteSuccess = false;
         }
+
         $this->displayComments($commentDeleteSuccess);
 
     }
@@ -103,7 +105,7 @@ class BackendController
         $this->displayComments(null, $commentValidateSuccess);
     }
 
-    public function displayBlogs($vlogtDeleteSuccess = null, $blogValidateSuccess = null)
+    public function displayBlogs($blogDeleteSuccess = null, $blogValidateSuccess = null)
     {
         $blogManager = new BlogManager();
         //1- ramener touts les commentaires ordonnés par date de création du plus récent au plus ancien
@@ -129,6 +131,39 @@ class BackendController
         }
 
         require_once 'view/blogsManagementDashboardView.php';
+    }
+
+    public function removeBlog($id_blog)
+    {
+        $commentManager = new CommentManager();
+        $blogManager = new BlogManager();
+        //1-supprimer tous les commentaires d'un blog donné
+        $queryDeleteCommentsResult = $commentManager->deleteCommentsByBlog($id_blog);
+        
+        if (!$queryDeleteCommentsResult) {
+            $blogDeleteSuccess = false;
+        }
+        else {
+            //2-supprimer le blog en soi
+            $queryDeleteBlogResult = $blogManager->removeBlog($id_blog);
+            
+            if (!$queryDeleteBlogResult) {
+                $blogDeleteSuccess = false;
+            }
+            else {
+                $blogDeleteSuccess = true;
+            }
+
+            $this->displayBlogs($blogDeleteSuccess, null);
+
+        }
+        
+    }
+
+    public function editBlog($id_blog)
+    {
+        //1-afficher une vue qui contient le contenu actuel des champs
+        
     }
 
 }
