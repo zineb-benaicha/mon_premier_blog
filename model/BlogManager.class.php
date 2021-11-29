@@ -52,8 +52,15 @@ class BlogManager extends Manager
     public function updateBlog($id_blog, $title, $chapo, $author, $content)
     {
         $db = $this->dbConnect();
-        $query = $db->prepare('UPDATE blog SET title = :title, chapo = :chapo, content = :content, author = :author  WHERE id = :id');
+        $query = $db->prepare('UPDATE blog SET title = :title, chapo = :chapo, content = :content, author = :author, last_update = NOW() WHERE id = :id');
         return $query->execute(['title' => $title, 'chapo' => $chapo, 'author' => $author, 'content' => $content, 'id' => $id_blog]);
+    }
+
+    public function setBlog($title, $chapo, $author, $content)
+    {
+        $db = $this->dbConnect();
+        $query = $db->prepare('INSERT INTO blog (title, chapo, author, content, last_update) VALUES (:title, :chapo, :author, :content, NOW())');
+        return $query->execute(['title' => $title, 'chapo' => $chapo, 'author' => $author, 'content' => $content]);
     }
 
 }

@@ -105,7 +105,7 @@ class BackendController
         $this->displayComments(null, $commentValidateSuccess);
     }
 
-    public function displayBlogs($blogDeleteSuccess = null, $blogValidateSuccess = null, $updateQueryResult = null)
+    public function displayBlogs($blogDeleteSuccess = null, $blogValidateSuccess = null, $updateQueryResult = null, $blogInsertionQueryResult = null)
     {
         $blogManager = new BlogManager();
         //1- ramener touts les commentaires ordonnés par date de création du plus récent au plus ancien
@@ -159,26 +159,32 @@ class BackendController
     }
 
     public function displayBlogInformationsForEdition($id_blog)
-    {   //1-chercher les informations du blog
+    { //1-chercher les informations du blog
         $blogManager = new BlogManager();
         $blogInformations = $blogManager->getBlogInformations($id_blog);
-       
-        if(!empty($blogInformations)) {
-            
+
+        if (!empty($blogInformations)) {
+
             $blogInformations = $blogInformations->fetch();
-            
+
             //2-afficher une vue qui contient ces informations;
             require_once 'view/blogEditionView.php';
         }
     }
-    
+
     public function editBlog($id_blog, $title, $chapo, $author, $content)
     {
         $blogManager = new BlogManager();
         $updateQueryResult = $blogManager->updateBlog($id_blog, $title, $chapo, $author, $content);
-        $this->displayBlogs(null,null,$updateQueryResult);
+        $this->displayBlogs(null, null, $updateQueryResult);
 
+    }
 
+    public function createBlog($title, $chapo, $author, $content)
+    {
+        $blogManager = new BlogManager();
+        $blogInsertionQueryResult = $blogManager->setBlog($title, $chapo, $author, $content);
+        $this->displayBlogs(null, null, null, $blogInsertionQueryResult);
     }
 
 }

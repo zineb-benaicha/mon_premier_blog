@@ -125,17 +125,35 @@ if (session_id() == '') {
                                 Ici vous pouvez créer, supprimer et modifier des blogs posts.
                             </div>
                         </div>
+                        <!-- Création de blog -->
+                        <form action="../index.php?action=createBlogRequest" method="post">
+                            <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+                                <button class="btn btn-primary" id="submitButton" type="submit" name="create">Créer un blog</button>
+                            </div>
+                        </form>
+                        <br>
                         <!-- Update succes/error -->
                         <?php if(isset($updateQueryResult) && $updateQueryResult): ?>
-                                            <div class="alert alert-success" role="alert">
-                                            Le blog a bien été mis à jour !
-                                        </div>
-                                        <?php endif ?>
-                                        <?php if(isset($updateQueryResult) && !$updateQueryResult): ?>
-                                            <div class="alert alert-success" role="alert">
-                                            Une erreur est survenue veuillez réessayer plus tard !
-                                        </div>
-                                        <?php endif ?>
+                                <div class="alert alert-success" role="alert">
+                                    Le blog a bien été mis à jour !
+                                </div>
+                        <?php endif ?>
+                        <?php if(isset($updateQueryResult) && !$updateQueryResult): ?>
+                                <div class="alert alert-success" role="alert">
+                                    Une erreur est survenue veuillez réessayer plus tard !
+                                </div>
+                        <?php endif ?>
+                        <!-- Creation succes/error -->
+                        <?php if(isset($blogInsertionQueryResult) && $blogInsertionQueryResult): ?>
+                                <div class="alert alert-success" role="alert">
+                                    Le blog a été créé avec succes !
+                                </div>
+                        <?php endif ?>
+                        <?php if(isset($blogInsertionQueryResult) && !$blogInsertionQueryResult): ?>
+                                <div class="alert alert-success" role="alert">
+                                    Une erreur est survenue veuillez réessayer plus tard !
+                                </div>
+                        <?php endif ?>
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
