@@ -41,4 +41,19 @@ class BlogManager extends Manager
         return $query->execute(['id' => $id_blog]);
     }
 
+    public function getBlogInformations($id_blog)
+    {
+        $db = $this->dbConnect();
+        $req = $db->prepare('SELECT id, title, chapo, content, author FROM blog WHERE id = :id');
+        $req->execute(['id' => $id_blog]);
+        return $req;
+    }
+
+    public function updateBlog($id_blog, $title, $chapo, $author, $content)
+    {
+        $db = $this->dbConnect();
+        $query = $db->prepare('UPDATE blog SET title = :title, chapo = :chapo, content = :content, author = :author  WHERE id = :id');
+        return $query->execute(['title' => $title, 'chapo' => $chapo, 'author' => $author, 'content' => $content, 'id' => $id_blog]);
+    }
+
 }

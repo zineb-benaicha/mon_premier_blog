@@ -105,7 +105,7 @@ class BackendController
         $this->displayComments(null, $commentValidateSuccess);
     }
 
-    public function displayBlogs($blogDeleteSuccess = null, $blogValidateSuccess = null)
+    public function displayBlogs($blogDeleteSuccess = null, $blogValidateSuccess = null, $updateQueryResult = null)
     {
         $blogManager = new BlogManager();
         //1- ramener touts les commentaires ordonnés par date de création du plus récent au plus ancien
@@ -139,31 +139,46 @@ class BackendController
         $blogManager = new BlogManager();
         //1-supprimer tous les commentaires d'un blog donné
         $queryDeleteCommentsResult = $commentManager->deleteCommentsByBlog($id_blog);
-        
+
         if (!$queryDeleteCommentsResult) {
             $blogDeleteSuccess = false;
-        }
-        else {
+        } else {
             //2-supprimer le blog en soi
             $queryDeleteBlogResult = $blogManager->removeBlog($id_blog);
-            
+
             if (!$queryDeleteBlogResult) {
                 $blogDeleteSuccess = false;
-            }
-            else {
+            } else {
                 $blogDeleteSuccess = true;
             }
 
             $this->displayBlogs($blogDeleteSuccess, null);
 
         }
-        
+
     }
 
-    public function editBlog($id_blog)
+    public function displayBlogInformationsForEdition($id_blog)
+    {   //1-chercher les informations du blog
+        $blogManager = new BlogManager();
+        $blogInformations = $blogManager->getBlogInformations($id_blog);
+       
+        if(!empty($blogInformations)) {
+            
+            $blogInformations = $blogInformations->fetch();
+            
+            //2-afficher une vue qui contient ces informations;
+            require_once 'view/blogEditionView.php';
+        }
+    }
+    
+    public function editBlog($id_blog, $title, $chapo, $author, $content)
     {
-        //1-afficher une vue qui contient le contenu actuel des champs
-        
+        $blogManager = new BlogManager();
+        $updateQueryResult = $blogManager->updateBlog($id_blog, $title, $chapo, $author, $content);
+        $this->displayBlogs(null,null,$updateQueryResult);
+
+
     }
 
 }

@@ -125,11 +125,23 @@ if (session_id() == '') {
                                 Ici vous pouvez créer, supprimer et modifier des blogs posts.
                             </div>
                         </div>
+                        <!-- Update succes/error -->
+                        <?php if(isset($updateQueryResult) && $updateQueryResult): ?>
+                                            <div class="alert alert-success" role="alert">
+                                            Le blog a bien été mis à jour !
+                                        </div>
+                                        <?php endif ?>
+                                        <?php if(isset($updateQueryResult) && !$updateQueryResult): ?>
+                                            <div class="alert alert-success" role="alert">
+                                            Une erreur est survenue veuillez réessayer plus tard !
+                                        </div>
+                                        <?php endif ?>
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
                                 Liste des posts blogs existants.
                             </div>
+
                             <?php if(isset($blogDeleteSuccess) && $blogDeleteSuccess): ?>
                                 <div class="alert alert-success" role="alert">
                                     Le blog a bien été supprimé !
