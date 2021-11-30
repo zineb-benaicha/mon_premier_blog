@@ -49,7 +49,13 @@ if (session_id() == '') {
                             <!-- Post categories-->
                         </header>
                         <!-- Preview image figure-->
-                        <figure class="mb-4"><img class="img-fluid rounded" src="<?='public/img/photos_blogs/blog_' . $blogToDisplay['id'] . '.jpg'?>" alt="image non disponible" /></figure>
+                        <?php 
+                        $photoName = 'public/img/photos_blogs/blog_' . $blogToDisplay['id'] . '.jpg';
+                        if (!file_exists($photoName)) {
+                            $photoName = 'public/img/photos_blogs/blog_standard.jpg';
+                        }
+                        ?>
+                        <figure class="mb-4"><img class="img-fluid rounded" src="<?= $photoName ?>" alt="image non disponible" /></figure>
                         <!-- Post content-->
                         <section class="mb-5">
                             <p class="fs-5 mb-4"><?=nl2br(htmlspecialchars($blogToDisplay['content']))?></p>

@@ -1,5 +1,7 @@
 <?php
-require_once 'oneBlog.php';
+if (session_id() == '') {
+    session_start();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
