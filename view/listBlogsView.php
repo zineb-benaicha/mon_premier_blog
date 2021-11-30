@@ -48,26 +48,81 @@ require_once 'oneBlog.php';
 
                     <!-- Featured blog post-->
                     <?php
-if ($blogsNumber > 0) {displayBlog2($listBlogs);
-    $blogsNumber--;}
-?>
+                        if ($blogsNumber > 0) {
+
+                            $data = $listBlogs->fetch();
+                            if ($data !== false) {
+                                $photoName = 'public\img\photos_blogs/blog_' . $data['id'] . '.jpg';
+                                
+                                if (!file_exists($photoName)) {
+                                    $photoName = 'public\img\photos_blogs/blog_standard.jpg';
+                                }
+
+                                echo '<div class="card mb-4">
+                                            <a href="#!"><img class="card-img-top" src="' . $photoName . '" alt="image non disponible" /></a>
+                                            <div class="card-body">
+                                                <div class="small text-muted">' . $data['last_update'] . '</div>
+                                                <h2 class="card-title">' . htmlspecialchars($data['title']) . '</h2>
+                                                <p class="card-text">' . nl2br(htmlspecialchars($data['chapo'])) . '</p>
+                                                <a class="btn btn-primary" href="index.php?action=displayBlog&id=' . $data['id'] . '">Lire la suite →</a>
+                                            </div>
+                                        </div>';
+
+                            }
+                            $blogsNumber--;
+                        }
+                    ?>
 
                     <!-- Nested row for non-featured blog posts-->
                     <div class="row">
                         <?php while ($blogsNumber > 0) {
-    for ($i = 1; $i < 3; $i++) {?>
+                            for ($i = 1; $i < 3; $i++) {?>
                                 <div class="col-lg-6">
                                     <!-- Blog post-->
                                     <?php
-displayBlog2($listBlogs);
-        $blogsNumber--;
-        displayBlog2($listBlogs);
-        $blogsNumber--;
-        ?>
+                                    $data = $listBlogs->fetch();
+                                    if ($data !== false) {
+                                        $photoName = 'public\img\photos_blogs/blog_' . $data['id'] . '.jpg';
+                                        if (!file_exists($photoName)) {
+                                            $photoName = 'public\img\photos_blogs/blog_standard.jpg';
+                                        }
+                                
+                                        echo '<div class="card mb-4">
+                                                    <a href="#!"><img class="card-img-top" src="' . $photoName . '" alt="image non disponible" /></a>
+                                                    <div class="card-body">
+                                                        <div class="small text-muted">' . $data['last_update'] . '</div>
+                                                        <h2 class="card-title">' . htmlspecialchars($data['title']) . '</h2>
+                                                        <p class="card-text">' . nl2br(htmlspecialchars($data['chapo'])) . '</p>
+                                                        <a class="btn btn-primary" href="index.php?action=displayBlog&id=' . $data['id'] . '">Lire la suite →</a>
+                                                    </div>
+                                                </div>';
+                                
+                                    }
+                                    $blogsNumber--;
+                                    $data = $listBlogs->fetch();
+                                    if ($data !== false) {
+                                        $photoName = 'public\img\photos_blogs/blog_' . $data['id'] . '.jpg';
+                                        if (!file_exists($photoName)) {
+                                            $photoName = 'public\img\photos_blogs/blog_standard.jpg';
+                                        }
+                                
+                                        echo '<div class="card mb-4">
+                                                    <a href="#!"><img class="card-img-top" src="' . $photoName . '" alt="image non disponible" /></a>
+                                                    <div class="card-body">
+                                                        <div class="small text-muted">' . $data['last_update'] . '</div>
+                                                        <h2 class="card-title">' . htmlspecialchars($data['title']) . '</h2>
+                                                        <p class="card-text">' . nl2br(htmlspecialchars($data['chapo'])) . '</p>
+                                                        <a class="btn btn-primary" href="index.php?action=displayBlog&id=' . $data['id'] . '">Lire la suite →</a>
+                                                    </div>
+                                                </div>';
+                                
+                                    }
+                                    $blogsNumber--;
+                                    ?>
                                 </div>
                             <?php
-}
-}?>
+                            }
+                        }?>
                     </div>
                 </div>
 

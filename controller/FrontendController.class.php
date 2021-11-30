@@ -45,7 +45,6 @@ class FrontendController
         $blogManager = new BlogManager();
         $blogsNumber = $blogManager->blogsNumber();
         $listBlogs = $blogManager->getBlogs();
-
         //puis appelle la vue et lui passer les données récupéreés à partir du modele
         require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'view' . DIRECTORY_SEPARATOR . 'listBlogsView.php';
     }
