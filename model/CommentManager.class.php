@@ -58,4 +58,12 @@ class CommentManager extends Manager
         return $query->execute(array(1, $id));
     }
 
+    public function deleteCommentsByBlog($id_blog)
+    {
+        $db = $this->dbConnect();
+        $query = $db->prepare('DELETE FROM comment WHERE id_blog = :id');
+        return $query->execute(['id' => $id_blog]);
+
+    }
+
 }

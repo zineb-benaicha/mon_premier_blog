@@ -53,7 +53,7 @@ class BackendController
 
     }
 
-    public function displayComments($commentDeleteSuccess = null, $commentValidateSuccess = null)
+    public function displayComments($commentDeleteSuccess = null, $blogUpdateSuccess = null)
     {
         $commentManager = new CommentManager();
         //1- ramener touts les commentaires ordonnés par date de création du plus récent au plus ancien
@@ -77,21 +77,19 @@ class BackendController
             }
 
         }
-        //var_dump($commentsList->fetch());
-        
-
         require_once 'view/commentsManagementDashboardView.php';
-
     }
 
     public function removeComment($id_comment)
     {
         $commentManager = new CommentManager();
+
         if ($commentManager->deleteComment($id_comment)) {
             $commentDeleteSuccess = true;
         } else {
             $commentDeleteSuccess = false;
         }
+
         $this->displayComments($commentDeleteSuccess);
 
     }
@@ -106,4 +104,87 @@ class BackendController
         }
         $this->displayComments(null, $commentValidateSuccess);
     }
+
+    public function displayBlogs($blogDeleteSuccess = null, $blogValidateSuccess = null, $updateQueryResult = null, $blogInsertionQueryResult = null)
+    {
+        $blogManager = new BlogManager();
+        //1- ramener touts les commentaires ordonnés par date de création du plus récent au plus ancien
+        $blogsNumber = $blogManager->getAllBlogsNumber();
+
+        if (!$blogsNumber) {
+            $queryError = true;
+        } else {
+            $blogsNumber = $blogsNumber->fetch();
+
+            if ((int) $blogsNumber[0] == 0) {
+                $blogsListEmpty = true;
+
+            } elseif ((int) $blogsNumber[0] > 0) {
+                $blogsListEmpty = false;
+                $blogsList = $blogManager->getBlogs();
+
+                if (!$blogsList) {
+                    $queryError = true;
+                }
+            }
+
+        }
+
+        require_once 'view/blogsManagementDashboardView.php';
+    }
+
+    public function removeBlog($id_blog)
+    {
+        $commentManager = new CommentManager();
+        $blogManager = new BlogManager();
+        //1-supprimer tous les commentaires d'un blog donné
+        $queryDeleteCommentsResult = $commentManager->deleteCommentsByBlog($id_blog);
+
+        if (!$queryDeleteCommentsResult) {
+            $blogDeleteSuccess = false;
+        } else {
+            //2-supprimer le blog en soi
+            $queryDeleteBlogResult = $blogManager->removeBlog($id_blog);
+
+            if (!$queryDeleteBlogResult) {
+                $blogDeleteSuccess = false;
+            } else {
+                $blogDeleteSuccess = true;
+            }
+
+            $this->displayBlogs($blogDeleteSuccess, null);
+
+        }
+
+    }
+
+    public function displayBlogInformationsForEdition($id_blog)
+    { //1-chercher les informations du blog
+        $blogManager = new BlogManager();
+        $blogInformations = $blogManager->getBlogInformations($id_blog);
+
+        if (!empty($blogInformations)) {
+
+            $blogInformations = $blogInformations->fetch();
+
+            //2-afficher une vue qui contient ces informations;
+            require_once 'view/blogEditionView.php';
+        }
+    }
+
+    public function editBlog($id_blog, $title, $chapo, $author, $content)
+    {
+        $blogManager = new BlogManager();
+        $updateQueryResult = $blogManager->updateBlog($id_blog, $title, $chapo, $author, $content);
+        $this->displayBlogs(null, null, $updateQueryResult);
+
+    }
+
+    public function createBlog($title, $chapo, $author, $content)
+    {
+        $blogManager = new BlogManager();
+        $blogInsertionQueryResult = $blogManager->setBlog($title, $chapo, $author, $content);
+        $this->displayBlogs(null, null, null, $blogInsertionQueryResult);
+    }
+
 }
