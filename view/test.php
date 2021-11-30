@@ -32,8 +32,7 @@ if (session_id() == '') {
                                             <div class="alert alert-danger" role="alert">
                                                 Une erreur est survenue veuillez réessayer plus tard.
                                             </div>
-                                            <?php header("refresh:2;url=../index.php?action=displayView&viewName=adminDashboard");?>
-
+                                        
                                         <? endif ?>
 
                                         
