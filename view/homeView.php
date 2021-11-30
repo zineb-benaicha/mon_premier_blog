@@ -10,7 +10,7 @@ if (session_id() == '') {
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Creative - Start Bootstrap Theme</title>
+        <title>Page d'accueil</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="../public/favicon/favicon.ico" />
         <!-- Bootstrap Icons-->
@@ -109,51 +109,15 @@ if (isset($_SESSION['user-connected']) && $_SESSION['user-connected']) {
                     <div class="col-lg-8 text-center">
                         <h2 class="text-white mt-0"><?=$invitationButtonName?></h2>
                         <hr class="divider divider-light" />
-                        <p class="text-white-75 mb-4">Rejoignez notre communauté et devenez membre en s'enregistrant, vous pourriez commenter les blogs et peut-être même les gérer!</p>
+                        <p class="text-white-75 mb-4">Rejoignez notre communauté et devenez membre en s'enregistrant, vous pourriez commenter les blogs et peut-être même en éditer!</p>
                         <a class="btn btn-light btn-xl" href=<?=$buttonPathRigister?>><?=$buttonNameRigister?></a>
                         <a class= "<?=$loginButtonClass?> . btn btn-light btn-xl" href="../index.php?action=displayView&viewName=login">Se connecter</a>
                     </div>
                 </div>
             </div>
-        </section>
-        <!-- Services-->
-        <section class="page-section" id="services">
-            <div class="container px-4 px-lg-5">
-                <h2 class="text-center mt-0">At Your Service</h2>
-                <hr class="divider" />
-                <div class="row gx-4 gx-lg-5">
-                    <div class="col-lg-3 col-md-6 text-center">
-                        <div class="mt-5">
-                            <div class="mb-2"><i class="bi-gem fs-1 text-primary"></i></div>
-                            <h3 class="h4 mb-2">Sturdy Themes</h3>
-                            <p class="text-muted mb-0">Our themes are updated regularly to keep them bug free!</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 text-center">
-                        <div class="mt-5">
-                            <div class="mb-2"><i class="bi-laptop fs-1 text-primary"></i></div>
-                            <h3 class="h4 mb-2">Up to Date</h3>
-                            <p class="text-muted mb-0">All dependencies are kept current to keep things fresh.</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 text-center">
-                        <div class="mt-5">
-                            <div class="mb-2"><i class="bi-globe fs-1 text-primary"></i></div>
-                            <h3 class="h4 mb-2">Ready to Publish</h3>
-                            <p class="text-muted mb-0">You can use this design as is, or you can make changes!</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 text-center">
-                        <div class="mt-5">
-                            <div class="mb-2"><i class="bi-heart fs-1 text-primary"></i></div>
-                            <h3 class="h4 mb-2">Made with Love</h3>
-                            <p class="text-muted mb-0">Is it really open source if it's not made with love?</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section> 
-        <!-- Call to action-->
+        </section>   
+
+        <!-- Télécharger le CV-->
         <section class="page-section bg-dark text-white">
             <div class="container px-4 px-lg-5 text-center">
                 <!--<h2 class="mb-4">Télécharger mon cv ici</h2>-->
@@ -170,10 +134,6 @@ if (isset($_SESSION['user-connected']) && $_SESSION['user-connected']) {
         <script src="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.js"></script>
         <!-- Core theme JS-->
         <script src="../public/js/scripts.js"></script>
-        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-        <!-- * *                               SB Forms JS                               * *-->
-        <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
-        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
         <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
     </body>
 </html>
