@@ -193,7 +193,7 @@ if (session_id() == '') {
                                                 <td><?= $action ?></td>
                                                 
                                         </tr>
-                                    <? endif ?>
+                                    <?php endif ?>
                                         <?php
                                         if (isset($usersListEmpty) && !$usersListEmpty && !isset($queryError)) {
                                             while ($user = $usersList->fetch()) {
