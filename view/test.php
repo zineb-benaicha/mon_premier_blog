@@ -27,31 +27,16 @@ if (session_id() == '') {
                                     <div class="card-body">
                                         
                                         <!-- Old blog informations-->
-                                        <?php  
-                                        if (isset($blogInformations) && !$blogInformations) {
-                                            $oldTitle = '';
-                                            $oldChapo = '';
-                                            $oldAuthor = '';
-                                            $oldContent = '';
-                                            $blogUpdateSuccess = false;
-                                        }
-                                        elseif (isset($blogInformations) && $blogInformations)  {
-                                            
-                                            $oldTitle = $blogInformations['title'];
-                                            $oldChapo = $blogInformations['chapo'];
-                                            $oldAuthor = $blogInformations['author'];
-                                            $oldContent = $blogInformations['content'];
-                                            $idBlog = $blogInformations['id'];
-                                        }
-                                        elseif (!isset($blogInformations)) {
-                                            $oldTitle = $_POST['title'];
-                                            $oldChapo = $_POST['chapo'];
-                                            $oldAuthor = $_POST['author'];
-                                            $oldContent = $_POST['content'];
-                                            $idBlog = $_GET['id_blog'];
-                                        }
-                                        ?>
-                                        <br>
+                                        
+                                        <?php if (isset($blogUpdateSuccess) && !$blogUpdateSuccess):?> 
+                                            <div class="alert alert-danger" role="alert">
+                                                Une erreur est survenue veuillez réessayer plus tard.
+                                            </div>
+                                            <?php header("refresh:2;url=../index.php?action=displayView&viewName=adminDashboard");?>
+
+                                        <? endif ?>
+
+                                        
                                     </div>
                                     
                                 </div>
