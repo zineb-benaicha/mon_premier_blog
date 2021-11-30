@@ -48,12 +48,8 @@ if (session_id() == '') {
                                                 <input class="form-control" id="inputPassword" type="password" name="password" value="<?=!empty($_POST['password']) ? $_POST['password'] : ''?>" />
                                                 <label for="inputPassword">Mot de passe</label>
                                             </div>
-                                            <div class="form-check mb-3">
-                                                <input class="form-check-input" id="inputRememberPassword" type="checkbox" value="" />
-                                                <label class="form-check-label" for="inputRememberPassword">Remember Password</label>
-                                            </div>
-                                            <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-
+                                            
+                                            <div class="d-flex align-items-center justify-content-between mt-4 mb-0 d-none">
                                                 <a class="small" href="../index.php?action=displayView&viewName=forgottenPassword">Mot de passe oublié?</a>
                                                 <button class="btn btn-primary" id="submitButton" type="submit" name="connect">Se connecter</button>
                                             </div>
@@ -99,10 +95,10 @@ if (session_id() == '') {
                                             <?php
                                                 if ($_SESSION['user-type-account'] == 'admin') {
 
-                                                    header("refresh:3;url=../index.php?action=displayView&viewName=adminDashboard");
+                                                    header("refresh:1;url=../index.php?action=displayView&viewName=adminDashboard");
                                                 } elseif ($_SESSION['user-type-account'] == 'visitor') {
 
-                                                    header("refresh:3;url=../index.php?action=displayView&viewName=home");
+                                                    header("refresh:1;url=../index.php?action=displayView&viewName=home");
 
                                                 }
 
