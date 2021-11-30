@@ -198,7 +198,7 @@ if (session_id() == '') {
                                                 <td><?= $editor ?></td>
                                                 <td><?= $action ?></td>
                                             </tr>
-                                        <? endif ?>
+                                        <?php endif ?>
                                         <?php
                                         if (isset($commentsListEmpty) && !$commentsListEmpty && !isset($queryError)) {
                                             while ($comment = $commentsList->fetch()) {

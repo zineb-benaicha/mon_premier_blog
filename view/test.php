@@ -33,7 +33,7 @@ if (session_id() == '') {
                                                 Une erreur est survenue veuillez réessayer plus tard.
                                             </div>
                                         
-                                        <? endif ?>
+                                        <?php endif ?>
 
                                         
                                     </div>

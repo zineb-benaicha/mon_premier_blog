@@ -224,7 +224,7 @@ if (session_id() == '') {
                                                 <td><?= $last_update ?></td>
                                                 <td><?= $action ?></td>
                                             </tr>
-                                        <? endif ?>
+                                        <?php  endif ?>
                                         <?php
                                         if (isset($blogsListEmpty) && !$blogsListEmpty && !isset($queryError)) {
                                             while ($blog = $blogsList->fetch()) {
