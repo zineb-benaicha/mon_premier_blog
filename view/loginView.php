@@ -49,8 +49,8 @@ if (session_id() == '') {
                                                 <label for="inputPassword">Mot de passe</label>
                                             </div>
                                             
-                                            <div class="d-flex align-items-center justify-content-between mt-4 mb-0 d-none">
-                                                <a class="small" href="../index.php?action=displayView&viewName=forgottenPassword">Mot de passe oublié?</a>
+                                            <div class="d-flex align-items-center justify-content-between mt-4 mb-0 ">
+                                                <a class="small d-none" href="../index.php?action=displayView&viewName=forgottenPassword">Mot de passe oublié?</a>
                                                 <button class="btn btn-primary" id="submitButton" type="submit" name="connect">Se connecter</button>
                                             </div>
                                         </form>
