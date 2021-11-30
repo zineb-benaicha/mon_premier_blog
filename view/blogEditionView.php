@@ -57,15 +57,14 @@ if (session_id() == '') {
                                             </div>
                                             <?php header("refresh:2;url=../index.php?action=displayView&viewName=adminDashboard");?>
 
-                                        <? endif ?>
+                                        <?php endif ?>
 
                                         <form action="../index.php?action=updateBlog&id_blog=<?= $idBlog ?>" method="post" >
-                                            <?php if (isset($emptyFields) && $emptyFields):?> 
-                                                
+                                            <?php if (isset($emptyFields) && $emptyFields): ?> 
                                                 <div class="alert alert-danger" role="alert">
                                                     Vous devez devez remplir touts les champs !
                                                 </div>
-                                            <? endif ?>
+                                            <?php endif ?>
                                             <!-- Title input-->
                                             
                                             <div class="form-floating mb-3 ">

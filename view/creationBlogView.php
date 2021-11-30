@@ -43,7 +43,7 @@ if (session_id() == '') {
                                                 <div class="alert alert-danger" role="alert">
                                                     Vous devez remplir touts les champs !
                                                 </div>
-                                            <? endif ?>
+                                            <?php endif ?>
 
                                             <!-- Title input-->
                                             
