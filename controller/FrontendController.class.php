@@ -165,6 +165,7 @@ class FrontendController
                     $_SESSION['user-email'] = $email;
                     $_SESSION['user-id'] = $userInformations['id'];
                     $_SESSION['user-name'] = $userInformations['name'];
+                    
                 } elseif ($userManager->isAdmin($email)[0] == 0) {
 
                     if ($userManager->getUser($email)) {

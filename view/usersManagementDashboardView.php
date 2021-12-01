@@ -1,6 +1,21 @@
 <?php
 if (session_id() == '') {
     session_start();
+    
+    if (!isset($_SESSION['user-connected'])){
+        $userNotAuthorised = true;
+    }
+    if (isset($_SESSION['user-connected']) && !$_SESSION['user-connected']){
+        $userNotAuthorised = true;
+    }
+    if (isset($_SESSION['user-type-account']) && $_SESSION['user-type-account'] !== 'admin') {
+        $userNotAuthorised = true;
+    }
+
+    if (isset($userNotAuthorised) && $userNotAuthorised){
+        header('Location: ../index.php');
+    }
+    
 }
 ?>
 <?php

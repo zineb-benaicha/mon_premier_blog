@@ -1,6 +1,21 @@
 <?php
 if (session_id() == '') {
     session_start();
+    
+    if (!isset($_SESSION['user-connected'])){
+        $userNotAuthorised = true;
+    }
+    if (isset($_SESSION['user-connected']) && !$_SESSION['user-connected']){
+        $userNotAuthorised = true;
+    }
+    if (isset($_SESSION['user-type-account']) && $_SESSION['user-type-account'] !== 'admin') {
+        $userNotAuthorised = true;
+    }
+
+    if (isset($userNotAuthorised) && $userNotAuthorised){
+        header('Location: ../index.php');
+    }
+    
 }
 ?>
 <?php
@@ -12,7 +27,6 @@ $pageTitle = 'Page d\'administration';
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">Dashboard</li>
                         </ol>
-
                         <div class="row">
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-primary text-white mb-4">
