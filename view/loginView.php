@@ -16,7 +16,7 @@ if (session_id() == '') {
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
     </head>
     <body >
-    <?php
+<?php
 if (isset($_SESSION['user-connected']) && $_SESSION['user-connected']) {
     //partie connexion navbar
     $navbarConnexionClass = '';
@@ -162,7 +162,7 @@ if (isset($_SESSION['user-connected']) && $_SESSION['user-connected']) {
                 </main>
             </div>
             <br>
-
+        </div>
         <footer class="bg-light py-5">
             <div class="container d-flex justify-content-center">        
                 <!-- Footer Social Icons-->
@@ -175,7 +175,7 @@ if (isset($_SESSION['user-connected']) && $_SESSION['user-connected']) {
                 </div>
             </div>
         </footer>
-            </div>
+        
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="../public/js/scripts.js"></script>
