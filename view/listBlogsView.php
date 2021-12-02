@@ -46,7 +46,7 @@ if (session_id() == '') {
             <div class="row">
                 <!-- Blog entries-->
 
-                <div class="col-lg-8">
+                <div class="col-lg-12">
 
                     <!-- Featured blog post-->
                     <?php
