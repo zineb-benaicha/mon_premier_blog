@@ -10,7 +10,7 @@ if (session_id() == '') {
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Blog Post - Start Bootstrap Template</title>
+        <title>Blog: <?= ucfirst($blogToDisplay['title']); ?></title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="../public/favicon/favicon.ico" />
         <!-- Core theme CSS (includes Bootstrap)-->
@@ -35,18 +35,20 @@ if (session_id() == '') {
         <!-- Page content-->
         <div class="container mt-5">
             <div class="row">
-                <div class="col-lg-8">
-                    <!-- Post content-->
+                <div class="col-lg-10">
                     <article>
-                        <!-- Post header-->
                         <header class="mb-4">
                             <!-- Post title-->
-                            <h1 class="fw-bolder mb-1"><?=htmlspecialchars($blogToDisplay['title'])?></h1>
-                             <!-- Post categories-->
-                             <a class="badge bg-secondary text-decoration-none link-light" href="index.php?action=listBlogs">Voir les autres posts</a>
-                            <!-- Post meta content-->
-                            <div class="text-muted fst-italic mb-2">Posté le <?=$blogToDisplay['last_update']?></div>
-                            <!-- Post categories-->
+                            <h1 class="fw-bolder mb-1"><?= ucfirst($blogToDisplay['title']) ?></h1>
+                            <br>
+                            <!-- Post Chapo -->
+                            <p class="fw-bold fs-4"><?= ucfirst($blogToDisplay['chapo']) ?></p>
+                            <!-- Post date -->
+                            <div class="text-muted fst-italic mb-2">Posté le <?= $blogToDisplay['last_update']?> par: <?= ucfirst($blogToDisplay['author']) ?></div>
+                            <br>
+                            <!-- see all posts-->
+                            <a class="badge bg-secondary text-decoration-none link-light p-3 fs-5" href="index.php?action=listBlogs">Voir les autres posts</a>
+
                         </header>
                         <!-- Preview image figure-->
                         <?php 
@@ -111,10 +113,9 @@ if (session_id() == '') {
 
                                         <!-- Single comment-->
                                         <div class="d-flex">
-                                            <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+                                            <div class="flex-shrink-0 fw-bold"><?= ucfirst($comment['name']) ?>:</div>
                                             <div class="ms-3">
-                                                <div class="fw-bold"><?=$comment['name']?></div>
-                                                <?=$comment['content']?>
+                                                <?= ucfirst($comment['content']) ?>
                                             </div>
                                         </div>
                                         <br>

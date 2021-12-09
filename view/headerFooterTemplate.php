@@ -1,11 +1,3 @@
-<?php
-if (session_id() == '') {
-    session_start();
-}
-?>
-<?php 
-$pageTitle = "";
-?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -13,7 +5,7 @@ $pageTitle = "";
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Page d'accueil</title>
+        <title><?= $pageTitle ?></title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="../public/favicon/favicon.ico" />
         <!-- Bootstrap Icons-->
@@ -25,12 +17,13 @@ $pageTitle = "";
         <link href="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="../public/css/styles.css" rel="stylesheet" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>    
-    </head>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
 
+
+    </head>
     <body id="page-top">
 
-<?php
+                <?php
 if (isset($_SESSION['user-connected']) && $_SESSION['user-connected']) {
     //partie connexion navbar
     $navbarConnexionClass = '';
@@ -68,7 +61,7 @@ if (isset($_SESSION['user-connected']) && $_SESSION['user-connected']) {
                     <ul class="navbar-nav ms-auto my-2 my-lg-0">
                         <li class="nav-item"><a class="nav-link" href="index.php?action=home">Accueil</a></li>
                         <li class="nav-item"><a class="nav-link" href="index.php?action=listBlogs">Blogs</a></li>
-                        <li class="nav-item"><a class="nav-link" href="index.php?action=displayView&viewName=contact">Contact</a></li>
+                        <li class="nav-item"><a class="nav-link" href="view/contactView.php">Contact</a></li>
                     </ul>
                 </div>
                  
@@ -86,44 +79,7 @@ if (isset($_SESSION['user-connected']) && $_SESSION['user-connected']) {
                     </li>
                 </ul>
         </nav>
-        <!-- Masthead-->
-        <header class="masthead">
-            <div class="container px-4 px-lg-5 h-100">
-                <div class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center text-center">
-                    <div class="col-lg-8 align-self-end">
-                        <h1 class="text-white font-weight-bold">Développeur web php et symphony</h1>
-                        <hr class="divider" />
-                    </div>
-                    <div class="col-lg-8 align-self-baseline">
-                        <p class="text-white-75 mb-5">Je suis développeuse web spécialisée en le langage php et le framework symphony </p>
-                        <a class="btn btn-primary btn-xl" href="index.php?action=listBlogs">Mes actualités</a>
-                    </div>
-                </div>
-            </div>
-        </header>
-
-        <!-- Longin/register-->
-        <section class="<?=$connexionSectionClass?> . page-section bg-primary" id="about">
-            <div class="container px-4 px-lg-5">
-                <div class="row gx-4 gx-lg-5 justify-content-center">
-                    <div class="col-lg-8 text-center">
-                        <h2 class="text-white mt-0"><?=$invitationButtonName?></h2>
-                        <hr class="divider divider-light" />
-                        <p class="text-white-75 mb-4">Rejoignez notre communauté et devenez membre en s'enregistrant, vous pourriez commenter les blogs et peut-être même en éditer!</p>
-                        <a class="btn btn-light btn-xl" href=<?=$buttonPathRigister?>><?=$buttonNameRigister?></a>
-                        <a class= "<?=$loginButtonClass?> . btn btn-light btn-xl" href="../index.php?action=displayView&viewName=login">Se connecter</a>
-                    </div>
-                </div>
-            </div>
-        </section>   
-
-        <!-- Télécharger le CV-->
-        <section class="page-section bg-dark text-white">
-            <div class="container px-4 px-lg-5 text-center">
-                <!--<h2 class="mb-4">Télécharger mon cv ici</h2>-->
-                <a class="btn btn-light btn-xl" href="../public/cv.pdf">Télécharger cv</a>
-            </div>
-        </section>
+        <?= $pageContent ?>        
         <!-- Footer-->
         <footer class="bg-light py-5">
             <div class="container d-flex justify-content-center">        
