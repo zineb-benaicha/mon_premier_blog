@@ -52,10 +52,6 @@
                                 Gestion des utilisateurs
                             </a>
                             <br>
-                            <a class="nav-link" href="../index.php?action=displayView&viewName=adminDashboard">
-                                <div class="sb-nav-link-icon"><i class="fas fa-envelope fa-2x"></i></div>
-                                Gestion des messages
-                            </a>
                             <br>
                             <a class="nav-link" href="../index.php?action=manageCommentsForAdmin">
                                 <div class="sb-nav-link-icon"><i class="fas fa-comment-alt fa-2x"></i></div>
