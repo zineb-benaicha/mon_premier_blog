@@ -78,8 +78,7 @@ if (isset($_SESSION['user-connected']) && $_SESSION['user-connected']) {
                 </div>
                 <div class="row gx-4 gx-lg-5 justify-content-center mb-5">
                     <div class="col-lg-6">
-                        <form id="contactForm" action="../index.php?action=sentMessage" method="post">
-
+                        <form id="contactForm" action="../index.php?action=sentMessage#success-div-message" method="post">
 
                             <!-- first-Name input-->
                             <?php if (isset($emptyFields['first-name']) && $emptyFields['first-name']): ?>
@@ -123,13 +122,13 @@ if (isset($_SESSION['user-connected']) && $_SESSION['user-connected']) {
 
                             </div>
 
-                            <?php if (isset($_GET['recordMessage'])): ?>
-                                <?php if ($_GET['recordMessage'] == 'succes'): ?>
-                                    <div class="alert alert-success" role="alert">
+                            <?php if (isset($recordMessage)): ?>
+                                <?php if ($recordMessage == 'succes'): ?>
+                                    <div class="alert alert-success" role="alert" id="success-div-message">
                                         Votre message a bien été envoyé!
                                     </div>
                                 <?php endif?>
-                                <?php if ($_GET['recordMessage'] == 'error'): ?>
+                                <?php if ($recordMessage == 'error'): ?>
                                     <div class="alert alert-danger" role="alert">
                                         Une erreur est survenue veuillez réessayer plus tard!
                                     </div>
