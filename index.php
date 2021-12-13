@@ -2,8 +2,7 @@
 if (session_id() == '') {
     session_start();
 }
-function loadClass($class)
-{
+function loadClass($class) {
     require 'controller' . DIRECTORY_SEPARATOR . $class . '.class.php';
 }
 spl_autoload_register('loadClass');
@@ -231,28 +230,25 @@ if (isset($_GET['action'])) {
         } else {
             require_once 'view/adminDashboardView.php';
         }
-    }
-    elseif ($_GET['action'] == 'updateBlog') {
+    } elseif ($_GET['action'] == 'updateBlog') {
         if (isset($_GET['id_blog']) && $_GET['id_blog'] > 0) {
             //vérifier si tous les champs ne sont pas vides
             if (!empty($_POST['title']) && !empty($_POST['chapo']) && !empty($_POST['author']) && !empty($_POST['content'])) {
                 //appeler le controlleur pour qu'il enregistrer les modification du blog
-                $backendController->editBlog(htmlspecialchars($_GET['id_blog']) ,htmlspecialchars($_POST['title']), htmlspecialchars($_POST['chapo']), htmlspecialchars($_POST['author']), htmlspecialchars($_POST['content']));
-    
+                $backendController->editBlog(htmlspecialchars($_GET['id_blog']), htmlspecialchars($_POST['title']), htmlspecialchars($_POST['chapo']), htmlspecialchars($_POST['author']), htmlspecialchars($_POST['content']));
+
             } else {
-    
+
                 $emptyFields = true;
                 require_once 'view/blogEditionView.php';
-                
+
             }
         }
-    }
-    elseif ($_GET['action'] == 'createBlogRequest') {
+    } elseif ($_GET['action'] == 'createBlogRequest') {
         //appel de la vue qui pemret de saisir les information d'un blog
         require_once 'view/creationBlogView.php';
 
-    }
-    elseif ($_GET['action'] == 'createBlogByAdmin') {
+    } elseif ($_GET['action'] == 'createBlogByAdmin') {
         //vérification des champs
         if (!empty($_POST['title']) && !empty($_POST['chapo']) && !empty($_POST['author']) && !empty($_POST['content'])) {
             //appeler le controlleur pour qu'il insère le nouveau du blog
@@ -262,9 +258,8 @@ if (isset($_GET['action'])) {
 
             $emptyFields = true;
             require_once 'view/creationBlogView.php';
-            
-        }
 
+        }
 
     }
 

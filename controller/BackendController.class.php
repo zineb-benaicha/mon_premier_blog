@@ -7,10 +7,8 @@ require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARA
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'MessageManager.class.php';
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'UserManager.class.php';
 
-class BackendController
-{
-    public function displayUsers($userDeleteSuccess = null, $userValidateSuccess = null)
-    {
+class BackendController {
+    public function displayUsers($userDeleteSuccess = null, $userValidateSuccess = null) {
         $userManager = new UserManager();
         $usersNumber = $userManager->countAdmins()->fetch();
 
@@ -30,8 +28,7 @@ class BackendController
 
     }
 
-    public function removeUser($id_user)
-    {
+    public function removeUser($id_user) {
         $userManager = new UserManager();
         if ($userManager->deleteUser($id_user)) {
             $userDeleteSuccess = true;
@@ -41,8 +38,7 @@ class BackendController
         $this->displayUsers($userDeleteSuccess);
     }
 
-    public function validateUser($id_user)
-    {
+    public function validateUser($id_user) {
         $userManager = new UserManager();
         if ($userManager->validateUser($id_user)) {
             $userValidateSuccess = true;
@@ -53,8 +49,7 @@ class BackendController
 
     }
 
-    public function displayComments($commentDeleteSuccess = null, $blogUpdateSuccess = null)
-    {
+    public function displayComments($commentDeleteSuccess = null, $blogUpdateSuccess = null) {
         $commentManager = new CommentManager();
         //1- ramener touts les commentaires ordonnés par date de création du plus récent au plus ancien
         $commentsNumber = $commentManager->getAllCommentsNumber();
@@ -80,8 +75,7 @@ class BackendController
         require_once 'view/commentsManagementDashboardView.php';
     }
 
-    public function removeComment($id_comment)
-    {
+    public function removeComment($id_comment) {
         $commentManager = new CommentManager();
 
         if ($commentManager->deleteComment($id_comment)) {
@@ -94,8 +88,7 @@ class BackendController
 
     }
 
-    public function validateComment($id_comment)
-    {
+    public function validateComment($id_comment) {
         $commentManager = new CommentManager();
         if ($commentManager->validateComment($id_comment)) {
             $commentValidateSuccess = true;
@@ -105,8 +98,7 @@ class BackendController
         $this->displayComments(null, $commentValidateSuccess);
     }
 
-    public function displayBlogs($blogDeleteSuccess = null, $blogValidateSuccess = null, $updateQueryResult = null, $blogInsertionQueryResult = null)
-    {
+    public function displayBlogs($blogDeleteSuccess = null, $blogValidateSuccess = null, $updateQueryResult = null, $blogInsertionQueryResult = null) {
         $blogManager = new BlogManager();
         //1- ramener touts les commentaires ordonnés par date de création du plus récent au plus ancien
         $blogsNumber = $blogManager->getAllBlogsNumber();
@@ -133,8 +125,7 @@ class BackendController
         require_once 'view/blogsManagementDashboardView.php';
     }
 
-    public function removeBlog($id_blog)
-    {
+    public function removeBlog($id_blog) {
         $commentManager = new CommentManager();
         $blogManager = new BlogManager();
         //1-supprimer tous les commentaires d'un blog donné
@@ -158,8 +149,7 @@ class BackendController
 
     }
 
-    public function displayBlogInformationsForEdition($id_blog)
-    { //1-chercher les informations du blog
+    public function displayBlogInformationsForEdition($id_blog) { //1-chercher les informations du blog
         $blogManager = new BlogManager();
         $blogInformations = $blogManager->getBlogInformations($id_blog);
 
@@ -172,16 +162,14 @@ class BackendController
         }
     }
 
-    public function editBlog($id_blog, $title, $chapo, $author, $content)
-    {
+    public function editBlog($id_blog, $title, $chapo, $author, $content) {
         $blogManager = new BlogManager();
         $updateQueryResult = $blogManager->updateBlog($id_blog, $title, $chapo, $author, $content);
         $this->displayBlogs(null, null, $updateQueryResult);
 
     }
 
-    public function createBlog($title, $chapo, $author, $content)
-    {
+    public function createBlog($title, $chapo, $author, $content) {
         $blogManager = new BlogManager();
         $blogInsertionQueryResult = $blogManager->setBlog($title, $chapo, $author, $content);
         $this->displayBlogs(null, null, null, $blogInsertionQueryResult);
