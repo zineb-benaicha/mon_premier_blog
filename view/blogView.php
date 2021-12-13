@@ -15,23 +15,56 @@ if (session_id() == '') {
         <link rel="icon" type="image/x-icon" href="../public/favicon/favicon.ico" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="../public/css/styles.css" rel="stylesheet" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+
     </head>
     <body>
-        <!-- Responsive navbar-->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <?php
+if (isset($_SESSION['user-connected']) && $_SESSION['user-connected']) {
+    //partie connexion navbar
+    $navbarConnexionClass = '';
+    $classLogoutItem = '';
+    $classLoginItem = 'd-none';
+    if ($_SESSION['user-type-account'] == 'admin') {
+        $dashboardClassItem = '';
+    } else {
+        $dashboardClassItem = 'd-none';
+    }
+} elseif (isset($_SESSION['user-connected']) && !$_SESSION['user-connected']) {
+    //partie connexion navbar
+    $dashboardClassItem = 'd-none';
+    $navbarConnexionClass = 'd-none';
+    $classLogoutItem = 'd-none';
+    $classLoginItem = '';
+}
+?>
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-                <a class="navbar-brand" href="#!">Start Bootstrap</a>
+                <a class="navbar-brand d-none d-lg-block" href="index.php?action=home"><img src="public/img/logo/logo.png" height="150"/></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#!">Contact</a></li>
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="index.php?action=home">Accueil</a></li>
+                        <li class="nav-item"><a class="nav-link" href="index.php?action=listBlogs">Blogs</a></li>
+                        <li class="nav-item"><a class="nav-link" href="index.php?action=displayView&viewName=contact">Contact</a></li>
                     </ul>
                 </div>
             </div>
+            <!-- Connexion Navbar-->
+            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-lg"></i></a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <li><a class="<?=$dashboardClassItem?> . dropdown-item" href="../index.php?action=displayView&viewName=adminDashboard">Tableau de bord</a></li>
+                            <li><hr class="<?=$navbarConnexionClass?> . dropdown-divider" /></li>
+                            <li><a class="<?=$classLogoutItem?> . dropdown-item" href="../index.php?action=logout">Se deconnecter</a></li>
+                            <li><a class="<?=$classLoginItem?> . dropdown-item" href="../index.php?action=displayView&viewName=login">Se connecter</a></li>
+                        </ul>
+                    </li>
+            </ul>
         </nav>
+        
         <!-- Page content-->
         <div class="container mt-5">
             <div class="row">
@@ -47,7 +80,7 @@ if (session_id() == '') {
                             <div class="text-muted fst-italic mb-2">Posté le <?= $blogToDisplay['last_update']?> par: <?= ucfirst($blogToDisplay['author']) ?></div>
                             <br>
                             <!-- see all posts-->
-                            <a class="badge bg-secondary text-decoration-none link-light p-3 fs-5" href="index.php?action=listBlogs">Voir les autres posts</a>
+                            <a class="badge bg-primary text-decoration-none link-light p-3 fs-5" href="index.php?action=listBlogs">Voir les autres posts</a>
 
                         </header>
                         <!-- Preview image figure-->
@@ -127,9 +160,18 @@ if (session_id() == '') {
                 </div>
             </div>
         </div>
-        <!-- Footer-->
-        <footer class="py-5 bg-dark">
-            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p></div>
+       <!-- Footer-->
+       <footer class="bg-light py-5">
+            <div class="container d-flex justify-content-center">        
+                <!-- Footer Social Icons-->
+                <div>
+                    <h4 class="text-uppercase mb-4">Réseaux sociaux</h4>
+                    <a class="btn btn-outline-dark btn-social mx-1" href="https://www.facebook.com/"><i class="fab fa-fw fa-facebook-f"></i></a>
+                    <a class="btn btn-outline-dark btn-social mx-1" href="https://twitter.com/"><i class="fab fa-fw fa-twitter"></i></a>
+                    <a class="btn btn-outline-dark btn-social mx-1" href="https://www.linkedin.com/"><i class="fab fa-fw fa-linkedin-in"></i></a>
+                    <a class="btn btn-outline-dark btn-social mx-1" href="https://github.com/"><i class="fab fa-fw fa-github"></i></a>
+                </div>
+            </div>
         </footer>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>

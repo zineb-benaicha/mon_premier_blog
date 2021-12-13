@@ -1,18 +1,15 @@
 <?php
 require_once 'Manager.class.php';
-class UserManager extends Manager
-{
+class UserManager extends Manager {
 
-    public function setUser($name, $email, $password, $isAdmin, $isValidated)
-    {
+    public function setUser($name, $email, $password, $isAdmin, $isValidated) {
         $db = $this->dbConnect();
         $result = $db->prepare('INSERT INTO user(name, email, password, is_Admin, is_Validated) VALUES (?, ?, ?, ?, ?)');
 
         return $result->execute(array($name, $email, $password, $isAdmin, $isValidated));
     }
 
-    public function userEmailsNumber($email)
-    {
+    public function userEmailsNumber($email) {
         $db = $this->dbConnect();
         $result = $db->prepare('SELECT COUNT(*) FROM user WHERE email= :email');
         $result->execute(array('email' => $email));
@@ -20,8 +17,7 @@ class UserManager extends Manager
         return (int) $numberEmails[0];
     }
 
-    public function getHashedPassword($email)
-    {
+    public function getHashedPassword($email) {
         $db = $this->dbConnect();
         $result = $db->prepare('SELECT password FROM user WHERE email=?');
         $result->execute(array($email));
@@ -29,16 +25,14 @@ class UserManager extends Manager
 
     }
 
-    public function passwordUpdate($password, $email)
-    {
+    public function passwordUpdate($password, $email) {
         $db = $this->dbConnect();
         $result = $db->prepare('UPDATE user SET password=? WHERE email=?');
         return $result->execute(array($password, $email));
 
     }
 
-    public function isAdmin($email)
-    {
+    public function isAdmin($email) {
         $db = $this->dbConnect();
         $result = $db->prepare('SELECT is_admin FROM user WHERE email=?');
         $result->execute(array($email));
@@ -46,8 +40,7 @@ class UserManager extends Manager
         return $isAdmin;
     }
 
-    public function isValidated($email)
-    {
+    public function isValidated($email) {
         $db = $this->dbConnect();
         $result = $db->prepare('SELECT is_validated FROM user WHERE email=?');
         $result->execute(array($email));
@@ -55,8 +48,7 @@ class UserManager extends Manager
         return $isValidated;
     }
 
-    public function getUser($email)
-    {
+    public function getUser($email) {
         $db = $this->dbConnect();
         $user = $db->prepare('SELECT * FROM user WHERE email=?');
         $result = $user->execute(array($email));
@@ -68,8 +60,7 @@ class UserManager extends Manager
         }
     }
 
-    public function countAdmins()
-    {
+    public function countAdmins() {
         $db = $this->dbConnect();
         $result = $db->prepare('SELECT COUNT(*) FROM user WHERE is_admin=?');
         $result->execute(array('1'));
@@ -77,24 +68,21 @@ class UserManager extends Manager
 
     }
 
-    public function getAdmins($id_admin)
-    {
+    public function getAdmins($id_admin) {
         $db = $this->dbConnect();
         $admins = $db->prepare('SELECT * FROM user WHERE is_admin = ? AND id != ?');
         $admins->execute(array('1', $id_admin));
         return $admins;
 
     }
-    
-    public function deleteUser($id)
-    {
+
+    public function deleteUser($id) {
         $db = $this->dbConnect();
         $query = $db->prepare('DELETE FROM user WHERE id = :id');
         return $query->execute(['id' => $id]);
     }
 
-    public function validateUser($id)
-    {
+    public function validateUser($id) {
         $db = $this->dbConnect();
         $query = $db->prepare('UPDATE user SET is_validated = ?  WHERE id = ?');
         return $query->execute(array(1, $id));

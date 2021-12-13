@@ -7,11 +7,9 @@ require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARA
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'MessageManager.class.php';
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'UserManager.class.php';
 
-class FrontendController
-{
+class FrontendController {
 
-    public static function destroySession()
-    {
+    public static function destroySession() {
         $_SESSION['user-connected'] = false;
 
         if (isset($_SESSION['user-type-account'])) {
@@ -30,8 +28,7 @@ class FrontendController
 
     }
 
-    public function homePage()
-    {
+    public function homePage() {
         if (!isset($_SESSION['user-connected'])) {
             $_SESSION['user-connected'] = false;
         }
@@ -39,8 +36,7 @@ class FrontendController
 
     }
 
-    public function listBlogs()
-    {
+    public function listBlogs() {
         //une méthode qui appelle le modele des blogs pour récupérer tous les blogs ordonnés
         $blogManager = new BlogManager();
         $blogsNumber = $blogManager->blogsNumber();
@@ -49,8 +45,7 @@ class FrontendController
         require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'view' . DIRECTORY_SEPARATOR . 'listBlogsView.php';
     }
 
-    public function displayBlog($id, $commentEmpty = null, $commentInsertionSuccess = null)
-    {
+    public function displayBlog($id, $commentEmpty = null, $commentInsertionSuccess = null) {
         //chercher le blog
         $blogManager = new BlogManager();
         $blogToDisplay = $blogManager->getBlog($id);
@@ -75,8 +70,7 @@ class FrontendController
 
     }
 
-    public function sentMessage($firstName, $lastName, $email, $message)
-    {
+    public function sentMessage($firstName, $lastName, $email, $message) {
         //enregistrer le message au niveau de la BDD
         $messageManager = new MessageManager();
 
@@ -94,19 +88,16 @@ class FrontendController
             $messageMail = "$firstName $lastName a laissé un message, pour le consulter aller sur le site";
 
             mail($destinataire, $objet, $messageMail, $headers);
-
-            //2-afficher message de succes au niveau du formulaire
-            header('Location: view/contactView.php?recordMessage=succes');
+            $recordMessage = 'succes';
         } else //Message non enregistré dans la BDD
         {
-            //afficher message d'erreur au niveau de la vue
-            header('Location: view/contactView.php?recordMessage=error');
+            $recordMessage = 'error';
         }
+        require_once 'view/contactView.php';
 
     }
 
-    public function registerUser($name, $email, $password, $accountType)
-    {
+    public function registerUser($name, $email, $password, $accountType) {
 
         $emailExists = false;
         $userRigistred = false;
@@ -135,8 +126,7 @@ class FrontendController
 
     }
 
-    public function connexionUser($email, $password)
-    {
+    public function connexionUser($email, $password) {
         $userManager = new UserManager();
 
         $userEmailNumber = $userManager->userEmailsNumber($email);
@@ -165,7 +155,7 @@ class FrontendController
                     $_SESSION['user-email'] = $email;
                     $_SESSION['user-id'] = $userInformations['id'];
                     $_SESSION['user-name'] = $userInformations['name'];
-                    
+
                 } elseif ($userManager->isAdmin($email)[0] == 0) {
 
                     if ($userManager->getUser($email)) {
@@ -202,8 +192,7 @@ class FrontendController
         require_once 'view/loginView.php';
     }
 
-    public function passwordRecovery($email)
-    {
+    public function passwordRecovery($email) {
         //1-vérifier si l'email existe en BDD
         $userManager = new UserManager();
         $recoveryEmailNotFound = false;
@@ -221,8 +210,7 @@ class FrontendController
         }
     }
 
-    public function passwordReset($password, $email)
-    {
+    public function passwordReset($password, $email) {
 
         $userManager = new UserManager();
         if ($userManager->passwordUpdate(password_hash($password, PASSWORD_DEFAULT), $email)) {
@@ -238,8 +226,7 @@ class FrontendController
 
     }
 
-    public function addComment($id_blog, $id_user, $comment_content)
-    {
+    public function addComment($id_blog, $id_user, $comment_content) {
         $commentManager = new CommentManager();
 
         $queryInsertionCommentResult = $commentManager->setComment($id_blog, $id_user, $comment_content);
