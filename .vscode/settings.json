@@ -1,0 +1,5 @@
+{
+    "phpfmt.psr1_naming": true,
+    "phpfmt.psr2": false,
+    "phpfmt.psr1": true
+}
