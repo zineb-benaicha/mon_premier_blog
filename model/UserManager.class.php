@@ -71,9 +71,13 @@ class UserManager extends Manager {
 
     public function getAdmins($id_admin) {
         $db = $this->dbConnect();
-        $admins = $db->prepare('SELECT * FROM user WHERE is_admin = ? AND id != ?');
-        $admins->execute(array('1', $id_admin));
-        return $admins;
+        $result = $db->prepare('SELECT * FROM user WHERE is_admin = ? AND id != ?');
+        $result->execute(array('1', $id_admin));
+        while ($donnees = $result->fetch(PDO::FETCH_ASSOC))
+            {
+                $adminsList[] = new User($donnees);
+            }
+        return $adminsList;
 
     }
 
