@@ -15,6 +15,7 @@ class BlogManager extends Manager {
         $req = $db->query('SELECT id, title, chapo, author, DATE_FORMAT(last_update, \'%d/%m/%Y à %Hh%imin%ss\') AS last_update FROM blog ORDER BY last_update DESC');
         while ($donnees = $req->fetch(PDO::FETCH_ASSOC))
             {
+                $donnees['lastUpdate'] = $donnees['last_update'];
                 $blogs[] = new Blog($donnees);
             }
         return $blogs;
@@ -53,10 +54,10 @@ class BlogManager extends Manager {
         return $query->execute(['title' => $title, 'chapo' => $chapo, 'author' => $author, 'content' => $content, 'id' => $id_blog]);
     }
 
-    public function setBlog($title, $chapo, $author, $content) {
+    public function setBlog(Blog $blog) {
         $db = $this->dbConnect();
         $query = $db->prepare('INSERT INTO blog (title, chapo, author, content, last_update) VALUES (:title, :chapo, :author, :content, NOW())');
-        return $query->execute(['title' => $title, 'chapo' => $chapo, 'author' => $author, 'content' => $content]);
+        return $query->execute(['title' => $blog->title(), 'chapo' => $blog->chapo(), 'author' => $blog->author(), 'content' => $blog->content()]);
     }
 
 }

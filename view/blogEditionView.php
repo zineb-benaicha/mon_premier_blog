@@ -42,11 +42,11 @@ $pageTitle = 'Modifier un blog';
                                         }
                                         elseif (isset($blogInformations) && $blogInformations)  {
                                             
-                                            $oldTitle = $blogInformations['title'];
-                                            $oldChapo = $blogInformations['chapo'];
-                                            $oldAuthor = $blogInformations['author'];
-                                            $oldContent = $blogInformations['content'];
-                                            $idBlog = $blogInformations['id'];
+                                            $oldTitle = $blogInformations->title();
+                                            $oldChapo = $blogInformations->chapo();
+                                            $oldAuthor = $blogInformations->author();
+                                            $oldContent = $blogInformations->content();
+                                            $idBlog = $blogInformations->id();
                                         }
                                         elseif (!isset($blogInformations)) {
                                             $oldTitle = $_POST['title'];

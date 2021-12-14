@@ -153,10 +153,9 @@ class BackendController {
         $blogManager = new BlogManager();
         $blogInformations = $blogManager->getBlogInformations($id_blog);
 
-        if (!empty($blogInformations)) {
+        if (!empty($blogInformations)) { 
 
-            $blogInformations = $blogInformations->fetch();
-
+            $blogInformations = new Blog($blogInformations->fetch(PDO::FETCH_ASSOC));
             //2-afficher une vue qui contient ces informations;
             require_once 'view/blogEditionView.php';
         }
@@ -171,7 +170,8 @@ class BackendController {
 
     public function createBlog($title, $chapo, $author, $content) {
         $blogManager = new BlogManager();
-        $blogInsertionQueryResult = $blogManager->setBlog($title, $chapo, $author, $content);
+        $blogToInsert = new Blog(['title'=> $title, 'chapo' => $chapo, 'author' => $author, 'content' => $content]);
+        $blogInsertionQueryResult = $blogManager->setBlog($blogToInsert);
         $this->displayBlogs(null, null, null, $blogInsertionQueryResult);
     }
 

@@ -135,15 +135,15 @@ $pageTitle = 'Page d\'administration des blogs posts';
                                         <?php  endif ?>
                                         <?php
                                         if (isset($blogsListEmpty) && !$blogsListEmpty && !isset($queryError)) {
-                                            while ($blog = $blogsList->fetch()) {
-                                                $number = $blog['id'];
-                                                $title = $blog['title'];
-                                                $chapo = $blog['chapo'];
-                                                $author = $blog['author'];
-                                                $last_update = $blog['last_update'];
+                                            foreach ($blogsList as $blog) {
+                                                $number = $blog->id();
+                                                $title = $blog->title();
+                                                $chapo = $blog->chapo();
+                                                $author = $blog->author();
+                                                $last_update = $blog->lastUpdate();
                                                
-                                                $action_edit = '<a href="../index.php?action=editBlogByAdmin&id_blog='. $blog['id'] . '">modifier</a>';
-                                                $action_delete = '<a href="../index.php?action=deleteBlogByAdmin&id_blog='. $blog['id'] . '">supprimer</a>';
+                                                $action_edit = '<a href="../index.php?action=editBlogByAdmin&id_blog='. $blog->id() . '">modifier</a>';
+                                                $action_delete = '<a href="../index.php?action=deleteBlogByAdmin&id_blog='. $blog->id() . '">supprimer</a>';
 
                                                 $action =  $action_edit . ' / ' . $action_delete;
                                                  
