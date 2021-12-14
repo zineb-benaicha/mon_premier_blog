@@ -6,6 +6,7 @@ require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARA
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'CommentManager.class.php';
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'MessageManager.class.php';
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'UserManager.class.php';
+require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'Message.php';
 
 class FrontendController {
 
@@ -74,8 +75,11 @@ class FrontendController {
         //enregistrer le message au niveau de la BDD
         $messageManager = new MessageManager();
 
+        $receivedMessage = new Message(['firstName' => $firstName,'lastName' => $lastName, 'email' => $email, 'content' => $message]);
+        
+
         //si le message a bien été enregistré dans la BDD
-        if ($messageManager->setMessage($firstName, $lastName, $email, $message)) {
+        if ($messageManager->setMessage($receivedMessage)) {
 
             //1-envoyer un email à moi
             $destinataire = 'zineb.mezlef@gmail.com';
