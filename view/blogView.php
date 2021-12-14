@@ -10,7 +10,7 @@ if (session_id() == '') {
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Blog: <?= ucfirst($blogToDisplay['title']); ?></title>
+        <title>Blog: <?= ucfirst($blogToDisplay->title()); ?></title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="../public/favicon/favicon.ico" />
         <!-- Core theme CSS (includes Bootstrap)-->
@@ -72,12 +72,12 @@ if (isset($_SESSION['user-connected']) && $_SESSION['user-connected']) {
                     <article>
                         <header class="mb-4">
                             <!-- Post title-->
-                            <h1 class="fw-bolder mb-1"><?= ucfirst($blogToDisplay['title']) ?></h1>
+                            <h1 class="fw-bolder mb-1"><?= ucfirst($blogToDisplay->title()) ?></h1>
                             <br>
                             <!-- Post Chapo -->
-                            <p class="fw-bold fs-4"><?= ucfirst($blogToDisplay['chapo']) ?></p>
+                            <p class="fw-bold fs-4"><?= ucfirst($blogToDisplay->chapo()) ?></p>
                             <!-- Post date -->
-                            <div class="text-muted fst-italic mb-2">Posté le <?= $blogToDisplay['last_update']?> par: <?= ucfirst($blogToDisplay['author']) ?></div>
+                            <div class="text-muted fst-italic mb-2">Posté le <?= $blogToDisplay->lastUpdate()?> par: <?= ucfirst($blogToDisplay->author()) ?></div>
                             <br>
                             <!-- see all posts-->
                             <a class="badge bg-primary text-decoration-none link-light p-3 fs-5" href="index.php?action=listBlogs">Voir les autres posts</a>
@@ -85,7 +85,7 @@ if (isset($_SESSION['user-connected']) && $_SESSION['user-connected']) {
                         </header>
                         <!-- Preview image figure-->
                         <?php 
-                        $photoName = 'public/img/photos_blogs/blog_' . $blogToDisplay['id'] . '.jpg';
+                        $photoName = 'public/img/photos_blogs/blog_' . $blogToDisplay->id() . '.jpg';
                         if (!file_exists($photoName)) {
                             $photoName = 'public/img/photos_blogs/blog_standard.jpg';
                         }
@@ -93,7 +93,7 @@ if (isset($_SESSION['user-connected']) && $_SESSION['user-connected']) {
                         <figure class="mb-4"><img class="img-fluid rounded" src="<?= $photoName ?>" alt="image non disponible" /></figure>
                         <!-- Post content-->
                         <section class="mb-5">
-                            <p class="fs-5 mb-4"><?=nl2br(htmlspecialchars($blogToDisplay['content']))?></p>
+                            <p class="fs-5 mb-4"><?=nl2br(htmlspecialchars($blogToDisplay->content()))?></p>
 
                         </section>
                     </article>
@@ -110,7 +110,7 @@ if (isset($_SESSION['user-connected']) && $_SESSION['user-connected']) {
                                     </div>
                                 <?php endif?>
 
-                                <form class="mb-4" action="../index.php?action=sentComment&amp;id_blog=<?=$blogToDisplay['id']?>#form_comment" method="post">
+                                <form class="mb-4" action="../index.php?action=sentComment&amp;id_blog=<?=$blogToDisplay->id()?>#form_comment" method="post">
                                     <textarea class="form-control" rows="3" placeholder="Laissez votre commentaire" name="content"></textarea>
                                     <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
                                         <button class="btn btn-primary" id="submitButton" type="submit">Publier</button>
@@ -139,24 +139,26 @@ if (isset($_SESSION['user-connected']) && $_SESSION['user-connected']) {
                                 <?php endif?>
 
                                 <!-- Affichage des commentaires-->
+                                
                                 <?php if ($commentsNumber == 0): ?>
                                     <p>Aucun Commentaire à afficher.</p>
                                 <?php elseif ($commentsNumber > 0): ?>
-                                    <?php while ($comment = $blogComments->fetch()): ?>
+                                    <?php foreach ($blogComments as $comment): ?>
 
                                         <!-- Single comment-->
                                         <div class="d-flex">
-                                            <div class="flex-shrink-0 fw-bold"><?= ucfirst($comment['name']) ?>:</div>
+                                            <div class="flex-shrink-0 fw-bold"><?= ucfirst($comment->name()) ?>:</div>
                                             <div class="ms-3">
-                                                <?= ucfirst($comment['content']) ?>
+                                                <?= ucfirst($comment->content()) ?>
                                             </div>
                                         </div>
                                         <br>
-                                    <?php endwhile?>
+                                    <?php endforeach?>
                                 <?php endif?>
                             </div>
                         </div>
                     </section>
+                    
                 </div>
             </div>
         </div>

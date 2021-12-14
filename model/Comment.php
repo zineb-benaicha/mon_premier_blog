@@ -8,10 +8,9 @@ class Comment extends Entity{
     private $_content;
     private $_creationDate;
     private $_validated;
+    private $_name;
 
     
-    const VALIDATED = true;
-    const NOT_VALIDATED = false;
 
 
     //les guetteurs
@@ -38,6 +37,10 @@ class Comment extends Entity{
     public function validated() {
         return $this->_validated;
     }
+    public function name() {
+        return $this->_name;
+    }
+    
 
     //les setteurs
     public function setId($id) {
@@ -70,8 +73,14 @@ class Comment extends Entity{
     }
 
     public function setValidated($validated) {
-        if ($validated == Comment::VALIDATED || $validated == Comment::NOT_VALIDATED){
-            $this->_validated = $validated;
-        }
+        
+        $this->_validated = $validated;
+        
+    }
+
+    public function setName($name) {
+        
+        $this->_name = $name;
+        
     }
 }

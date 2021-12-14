@@ -7,6 +7,10 @@ require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARA
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'MessageManager.class.php';
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'UserManager.class.php';
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'Message.php';
+require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'Blog.php';
+require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'Comment.php';
+
+
 
 class FrontendController {
 
@@ -54,10 +58,11 @@ class FrontendController {
         //chercher le nombre de commentaires du blog
         $commentManager = new CommentManager();
         $commentsNumber = $commentManager->commentsCounter($id);
+        if ($commentsNumber > 0) {
 
         //chercher tous les commentaires validés du blog
         $blogComments = $commentManager->getComments($id);
-
+        }
         if (isset($commentEmpty)) {
             $emptyFields['content'] = true;
         }

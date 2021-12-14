@@ -13,14 +13,19 @@ class BlogManager extends Manager {
     public function getBlogs() {
         $db = $this->dbConnect();
         $req = $db->query('SELECT id, title, chapo, author, DATE_FORMAT(last_update, \'%d/%m/%Y à %Hh%imin%ss\') AS last_update FROM blog ORDER BY last_update DESC');
-        return $req;
+        while ($donnees = $req->fetch(PDO::FETCH_ASSOC))
+            {
+                $blogs[] = new Blog($donnees);
+            }
+        return $blogs;
     }
 
     public function getBlog($id) {
         $db = $this->dbConnect();
         $req = $db->prepare('SELECT id, title, chapo, content, DATE_FORMAT(last_update, \'%d/%m/%Y à %Hh%imin%ss\') AS last_update, author FROM blog WHERE id = :id');
         $req->execute(['id' => $id]);
-        return $req->fetch();
+        $donnees = $req->fetch(PDO::FETCH_ASSOC);
+        return new Blog($donnees);
     }
 
     public function getAllBlogsNumber() {
