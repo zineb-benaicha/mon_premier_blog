@@ -3,7 +3,7 @@ if (session_id() == '') {
     session_start();
 }
 function loadClass($class) {
-    require 'controller' . DIRECTORY_SEPARATOR . $class . '.class.php';
+    require 'controller' . DIRECTORY_SEPARATOR . $class . '.php';
 }
 spl_autoload_register('loadClass');
 
