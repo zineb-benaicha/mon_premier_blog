@@ -1,5 +1,5 @@
 <?php
-require_once 'Manager.class.php';
+require_once 'Manager.php';
 class MessageManager extends Manager {
 
     public function setMessage(Message $message) {

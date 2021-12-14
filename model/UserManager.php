@@ -1,5 +1,5 @@
 <?php
-require_once 'Manager.class.php';
+require_once 'Manager.php';
 class UserManager extends Manager {
 
     public function setUser(User $user) {
