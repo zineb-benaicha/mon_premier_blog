@@ -9,6 +9,8 @@ require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARA
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'Message.php';
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'Blog.php';
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'Comment.php';
+require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'User.php';
+
 
 
 
@@ -123,8 +125,9 @@ class FrontendController {
                 $isAdmin = 0;
                 $isValidated = 1;
             }
+            $userToRegister  = new User(['name' => $name, 'email' => $email, 'password' => password_hash($password, PASSWORD_DEFAULT), 'is_admin' => $isAdmin, 'is_validated' => $isValidated]);
 
-            if ($userManager->setUser($name, $email, password_hash($password, PASSWORD_DEFAULT), $isAdmin, $isValidated)) {
+            if ($userManager->setUser($userToRegister)) {
                 $userRigistred = true;
             }
 
@@ -162,8 +165,8 @@ class FrontendController {
                     $_SESSION['user-connected'] = true;
                     $_SESSION['user-type-account'] = 'admin';
                     $_SESSION['user-email'] = $email;
-                    $_SESSION['user-id'] = $userInformations['id'];
-                    $_SESSION['user-name'] = $userInformations['name'];
+                    $_SESSION['user-id'] = $userInformations->id();
+                    $_SESSION['user-name'] = $userInformations->name();
 
                 } elseif ($userManager->isAdmin($email)[0] == 0) {
 
@@ -173,8 +176,8 @@ class FrontendController {
                     $_SESSION['user-connected'] = true;
                     $_SESSION['user-type-account'] = 'visitor';
                     $_SESSION['user-email'] = $email;
-                    $_SESSION['user-id'] = $userInformations['id'];
-                    $_SESSION['user-name'] = $userInformations['name'];
+                    $_SESSION['user-id'] = $userInformations->id();
+                    $_SESSION['user-name'] = $userInformations->name();
                 }
 
             } else {
@@ -237,8 +240,9 @@ class FrontendController {
 
     public function addComment($id_blog, $id_user, $comment_content) {
         $commentManager = new CommentManager();
+        $commentToBeInserted = new Comment(['idBlog' => $id_blog, 'idUser' => $id_user, 'content' => $comment_content]);
 
-        $queryInsertionCommentResult = $commentManager->setComment($id_blog, $id_user, $comment_content);
+        $queryInsertionCommentResult = $commentManager->setComment($commentToBeInserted);
 
         if ($queryInsertionCommentResult) {
             $commentInsertionSuccess = true;

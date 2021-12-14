@@ -23,11 +23,11 @@ class CommentManager extends Manager {
         return $comments;
     }
 
-    public function setComment($id_blog, $id_user, $comment_content) {
+    public function setComment(Comment $comment) {
 
         $db = $this->dbConnect();
         $req = $db->prepare('INSERT INTO comment(id_blog, id_user, content, creation_date, is_validated) VALUES(?, ?, ?, NOW(), ?)');
-        return $req->execute(array($id_blog, $id_user, $comment_content, 0));
+        return $req->execute(array($comment->idBlog(), $comment->idUser(), $comment->content(), 0));
 
     }
 

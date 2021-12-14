@@ -6,14 +6,8 @@ class User extends Entity{
     private $_email;
     private $_password;
     private $_name;
-    private $_type;
-    private $_validated;
-
-    const IS_ADMIN = '1';
-    const NOT_ADMIN = '0';
-    const VALIDATED = true;
-    const NOT_VALIDATED = false;
-
+    private $_is_admin;
+    private $_is_validated;
 
     //les guetteurs
     public function id() {
@@ -32,12 +26,12 @@ class User extends Entity{
         return $this->_name;
     }
 
-    public function type() {
-        return $this->_type;
+    public function is_admin() {
+        return $this->_is_admin;
     }
 
-    public function validated() {
-        return $this->_validated;
+    public function is_validated() {
+        return $this->_is_validated;
     }
 
     //les setteurs
@@ -66,16 +60,11 @@ class User extends Entity{
         }
     }
 
-    public function setType($type) {
-        if ($type == User::IS_ADMIN || $type == User::NOT_ADMIN){
-            $this->_type = $type;
-
-        }  
+    public function setIs_admin($type) {
+        $this->_is_admin = $type;
     }
 
-    public function setValidated($validated) {
-        if ($validated == User::VALIDATED || $validated == User::NOT_VALIDATED){
-            $this->_validated = $validated;
-        }
+    public function setIs_validated($validated) {
+        $this->_is_validated = $validated;
     }
 }

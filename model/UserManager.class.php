@@ -2,11 +2,11 @@
 require_once 'Manager.class.php';
 class UserManager extends Manager {
 
-    public function setUser($name, $email, $password, $isAdmin, $isValidated) {
+    public function setUser(User $user) {
         $db = $this->dbConnect();
         $result = $db->prepare('INSERT INTO user(name, email, password, is_Admin, is_Validated) VALUES (?, ?, ?, ?, ?)');
 
-        return $result->execute(array($name, $email, $password, $isAdmin, $isValidated));
+        return $result->execute(array($user->name(), $user->email(), $user->password(), $user->is_admin(), $user->is_validated()));
     }
 
     public function userEmailsNumber($email) {
@@ -50,11 +50,12 @@ class UserManager extends Manager {
 
     public function getUser($email) {
         $db = $this->dbConnect();
-        $user = $db->prepare('SELECT * FROM user WHERE email=?');
-        $result = $user->execute(array($email));
+        $result = $db->prepare('SELECT * FROM user WHERE email=?');
 
-        if ($result) {
-            return $user->fetch();
+        if ($result->execute(array($email))) {
+            $data = $result->fetch(PDO::FETCH_ASSOC);
+            $user = new User($data);  
+            return $user;        
         } else {
             return false;
         }
