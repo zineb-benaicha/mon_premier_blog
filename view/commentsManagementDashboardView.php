@@ -109,17 +109,17 @@ $pageTitle = 'Page d\'administration des commentaires';
                                         <?php endif ?>
                                         <?php
                                         if (isset($commentsListEmpty) && !$commentsListEmpty && !isset($queryError)) {
-                                            while ($comment = $commentsList->fetch()) {
-                                                $number = $comment['id'];
-                                                $content = $comment['content'];
-                                                $creation_date = $comment['creation_date'];
-                                                $associated_blog = $comment['id_blog'];
-                                                $status = $comment['is_validated'] == '1' ? 'Validé' : 'Non validé';
-                                                $editor = $comment['id_user'];
-                                                $action_delete = '<a href="../index.php?action=deleteCommentByAdmin&id_comment='. $comment['id'] . '">supprimer</a>';
-                                                $action_validate = '<a href="../index.php?action=validateCommentByAdmin&id_comment='. $comment['id'] . '">valider</a>';
+                                            foreach ($commentsList as $comment) {
+                                                $number = $comment->id();
+                                                $content = $comment->content();
+                                                $creation_date = $comment->creationDate();
+                                                $associated_blog = $comment->idBlog();
+                                                $status = $comment->validated() == '1' ? 'Validé' : 'Non validé';
+                                                $editor = $comment->idUser();
+                                                $action_delete = '<a href="../index.php?action=deleteCommentByAdmin&id_comment='. $comment->id() . '">supprimer</a>';
+                                                $action_validate = '<a href="../index.php?action=validateCommentByAdmin&id_comment='. $comment->id() . '">valider</a>';
 
-                                                $action = $comment['is_validated'] == '1' ? $action_delete: $action_delete . ' / ' . $action_validate;
+                                                $action = $comment->validated() == '1' ? $action_delete: $action_delete . ' / ' . $action_validate;
                                                  
                                         ?>
                                         <tr>

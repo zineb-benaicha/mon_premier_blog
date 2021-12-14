@@ -2,10 +2,10 @@
 if (session_id() == '') {
     session_start();
 }
-require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'BlogManager.class.php';
-require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'CommentManager.class.php';
-require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'MessageManager.class.php';
-require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'UserManager.class.php';
+require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'BlogManager.php';
+require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'CommentManager.php';
+require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'MessageManager.php';
+require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'UserManager.php';
 
 class BackendController {
     public function displayUsers($userDeleteSuccess = null, $userValidateSuccess = null) {
@@ -153,10 +153,9 @@ class BackendController {
         $blogManager = new BlogManager();
         $blogInformations = $blogManager->getBlogInformations($id_blog);
 
-        if (!empty($blogInformations)) {
+        if (!empty($blogInformations)) { 
 
-            $blogInformations = $blogInformations->fetch();
-
+            $blogInformations = new Blog($blogInformations->fetch(PDO::FETCH_ASSOC));
             //2-afficher une vue qui contient ces informations;
             require_once 'view/blogEditionView.php';
         }
@@ -171,7 +170,8 @@ class BackendController {
 
     public function createBlog($title, $chapo, $author, $content) {
         $blogManager = new BlogManager();
-        $blogInsertionQueryResult = $blogManager->setBlog($title, $chapo, $author, $content);
+        $blogToInsert = new Blog(['title'=> $title, 'chapo' => $chapo, 'author' => $author, 'content' => $content]);
+        $blogInsertionQueryResult = $blogManager->setBlog($blogToInsert);
         $this->displayBlogs(null, null, null, $blogInsertionQueryResult);
     }
 

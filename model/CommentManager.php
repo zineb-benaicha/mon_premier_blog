@@ -1,12 +1,12 @@
 <?php
-require_once 'Manager.class.php';
+require_once 'Manager.php';
 
 class CommentManager extends Manager {
 
     public function commentsCounter(int $idBlog) {
         $db = $this->dbConnect();
-        $req = $db->prepare('SELECT count(*) FROM comment WHERE id_blog = :id');
-        $req->execute(['id' => $idBlog]);
+        $req = $db->prepare('SELECT count(*) FROM comment WHERE id_blog = :id AND is_validated = :validation');
+        $req->execute(['id' => $idBlog, 'validation' => 1]);
         return $req->fetch()[0];
 
     }
@@ -15,21 +15,36 @@ class CommentManager extends Manager {
         $db = $this->dbConnect();
         $req = $db->prepare('SELECT * FROM comment JOIN user ON comment.id_user = user.id WHERE comment.id_blog = :id AND comment.is_validated = :validation ORDER BY creation_date DESC');
         $req->execute(['id' => $idBlog, 'validation' => 1]);
-        return $req;
+
+        while ($donnees = $req->fetch(PDO::FETCH_ASSOC))
+            {
+                $comments[] = new Comment($donnees);
+            }
+        return $comments;
     }
 
-    public function setComment($id_blog, $id_user, $comment_content) {
+    public function setComment(Comment $comment) {
 
         $db = $this->dbConnect();
         $req = $db->prepare('INSERT INTO comment(id_blog, id_user, content, creation_date, is_validated) VALUES(?, ?, ?, NOW(), ?)');
-        return $req->execute(array($id_blog, $id_user, $comment_content, 0));
+        return $req->execute(array($comment->idBlog(), $comment->idUser(), $comment->content(), 0));
 
     }
 
     public function getAllComments() {
         $db = $this->dbConnect();
-        $commentsList = $db->query('SELECT id, id_blog, id_user, content, is_validated, DATE_FORMAT(creation_date, \'%d/%m/%Y à %Hh%imin%ss\') AS creation_date FROM comment ORDER BY creation_date DESC');
-        return $commentsList;
+        $result = $db->query('SELECT id, id_blog, id_user, content, is_validated, DATE_FORMAT(creation_date, \'%d/%m/%Y à %Hh%imin%ss\') AS creation_date FROM comment ORDER BY creation_date DESC');
+        while ($donnees = $result->fetch(PDO::FETCH_ASSOC))
+        {   
+            $donnes['idBlog'] = $donnees['id_blog'];
+            $donnes['idUser'] = $donnees['id_user'];
+            $donnees['creationDate'] = $donnees['creation_date'];
+            $donnees['validated'] = $donnees['is_validated'];
+
+            $comments[] = new Comment($donnees);
+        }
+        return $comments;
+    
     }
 
     public function getAllCommentsNumber() {

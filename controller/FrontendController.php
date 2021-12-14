@@ -2,10 +2,17 @@
 if (session_id() == '') {
     session_start();
 }
-require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'BlogManager.class.php';
-require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'CommentManager.class.php';
-require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'MessageManager.class.php';
-require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'UserManager.class.php';
+require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'BlogManager.php';
+require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'CommentManager.php';
+require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'MessageManager.php';
+require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'UserManager.php';
+require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'Message.php';
+require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'Blog.php';
+require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'Comment.php';
+require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'User.php';
+
+
+
 
 class FrontendController {
 
@@ -53,10 +60,11 @@ class FrontendController {
         //chercher le nombre de commentaires du blog
         $commentManager = new CommentManager();
         $commentsNumber = $commentManager->commentsCounter($id);
+        if ($commentsNumber > 0) {
 
         //chercher tous les commentaires validés du blog
         $blogComments = $commentManager->getComments($id);
-
+        }
         if (isset($commentEmpty)) {
             $emptyFields['content'] = true;
         }
@@ -74,8 +82,11 @@ class FrontendController {
         //enregistrer le message au niveau de la BDD
         $messageManager = new MessageManager();
 
+        $receivedMessage = new Message(['firstName' => $firstName,'lastName' => $lastName, 'email' => $email, 'content' => $message]);
+        
+
         //si le message a bien été enregistré dans la BDD
-        if ($messageManager->setMessage($firstName, $lastName, $email, $message)) {
+        if ($messageManager->setMessage($receivedMessage)) {
 
             //1-envoyer un email à moi
             $destinataire = 'zineb.mezlef@gmail.com';
@@ -114,8 +125,9 @@ class FrontendController {
                 $isAdmin = 0;
                 $isValidated = 1;
             }
+            $userToRegister  = new User(['name' => $name, 'email' => $email, 'password' => password_hash($password, PASSWORD_DEFAULT), 'is_admin' => $isAdmin, 'is_validated' => $isValidated]);
 
-            if ($userManager->setUser($name, $email, password_hash($password, PASSWORD_DEFAULT), $isAdmin, $isValidated)) {
+            if ($userManager->setUser($userToRegister)) {
                 $userRigistred = true;
             }
 
@@ -153,8 +165,8 @@ class FrontendController {
                     $_SESSION['user-connected'] = true;
                     $_SESSION['user-type-account'] = 'admin';
                     $_SESSION['user-email'] = $email;
-                    $_SESSION['user-id'] = $userInformations['id'];
-                    $_SESSION['user-name'] = $userInformations['name'];
+                    $_SESSION['user-id'] = $userInformations->id();
+                    $_SESSION['user-name'] = $userInformations->name();
 
                 } elseif ($userManager->isAdmin($email)[0] == 0) {
 
@@ -164,8 +176,8 @@ class FrontendController {
                     $_SESSION['user-connected'] = true;
                     $_SESSION['user-type-account'] = 'visitor';
                     $_SESSION['user-email'] = $email;
-                    $_SESSION['user-id'] = $userInformations['id'];
-                    $_SESSION['user-name'] = $userInformations['name'];
+                    $_SESSION['user-id'] = $userInformations->id();
+                    $_SESSION['user-name'] = $userInformations->name();
                 }
 
             } else {
@@ -228,8 +240,9 @@ class FrontendController {
 
     public function addComment($id_blog, $id_user, $comment_content) {
         $commentManager = new CommentManager();
+        $commentToBeInserted = new Comment(['idBlog' => $id_blog, 'idUser' => $id_user, 'content' => $comment_content]);
 
-        $queryInsertionCommentResult = $commentManager->setComment($id_blog, $id_user, $comment_content);
+        $queryInsertionCommentResult = $commentManager->setComment($commentToBeInserted);
 
         if ($queryInsertionCommentResult) {
             $commentInsertionSuccess = true;
